@@ -167,7 +167,7 @@ export default function Home() {
           </span>
           developer.
         </h3>
-        <div className="flex justify-between mx-auto w-1/2 text-lg mt-12">
+        <div className="flex justify-between mx-auto w-1/2 text-lg mt-12 md:w-1/3">
           <Link
             className="border border-current rounded font-bold px-4 py-1 hover:shadow-lg dark:hover:text-arya2"
             href={`/projects`}
