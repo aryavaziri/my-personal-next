@@ -1,0 +1,37 @@
+type User {
+  _id: ID!
+  name: String
+  email: String
+  profileImg: String
+  language: String
+}
+
+type List {
+  _id: ID!
+  title: String
+  author: User
+  items: [Item]
+  colaborators: [User]
+}
+
+type Item {
+  _id: ID!
+  title: String
+  quantity: Int
+  done: Boolean
+}
+
+input AddList {
+  title: String
+}
+
+type Query {
+  users: [User]
+  user(name: String!): [User]
+  lists: [List]
+}
+
+type Mutation {
+  addList(title: String!): List
+  addItem(title: String!, list: ID!): List
+}
