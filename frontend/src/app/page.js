@@ -28,14 +28,17 @@ export default function Home() {
   };
   return (
     <>
-      <div className={`gap-y-4 flex flex-col h-screen `}>
-        <h1 className="text-6xl text-center mt-48 font-extrabold dark:text-[#A0C3ED]">
+      <div
+        className={`gap-y-4 flex flex-col px-4 pb-8 h-max-screen overflow-hidden`}
+      >
+        <h1 className="text-4xl md:text-6xl text-center pt-24 sm:pt-48 font-extrabold dark:text-[#A0C3ED]">
           Hello! My name is Arya.
         </h1>
-        <h3 className="text-4xl text-center h-12">
+        <h3 className="text-3xl pt-8 md:text-4xl text-center sm:min-h-12">
           I am a
+          <br className="sm:hidden" />
           <span
-            className={`font-extrabold px-3 inline-block hover:scale-x-105 text-arya4 dark:text-arya5 skills`}
+            className={`sm:font-extrabold max-sm:text-3xl px-3 inline-block hover:scale-x-105 text-arya4 dark:text-arya5 skills`}
           >
             <div
               className={`border-b-2 border-transparent hover:border-current mb-2`}
@@ -58,7 +61,7 @@ export default function Home() {
           </span>
           |
           <span
-            className={`font-extrabold px-3 inline-block hover:scale-x-105 text-arya4 dark:text-arya5 skills`}
+            className={`sm:font-extrabold max-sm:text-3xl px-3 inline-block hover:scale-x-105 text-arya4 dark:text-arya5 skills`}
           >
             <div
               className={`border-b-2 border-transparent hover:border-current mb-2`}
@@ -101,7 +104,7 @@ export default function Home() {
           </span>
           |
           <span
-            className={`font-extrabold px-3 inline-block hover:scale-x-105 text-arya4 dark:text-arya5 skills`}
+            className={`sm:font-extrabold max-sm:text-3xl px-3 inline-block hover:scale-x-105 text-arya4 dark:text-arya5 skills`}
           >
             <div
               className={`border-b-2 border-transparent hover:border-current mb-2`}
@@ -125,9 +128,10 @@ export default function Home() {
               />
             </div>
           </span>
+          <br className="sm:hidden" />
           developer.
         </h3>
-        <div className="flex justify-between mx-auto w-1/2 text-lg mt-12 md:w-1/3">
+        <div className="flex justify-center mx-auto  text-lg my-6 gap-4">
           <Link
             className="border border-current rounded font-bold px-4 py-1 hover:shadow-lg dark:hover:text-arya2"
             href={`/projects`}
@@ -142,7 +146,7 @@ export default function Home() {
           </Link>
         </div>
       </div>
-      <div className="absolute left-0 top-0 w-screen h-screen z-[-1]">
+      <div className="absolute left-0 top-0 w-screen h-screen -z-20">
         <P5Sketch />
       </div>
     </>

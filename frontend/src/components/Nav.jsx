@@ -31,8 +31,8 @@ const Nav = () => {
       <div className="flex justify-between h-[40px]">
         <Link href={`/`}>
           <Image
-            className={`${
-              !myContext?.menu && pathname === "/fdsa" && "opacity-0"
+            className={`opacity-0 ${
+              (pathname === "/" || myContext?.menu) && "opacity-100"
             } h-full py-1 w-min object-fill`}
             alt="LOGO"
             src={Logo}
