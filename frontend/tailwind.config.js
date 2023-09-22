@@ -19,7 +19,8 @@ module.exports = {
         arya3: "#023e8a",
         arya4: "#5390d9",
         arya5: "#99d98c",
-        dark: "#f1f2f2",
+        arya6: "#f1f2f2",
+        dark: "#023e8a",
         light: "#caf0f8",
       },
       backgroundImage: {

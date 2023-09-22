@@ -11,12 +11,17 @@ const Blur = ({ children }) => {
 
   const myContext = useContext(Context);
   return (
-    <div
-      className={`relative text-arya3 ${
-        pathname == "/" ? "" : "bg-white dark:bg-black"
-      } dark:text-light h-auto w-screen`}
-    >
-      <div className={`${pathname == "/" ? "" : "h-full "}`}>{children}</div>
+    <div>
+      {pathname !== "/" && (
+        <div
+          className={`bg-white dark:bg-black h-screen w-screen fixed z-[-11]`}
+        ></div>
+      )}
+      <div
+        className={`-z-10 h-screen w-screen fixed bg-gradient-to-b from-30% dark:from-5% dark:from-[#5390D990] from-[#023e8a77] to-80% dark:to-transparent`}
+      />
+
+      {children}
     </div>
   );
 };

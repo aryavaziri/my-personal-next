@@ -2,6 +2,7 @@ import "./globals.css";
 import Provider from "@app/Provider";
 import Nav from "@components/Nav";
 import Blur from "@components/Blur";
+
 import { Oswald, MuseoModerno, Agdasima, Inconsolata } from "next/font/google";
 
 export const metadata = {
@@ -19,11 +20,9 @@ export default function RootLayout({ children }) {
       <body className={`${oswald.className}`}>
         <Provider>
           <Nav />
-          <Blur>
-            <main className="flex flex-col h-full bg-gradient-to-b from-30% dark:from-5% dark:from-[#5390D990] from-[#023e8a77] to-80% to-transparent">
-              {children}
-            </main>
-          </Blur>
+          <main className="text-arya3 dark:text-light">
+            <Blur>{children}</Blur>
+          </main>
         </Provider>
       </body>
     </html>
