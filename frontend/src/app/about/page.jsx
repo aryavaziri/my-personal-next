@@ -46,7 +46,7 @@ const page = () => {
         <div className="fixed sm:self-end z-[2] sm:z-[4] bg-right bottom-0 right-0 h-screen w-screen sm:w-1/2 md:w-1/3 lg:w-1/4 ">
           <Image
             className={`md:object-cover object-contain object-right-bottom md:object-right-top`}
-            src="/images/arya 1.png"
+            src="/images/arya-1.png"
             fill
             alt="Profile picture"
           />

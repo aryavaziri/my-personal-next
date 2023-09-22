@@ -1,4 +1,3 @@
-import P5Sketch from "@components/P5Sketch";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -145,9 +144,6 @@ export default function Home() {
             More about me
           </Link>
         </div>
-      </div>
-      <div className="absolute left-0 top-0 w-screen h-screen -z-20">
-        <P5Sketch />
       </div>
     </>
   );
