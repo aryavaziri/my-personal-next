@@ -32,7 +32,7 @@ const Nav = () => {
         <Link href={`/`}>
           <Image
             className={`${
-              !myContext?.menu && pathname !== "/" && "opacity-0"
+              !myContext?.menu && pathname === "/fdsa" && "opacity-0"
             } h-full py-1 w-min object-fill`}
             alt="LOGO"
             src={Logo}
@@ -46,7 +46,7 @@ const Nav = () => {
         </div>
       </div>
       <div
-        className={`w-full px-12 md:px-32 lg:px-52 menu-list duration-500 overflow-hidden`}
+        className={`w-full px-12 md:px-32 lg:px-56 menu-list duration-500 overflow-hidden`}
       >
         {/* <div className="border-l-4 border-[#6930c3]">
           <div className="border-l-4 border-[#5390d9]">

@@ -15,9 +15,10 @@ module.exports = {
     extend: {
       colors: {
         arya1: "#caf0f8",
-        arya2: "#90e0ef",
+        arya2: "#90e0efbb",
         arya3: "#023e8a",
         arya4: "#5390d9",
+        arya5: "#99d98c",
         dark: "#f1f2f2",
         light: "#caf0f8",
       },

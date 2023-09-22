@@ -29,13 +29,13 @@ export default function Home() {
   return (
     <>
       <div className={`gap-y-4 flex flex-col h-screen `}>
-        <h1 className="text-6xl text-center mt-48 font-extrabold">
+        <h1 className="text-6xl text-center mt-48 font-extrabold dark:text-[#A0C3ED]">
           Hello! My name is Arya.
         </h1>
         <h3 className="text-4xl text-center h-12">
           I am a
           <span
-            className={`font-extrabold px-3 inline-block hover:scale-x-105 text-arya4 skills`}
+            className={`font-extrabold px-3 inline-block hover:scale-x-105 text-arya4 dark:text-arya5 skills`}
           >
             <div
               className={`border-b-2 border-transparent hover:border-current mb-2`}
@@ -43,47 +43,22 @@ export default function Home() {
               front-end
             </div>
             <div className="absolute gap-1 hidden skills-icon">
-              <Image
-                alt="react"
-                src="/logo/react.svg"
-                width={20}
-                height={20}
-              />
+              <Image alt="react" src="/logo/react.svg" width={20} height={20} />
               <Image
                 alt="tailwind"
                 src="/logo/tailwind.svg"
                 width={20}
                 height={20}
               />
-              <Image
-                alt="p5js"
-                src="/logo/p5js.svg"
-                width={20}
-                height={20}
-              />
-              <Image
-                alt="ts"
-                src="/logo/ts.svg"
-                width={20}
-                height={20}
-              />
-              <Image
-                alt="js"
-                src="/logo/js.svg"
-                width={20}
-                height={20}
-              />
-              <Image
-                alt="next"
-                src="/logo/next.svg"
-                width={20}
-                height={20}
-              />
+              <Image alt="p5js" src="/logo/p5js.svg" width={20} height={20} />
+              <Image alt="ts" src="/logo/ts.svg" width={20} height={20} />
+              <Image alt="js" src="/logo/js.svg" width={20} height={20} />
+              <Image alt="next" src="/logo/next.svg" width={20} height={20} />
             </div>
           </span>
           |
           <span
-            className={`font-extraspan px-3 inline-block hover:scale-x-105 text-arya4 skills`}
+            className={`font-extrabold px-3 inline-block hover:scale-x-105 text-arya4 dark:text-arya5 skills`}
           >
             <div
               className={`border-b-2 border-transparent hover:border-current mb-2`}
@@ -121,17 +96,12 @@ export default function Home() {
                 width={20}
                 height={20}
               />
-              <Image
-                alt="jwt"
-                src="/logo/jwt.svg"
-                width={20}
-                height={20}
-              />
+              <Image alt="jwt" src="/logo/jwt.svg" width={20} height={20} />
             </div>
           </span>
           |
           <span
-            className={`font-extraspan px-3 inline-block hover:scale-x-105 text-arya4 skills`}
+            className={`font-extrabold px-3 inline-block hover:scale-x-105 text-arya4 dark:text-arya5 skills`}
           >
             <div
               className={`border-b-2 border-transparent hover:border-current mb-2`}
@@ -139,24 +109,14 @@ export default function Home() {
               cloud
             </div>
             <div className="absolute gap-1 hidden skills-icon">
-              <Image
-                alt="nginx"
-                src="/logo/nginx.svg"
-                width={20}
-                height={20}
-              />
+              <Image alt="nginx" src="/logo/nginx.svg" width={20} height={20} />
               <Image
                 alt="docker"
                 src="/logo/docker.svg"
                 width={20}
                 height={20}
               />
-              <Image
-                alt="git"
-                src="/logo/git.svg"
-                width={20}
-                height={20}
-              />
+              <Image alt="git" src="/logo/git.svg" width={20} height={20} />
               <Image
                 alt="kubernetes"
                 src="/logo/kubernetes.svg"

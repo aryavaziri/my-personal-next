@@ -15,15 +15,12 @@ const oswald = Oswald({
 
 export default function RootLayout({ children }) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-    >
+    <html lang="en" suppressHydrationWarning>
       <body className={`${oswald.className}`}>
         <Provider>
           <Nav />
           <Blur>
-            <main className="flex flex-col h-full bg-gradient-to-b from-30% dark:from-5% dark:from-[#023e8add] from-arya2 to-80%   to-transparent">
+            <main className="flex flex-col h-full bg-gradient-to-b from-30% dark:from-5% dark:from-[#5390D990] from-[#023e8a77] to-80% to-transparent">
               {children}
             </main>
           </Blur>
