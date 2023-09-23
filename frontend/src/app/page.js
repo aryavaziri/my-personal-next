@@ -48,14 +48,14 @@ export default function Home() {
               <Image alt="react" src="/logo/react.svg" width={20} height={20} />
               <Image
                 alt="tailwind"
-                src="/logo/tailwind.svg"
+                src="logo/tailwind.svg"
                 width={20}
                 height={20}
               />
-              <Image alt="p5js" src="/logo/p5js.svg" width={20} height={20} />
-              <Image alt="ts" src="/logo/ts.svg" width={20} height={20} />
-              <Image alt="js" src="/logo/js.svg" width={20} height={20} />
-              <Image alt="next" src="/logo/next.svg" width={20} height={20} />
+              <Image alt="p5js" src="logo/p5js.svg" width={20} height={20} />
+              <Image alt="ts" src="logo/ts.svg" width={20} height={20} />
+              <Image alt="js" src="logo/js.svg" width={20} height={20} />
+              <Image alt="next" src="logo/next.svg" width={20} height={20} />
             </div>
           </span>
           |
@@ -70,13 +70,13 @@ export default function Home() {
             <div className="absolute gap-1 hidden sm:skills-icon">
               <Image
                 alt="python"
-                src="/logo/python.svg"
+                src="logo/python.svg"
                 width={20}
                 height={20}
               />
               <Image
                 alt="django"
-                src="/logo/django.svg"
+                src="logo/django.svg"
                 width={20}
                 height={20}
               />
