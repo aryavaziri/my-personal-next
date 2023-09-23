@@ -33,6 +33,8 @@ export default function Home() {
         <h1 className="text-4xl md:text-6xl text-center pt-24 sm:pt-48 font-extrabold">
           Hello! My name is Arya.
         </h1>
+        <ProfileIMG />
+
         <h3 className="text-3xl pt-8 md:text-4xl text-center sm:min-h-12">
           I am a
           <br className="sm:hidden" />
