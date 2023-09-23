@@ -83,6 +83,9 @@ let zoff = 0;
 
 let particles = [];
 let flowfield;
+var isMobile;
+var angle;
+var quantity;
 
 const sketch = (p5) => {
   p5.setup = () => {
@@ -96,7 +99,8 @@ const sketch = (p5) => {
 
     flowfield = new Array(cols * rows);
 
-    for (var i = 0; i < 200; i++) {
+    quantity = isMobile ? 100 : 200;
+    for (var i = 0; i < quantity; i++) {
       particles[i] = new Particle(p5);
     }
     // p5.noLoop();
@@ -107,19 +111,27 @@ const sketch = (p5) => {
     } else {
       bg = "#ffffff09";
     }
+    if (props.isMobile) {
+      isMobile = true;
+    } else {
+      isMobile = false;
+    }
   };
-
   p5.draw = () => {
+    console.log(quantity);
     yoff = 0;
     p5.background(bg);
     for (var y = 0; y < rows; y++) {
       xoff = 0;
       for (var x = 0; x < cols; x++) {
         var index = x + y * cols;
-        var angle = p5.noise(xoff, yoff, zoff) * p5.TWO_PI * 2;
-        // var angle =
-        //   Math.atan2(p5.mouseY - y * scl, p5.mouseX - x * scl) +
-        //   p5.noise(xoff, yoff, zoff) * (p5.TWO_PI / 8);
+        if (isMobile) {
+          angle = p5.noise(xoff, yoff, zoff) * p5.TWO_PI * 2;
+        } else {
+          angle =
+            Math.atan2(p5.mouseY - y * scl, p5.mouseX - x * scl) +
+            p5.noise(xoff, yoff, zoff) * (p5.TWO_PI / 8);
+        }
         var v = p5.createVector();
         v.set(p5.cos(angle), p5.sin(angle));
         v.setMag(0.08);
@@ -138,10 +150,10 @@ const sketch = (p5) => {
     }
   };
 };
-export default function Sketch({ theme }) {
+export default function Sketch({ theme, isMobile }) {
   return (
     <div className={`absolute top-0 left-0 z-[100] `}>
-      <NextReactP5Wrapper sketch={sketch} theme={theme} />
+      <NextReactP5Wrapper sketch={sketch} theme={theme} isMobile={isMobile} />
     </div>
   );
 }
