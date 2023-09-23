@@ -23,7 +23,7 @@ const ProfileIMG = () => {
       ) : (
         <Image
           className={`md:object-cover object-contain object-right-top`}
-          src="images/eee-min.png"
+          src="/images/eee-min.png"
           fill
           alt="Profile picture"
         />
