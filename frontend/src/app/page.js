@@ -67,7 +67,7 @@ export default function Home() {
             >
               back-end
             </div>
-            <div className="absolute gap-1 hidden sm:skills-icon">
+            <div className="absolute gap-1 hidden skills-icon">
               <Image
                 alt="python"
                 src="logo/python.svg"
