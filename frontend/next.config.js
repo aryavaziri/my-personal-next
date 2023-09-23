@@ -5,7 +5,7 @@ const nextConfig = {
   output: "export",
   basePath: "/my-personal-next",
   assetPrefix: isProd
-    ? "https://aryavaziri.github.io/my-personal-next/"
+    ? "https://aryavaziri.github.io/my-personal-next/frontend"
     : undefined,
   images: {
     remotePatterns: [
