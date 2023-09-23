@@ -111,10 +111,10 @@ export default function Home() {
               cloud
             </div>
             <div className="absolute gap-1 hidden sm:skills-icon">
-              <Image alt="nginx" src="/logo/nginx.svg" width={20} height={20} />
+              <Image alt="nginx" src="logo/nginx.svg" width={20} height={20} />
               <Image
                 alt="docker"
-                src="/logo/docker.svg"
+                src="logo/docker.svg"
                 width={20}
                 height={20}
               />
