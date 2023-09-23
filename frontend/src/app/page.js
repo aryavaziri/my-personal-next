@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import ProfileIMG from "@components/ProfileIMG";
 
 export default function Home() {
   const fetchData = async () => {
