@@ -45,17 +45,17 @@ export default function Home() {
               front-end
             </div>
             <div className="absolute gap-1 hidden sm:skills-icon">
-              <Image alt="react" src="/logo/react.svg" width={20} height={20} />
+              <Image alt="react" src="logo/react.svg" width={20} height={20} />
               <Image
                 alt="tailwind"
-                src="/logo/tailwind.svg"
+                src="logo/tailwind.svg"
                 width={20}
                 height={20}
               />
-              <Image alt="p5js" src="/logo/p5js.svg" width={20} height={20} />
-              <Image alt="ts" src="/logo/ts.svg" width={20} height={20} />
-              <Image alt="js" src="/logo/js.svg" width={20} height={20} />
-              <Image alt="next" src="/logo/next.svg" width={20} height={20} />
+              <Image alt="p5js" src="logo/p5js.svg" width={20} height={20} />
+              <Image alt="ts" src="logo/ts.svg" width={20} height={20} />
+              <Image alt="js" src="logo/js.svg" width={20} height={20} />
+              <Image alt="next" src="logo/next.svg" width={20} height={20} />
             </div>
           </span>
           |
@@ -139,7 +139,7 @@ export default function Home() {
           </Link>
           <Link
             className="bg-black/10 dark:bg-light/20 backdrop-blur rounded px-4 py-1 shadow-lg"
-            href={`/about`}
+            href={`about`}
           >
             <span>More about me</span>
           </Link>

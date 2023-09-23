@@ -1,4 +1,4 @@
-import "./globals.css";
+import "@app/globals.css";
 import Provider from "@app/Provider";
 import Nav from "@components/Nav";
 import BG from "@components/BG";
