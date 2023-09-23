@@ -45,7 +45,7 @@ export default function Home() {
               front-end
             </div>
             <div className="absolute gap-1 hidden sm:skills-icon">
-              <Image alt="react" src="/logo/react.svg" width={20} height={20} />
+              <Image alt="react" src="logo/react.svg" width={20} height={20} />
               <Image
                 alt="tailwind"
                 src="logo/tailwind.svg"
@@ -76,29 +76,29 @@ export default function Home() {
               />
               <Image
                 alt="django"
-                src="logo/django.svg"
+                src=".logo/django.svg"
                 width={20}
                 height={20}
               />
               <Image
                 alt="nodejs"
-                src="/logo/nodejs.svg"
+                src="logo/nodejs.svg"
                 width={20}
                 height={20}
               />
               <Image
                 alt="mongodb"
-                src="/logo/mongodb.svg"
+                src="logo/mongodb.svg"
                 width={20}
                 height={20}
               />
               <Image
                 alt="firebase"
-                src="/logo/firebase.svg"
+                src="logo/firebase.svg"
                 width={20}
                 height={20}
               />
-              <Image alt="jwt" src="/logo/jwt.svg" width={20} height={20} />
+              <Image alt="jwt" src="logo/jwt.svg" width={20} height={20} />
             </div>
           </span>
           |
@@ -118,10 +118,10 @@ export default function Home() {
                 width={20}
                 height={20}
               />
-              <Image alt="git" src="/logo/git.svg" width={20} height={20} />
+              <Image alt="git" src="logo/git.svg" width={20} height={20} />
               <Image
                 alt="kubernetes"
-                src="/logo/kubernetes.svg"
+                src="logo/kubernetes.svg"
                 width={20}
                 height={20}
               />
