@@ -44,7 +44,7 @@ export default function Home() {
             >
               front-end
             </div>
-            <div className="absolute gap-1 hidden sm:skills-icon">
+            <div className="absolute gap-1 hidden skills-icon">
               <Image alt="react" src="logo/react.svg" width={20} height={20} />
               <Image
                 alt="tailwind"
@@ -76,13 +76,13 @@ export default function Home() {
               />
               <Image
                 alt="django"
-                src="/public/logo/django.svg"
+                src="logo/django.svg"
                 width={20}
                 height={20}
               />
               <Image
                 alt="nodejs"
-                src="/logo/nodejs.svg"
+                src="logo/nodejs.svg"
                 width={20}
                 height={20}
               />
@@ -110,7 +110,7 @@ export default function Home() {
             >
               cloud
             </div>
-            <div className="absolute gap-1 hidden sm:skills-icon">
+            <div className="absolute gap-1 hidden skills-icon">
               <Image alt="nginx" src="logo/nginx.svg" width={20} height={20} />
               <Image
                 alt="docker"

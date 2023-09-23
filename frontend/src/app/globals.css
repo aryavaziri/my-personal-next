@@ -8,9 +8,10 @@
     }
 }
 
-
-.skills:hover .skills-icon{
-    display: flex;
+@media only screen and (max-width: 600px) {
+    .skills:hover .skills-icon{
+        display: flex;
+    }
 }
 body {
   height: 100vh;
