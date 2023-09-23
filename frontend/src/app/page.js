@@ -76,13 +76,13 @@ export default function Home() {
               />
               <Image
                 alt="django"
-                src=".logo/django.svg"
+                src="/public/logo/django.svg"
                 width={20}
                 height={20}
               />
               <Image
                 alt="nodejs"
-                src="logo/nodejs.svg"
+                src="/logo/nodejs.svg"
                 width={20}
                 height={20}
               />
