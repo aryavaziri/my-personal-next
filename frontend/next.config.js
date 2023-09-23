@@ -4,7 +4,7 @@ const isProd = process.env.NODE_ENV === "production";
 const nextConfig = {
   output: "export",
   basePath: "/my-personal-next",
-  assetPrefix: isProd ? "https://aryavaziri.github.io/" : undefined,
+  assetPrefix: isProd ? "/my-personal-next/" : undefined,
   images: {
     remotePatterns: [
       {
