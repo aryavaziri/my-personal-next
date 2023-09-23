@@ -7,7 +7,7 @@ import { Context } from "@app/Provider";
 import Menu from "@components/Menu";
 import Auth from "@components/Auth";
 import ThemeButton from "@components/ThemeButton";
-import Logo from "@/../public/LOGO.svg";
+import Logo from "/public/LOGO.svg";
 import { usePathname } from "next/navigation";
 
 const Nav = () => {
@@ -22,17 +22,17 @@ const Nav = () => {
           myContext.toggleMenu();
         }
       }}
-      className={`fixed w-screen px-2 sm:px-12 md:px-24 pt-6 sm:pt-12 z-20 text-arya3 dark:text-arya1  ${
+      className={`fixed w-screen px-4 sm:px-24 md:px-60 lg:px-80 pt-6 sm:pt-12 z-20 text-dark dark:text-light  ${
         myContext.menu
-          ? " h-screen backdrop-blur-md dark:bg-[#023e8a90] bg-[#caf0f870]"
+          ? " h-screen backdrop-blur-md dark:bg-black/60 bg-white/40 "
           : "backdrop-blur-[0px]"
       }`}
     >
       <div className="flex justify-between h-[40px]">
         <Link href={`/`}>
           <Image
-            className={`opacity-0 ${
-              (pathname === "/" || myContext?.menu) && "opacity-100"
+            className={`max-sm:opacity-0 ${
+              (pathname === "/" || myContext?.menu) && "max-sm:opacity-100 "
             } h-full py-1 w-min object-fill`}
             alt="LOGO"
             src={Logo}
@@ -46,17 +46,15 @@ const Nav = () => {
         </div>
       </div>
       <div
-        className={`w-full px-12 md:px-32 lg:px-56 menu-list duration-500 overflow-hidden`}
+        className={`w-full flex max-sm:px-2 menu-list duration-500 overflow-hidden`}
       >
-        {/* <div className="border-l-4 border-[#6930c3]">
-          <div className="border-l-4 border-[#5390d9]">
-            <div className="border-l-4 border-[#56cfe1]"> */}
-        {/* <div className="border-8"></div> */}
-        <ul className="w-full border-l-4 pl-8 border-current">
+        <div className="bg-arya1 w-[4px]" />
+        <div className="bg-arya6 w-[4px]" />
+        <div className="bg-arya5 w-[4px]" />
+        <ul className="flex-1 border-l-4 pl-8 border-current">
           <li
-            // onClick={() => menuHandler()}
             className={`text-5xl md:text-6xl ${
-              myContext.menu ? "menu-item-show my-6 mt-8" : "my-0"
+              myContext.menu ? "menu-item-show my-8 mt-8" : "my-0"
             } ${
               myContext.title === "Welcome" ? "text-orange-400" : ""
             }  font-extrabold`}
@@ -69,9 +67,8 @@ const Nav = () => {
             </Link>
           </li>
           <li
-            // onClick={() => menuHandler()}
             className={`text-5xl md:text-6xl ${
-              myContext.menu ? "menu-item-show my-6" : "my-0"
+              myContext.menu ? "menu-item-show my-8" : "my-0"
             } ${
               myContext.title === "Projects" ? "text-orange-400" : ""
             }  font-extrabold`}
@@ -84,9 +81,8 @@ const Nav = () => {
             </Link>
           </li>
           <li
-            // onClick={() => menuHandler()}
             className={`text-5xl md:text-6xl ${
-              myContext.menu ? "menu-item-show my-6" : "my-0"
+              myContext.menu ? "menu-item-show my-8" : "my-0"
             } ${
               myContext.title === "About" ? "text-orange-400" : ""
             }  font-extrabold`}
@@ -99,9 +95,8 @@ const Nav = () => {
             </Link>
           </li>
           <li
-            // onClick={() => menuHandler()}
             className={`text-5xl md:text-6xl ${
-              myContext.menu ? "menu-item-show my-6 " : "my-0"
+              myContext.menu ? "menu-item-show my-8 " : "my-0"
             } ${
               myContext.title === "Contact" ? "text-orange-400" : ""
             }  font-extrabold`}
@@ -114,9 +109,6 @@ const Nav = () => {
             </Link>
           </li>
         </ul>
-        {/* </div>
-          </div>
-        </div> */}
       </div>
     </div>
   );

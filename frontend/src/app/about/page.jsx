@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import ProfileIMG from "@components/ProfileIMG";
 
 const page = () => {
   return (
@@ -10,7 +11,7 @@ const page = () => {
         </h1>
       </div>
       <div className="flex pb-24">
-        <div className="z-[3] pt-20 sm:pt-40 md:pt-56 lg:pt-60  pl-2 sm:pl-24 md:pl-60 lg:pl-80 w-[50vw] sm:w-[60vw] md:w-[58vw] lg:w-[65vw] text-justify md:w-2/3 text-md sm:text-lg md:text-2xl">
+        <div className="z-[3] pt-24 sm:pt-40 md:pt-56 lg:pt-60  pl-2 sm:pl-24 md:pl-60 lg:pl-80 w-[50vw] sm:w-[60vw] md:w-[58vw] lg:w-[65vw] text-justify md:w-2/3 text-md sm:text-lg md:text-2xl">
           <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic
             deserunt esse vero exercitationem, aspernatur odio porro
@@ -44,12 +45,7 @@ const page = () => {
           </p>
         </div>
         <div className="fixed sm:self-end z-[2] sm:z-[4] bg-right bottom-0 right-0 h-screen w-screen sm:w-1/2 md:w-1/3 lg:w-1/4 ">
-          <Image
-            className={`md:object-cover object-contain object-right-bottom md:object-right-top`}
-            src="/images/ee-min.png"
-            fill
-            alt="Profile picture"
-          />
+          <ProfileIMG />
         </div>
       </div>
     </div>

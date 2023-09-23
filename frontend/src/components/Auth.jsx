@@ -54,7 +54,7 @@ const Auth = () => {
       {!myContext?.isAuth ? (
         <button
           onClick={() => login()}
-          className="h-auto px-2 my-1 flex duration-300 justify-center items-center border-current hover:text-arya4 duration-100 rounded border font-bold"
+          className="h-auto px-2 my-1 flex duration-300 justify-center items-center border-current duration-100 rounded border font-bold"
         >
           LOGIN
         </button>

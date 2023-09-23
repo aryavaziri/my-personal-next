@@ -30,7 +30,7 @@ export default function Home() {
       <div
         className={`gap-y-4 flex flex-col px-4 pb-8 h-max-screen overflow-hidden`}
       >
-        <h1 className="text-4xl md:text-6xl text-center pt-24 sm:pt-48 font-extrabold dark:text-[#A0C3ED]">
+        <h1 className="text-4xl md:text-6xl text-center pt-24 sm:pt-48 font-extrabold">
           Hello! My name is Arya.
         </h1>
         <h3 className="text-3xl pt-8 md:text-4xl text-center sm:min-h-12">
@@ -132,16 +132,16 @@ export default function Home() {
         </h3>
         <div className="flex justify-center mx-auto  text-lg my-6 gap-4">
           <Link
-            className="border border-current rounded font-bold px-4 py-1 hover:shadow-lg dark:hover:text-arya2"
+            className="bg-black/10 dark:bg-light/20 backdrop-blur rounded px-4 py-1 shadow-lg"
             href={`/projects`}
           >
             See my projects
           </Link>
           <Link
-            className="border border-current rounded font-bold px-4 py-1 hover:shadow-lg dark:hover:text-arya2"
+            className="bg-black/10 dark:bg-light/20 backdrop-blur rounded px-4 py-1 shadow-lg"
             href={`/about`}
           >
-            More about me
+            <span>More about me</span>
           </Link>
         </div>
       </div>

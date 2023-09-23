@@ -39,7 +39,7 @@ class Particle {
       this.pos.x + alfa,
       this.pos.y + alfa,
       this.prevPos.x + alfa,
-      this.prevPos.y + alfa
+      this.prevPos.y + alfa,
     );
     this.updatePrev();
   }
@@ -50,23 +50,23 @@ class Particle {
   }
 
   edges() {
-    if (this.pos.x > this.p5.width * 1.5) {
-      this.pos.x = -200;
+    if (this.pos.x > this.p5.width * 1.1) {
+      this.pos.x = -10;
       this.pos.y = this.p5.random(this.p5.width);
       this.updatePrev();
     }
-    if (this.pos.x < -this.p5.width * 0.5) {
-      this.pos.x = this.p5.width + 200;
+    if (this.pos.x < -this.p5.width * 0.1) {
+      this.pos.x = this.p5.width + 10;
       this.pos.y = this.p5.random(this.p5.height);
       this.updatePrev();
     }
-    if (this.pos.y > this.p5.height * 1.5) {
-      this.pos.y = -200;
+    if (this.pos.y > this.p5.height * 1.1) {
+      this.pos.y = -10;
       this.pos.x = this.p5.random(this.p5.width);
       this.updatePrev();
     }
-    if (this.pos.y < -this.p5.height * 0.5) {
-      this.pos.y = this.p5.height + 200;
+    if (this.pos.y < -this.p5.height * 0.1) {
+      this.pos.y = this.p5.height + 10;
       this.pos.x = this.p5.random(this.p5.height);
       this.updatePrev();
     }
@@ -77,15 +77,20 @@ let scl = 25;
 let cols, rows;
 let inc = 20;
 
+var xoff = 0;
+var yoff = 0;
 let zoff = 0;
+
 let particles = [];
 let flowfield;
 
 const sketch = (p5) => {
   p5.setup = () => {
+    p5.background(255);
     p5.createCanvas(window.innerWidth, window.innerHeight);
     p5.noStroke();
-
+    p5.mouseX = p5.width / 2;
+    p5.mouseY = p5.height / 1.3;
     cols = p5.floor(p5.width / scl);
     rows = p5.floor(p5.height / scl);
 
@@ -98,23 +103,23 @@ const sketch = (p5) => {
   };
   p5.updateWithProps = (props) => {
     if (props.theme == "dark") {
-      bg = "#00000009";
+      bg = "#00000020";
     } else {
       bg = "#ffffff09";
     }
   };
 
   p5.draw = () => {
+    yoff = 0;
     p5.background(bg);
-    var yoff = 0;
     for (var y = 0; y < rows; y++) {
-      var xoff = 0;
+      xoff = 0;
       for (var x = 0; x < cols; x++) {
         var index = x + y * cols;
-        // var angle = p5.noise(xoff, yoff, zoff) * p5.TWO_PI * 2;
-        var angle =
-          Math.atan2(p5.mouseY - y * scl, p5.mouseX - x * scl) +
-          p5.noise(xoff, yoff, zoff) * (p5.TWO_PI / 8);
+        var angle = p5.noise(xoff, yoff, zoff) * p5.TWO_PI * 2;
+        // var angle =
+        //   Math.atan2(p5.mouseY - y * scl, p5.mouseX - x * scl) +
+        //   p5.noise(xoff, yoff, zoff) * (p5.TWO_PI / 8);
         var v = p5.createVector();
         v.set(p5.cos(angle), p5.sin(angle));
         v.setMag(0.08);
@@ -131,18 +136,12 @@ const sketch = (p5) => {
       particles[i].edges();
       particles[i].show();
     }
-    p5.stroke("#0e7490aa");
-    p5.strokeWeight(2);
-    // p5.point(p5.mouseX, p5.mouseY);
   };
 };
 export default function Sketch({ theme }) {
   return (
     <div className={`absolute top-0 left-0 z-[100] `}>
-      <NextReactP5Wrapper
-        sketch={sketch}
-        theme={theme}
-      />
+      <NextReactP5Wrapper sketch={sketch} theme={theme} />
     </div>
   );
 }

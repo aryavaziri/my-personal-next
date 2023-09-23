@@ -8,20 +8,22 @@ module.exports = {
   darkMode: "class",
   theme: {
     screens: {
-      sm: "450px",
+      sm: "599px",
       md: "899px",
       lg: "1200px",
     },
     extend: {
       colors: {
         arya1: "#caf0f8",
-        arya2: "#90e0efbb",
-        arya3: "#023e8a",
-        arya4: "#5390d9",
-        arya5: "#99d98c",
+        arya2: "#cag0b8",
+        arya3: "#cbf4f8",
+        arya4: "#033a60",
+        arya5: "#99ee88",
         arya6: "#f1f2f2",
-        dark: "#023e8a",
-        light: "#caf0f8",
+        gradientDark: "#5390D9",
+        gradientLight: "#023e8a",
+        dark: "#033a60",
+        light: "#ADD8E6",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

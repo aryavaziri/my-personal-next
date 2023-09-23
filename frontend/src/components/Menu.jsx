@@ -1,4 +1,4 @@
-import "@/../public/css/menu.css";
+import "/public/css/menu.css";
 import React from "react";
 import { Context } from "@app/Provider";
 import { useState, useContext } from "react";
@@ -8,7 +8,7 @@ function Menu() {
 
   return (
     <button
-      className=""
+      className="w-[30px]"
       onClick={() => {
         if (!myContext?.menu) {
           myContext.toggleMenu();
