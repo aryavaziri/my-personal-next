@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import ProfileIMG from "@components/ProfileIMG";
+// import ProfileIMG from "@components/ProfileIMG";
 
 export default function Home() {
   const fetchData = async () => {
@@ -34,7 +34,7 @@ export default function Home() {
         <h1 className="text-4xl md:text-6xl text-center pt-24 sm:pt-48 font-extrabold">
           Hello! My name is Arya.
         </h1>
-        <ProfileIMG />
+        {/* <ProfileIMG /> */}
 
         <h3 className="text-3xl pt-8 md:text-4xl text-center sm:min-h-12">
           I am a

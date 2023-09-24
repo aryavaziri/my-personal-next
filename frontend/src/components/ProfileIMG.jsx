@@ -16,14 +16,14 @@ const ProfileIMG = () => {
       {resolvedTheme === "dark" ? (
         <Image
           className={`md:object-cover object-contain object-right-top`}
-          src="images/ee-min.png"
+          src="/images/ee-min.png"
           fill
           alt="Profile picture"
         />
       ) : (
         <Image
           className={`md:object-cover object-contain object-right-top`}
-          src="images/eee-min.png"
+          src="/images/eee-min.png"
           fill
           alt="Profile picture"
         />
