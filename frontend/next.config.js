@@ -1,8 +1,10 @@
-const isProd = process.env.NODE_ENV === "production";
+// const isProd = process.env.NODE_ENV === "production";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // output: "export",
+  output: "standalone",
+  
   // basePath: "/my-personal-next",
   // assetPrefix: isProd ? "/my-personal-next/" : undefined,
   images: {
@@ -11,10 +13,10 @@ const nextConfig = {
         hostname: "**.googleusercontent.com",
         protocol: "https",
       },
-      {
-        protocol: 'https',
-        hostname: 'github.io',
-      },
+      // {
+      //   protocol: 'https',
+      //   hostname: 'github.io',
+      // },
     ],
   },
 };

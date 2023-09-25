@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import ProfileIMG from "@components/ProfileIMG";
+import Link from "next/link";
 
 const page = () => {
   return (
@@ -13,36 +14,28 @@ const page = () => {
       <div className="flex pb-24">
         <div className="z-[3] pt-24 sm:pt-40 md:pt-56 lg:pt-60  pl-2 sm:pl-24 md:pl-60 lg:pl-80 w-[50vw] sm:w-[60vw] md:w-[58vw] lg:w-[65vw] text-justify md:w-2/3 text-md sm:text-lg md:text-2xl">
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic
-            deserunt esse vero exercitationem, aspernatur odio porro
-            perferendis? Unde animi porro quibusdam quod facilis? Eum quis animi
-            iusto ipsum praesentium, sapiente, aut, tenetur recusandae similique
-            dolorum maxime consequatur illo. Quasi quos, tempora similique, a
-            ullam totam consequuntur vitae obcaecati nobis mollitia dolores
-            aliquid itaque iste exercitationem dicta molestias repudiandae nisi
-            minus saepe. Vel maxime dolorem assumenda nobis consequuntur eius
-            ipsam debitis recusandae sapiente nesciunt, sunt at sed laborum
-            itaque est numquam, impedit odit a neque? Atque eos tempore, autem
-            qui in at sequi repellendus placeat neque necessitatibus magni
-            nesciunt dolorem ratione!
+          Hey there! I'm just a regular guy who took the road less traveled. Formerly an industrial automation engineer, PLC programmer, and all-around maker, I decided to embrace the digital world as a developer. But don't worry, I didn't leave my old skills behind; instead, I fused them with the magic of digitalization to help designers bring their wildest ideas to life!
+          When I'm not coding up a storm, you'll find me exploring every nook and cranny of this beautiful planet. I'm a total travel junkie and a nature enthusiast. If you want a glimpse into my personal life, hop on over to my Instagram account.
+          So, whether you need a helping hand in the digital realm or want some travel inspiration, I've got you covered. Let's build, explore, and create some amazing things together!
           </p>
-          <br />
           <div className="flex justify-center gap-12 px-2 sm:px-4 md:px-12 my-6">
             <button className="border border-current rounded-lg px-4 sm:px-6 py-2 hover:shadow-lg hover:shadow-arya2">
-              Button1
+              Resume
             </button>
             <button className="border border-current rounded-lg px-4 sm:px-6 py-2 hover:shadow-lg hover:shadow-arya2">
-              Button2
+              Projects
             </button>
           </div>
+          <br />
           <p className="my-2">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquam
-            commodi reiciendis, et perferendis ipsum fuga! Sit consectetur velit
-            veritatis voluptates. Lorem ipsum dolor sit amet consectetur,
-            adipisicing elit. Aperiam tempore dolores, error aut nobis molestiae
-            et dolorum nihil doloribus soluta corrupti reiciendis voluptates
-            iure, nisi neque, cumque sed maiores exercitationem.
+          If you're curious to learn more about my background, including my previous experiences, feel free to explore my earlier website by clicking the link below:
           </p>
+          <div className="flex justify-center mt-6">
+
+            <button className="border border-current rounded-lg px-4 sm:px-6 py-2 hover:shadow-lg hover:shadow-arya2">
+              check out my previous website
+            </button>
+          </div>
         </div>
         <div className="fixed sm:self-end z-[2] sm:z-[4] bg-right bottom-0 right-0 h-screen w-screen sm:w-1/2 md:w-1/3 lg:w-1/4 ">
           <ProfileIMG />

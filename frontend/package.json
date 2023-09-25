@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@p5-wrapper/next": "^0.2.0",
+    "@p5-wrapper/react": "latest" ,
     "autoprefixer": "10.4.15",
     "next": "13.4.19",
     "next-themes": "^0.2.1",

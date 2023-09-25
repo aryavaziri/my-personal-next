@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3'
 services:
   nginx:
     build:
@@ -7,22 +7,21 @@ services:
     ports:
       - "80:8080"
       # - "443:443"
-    volumes:
+    # volumes:
       # - ./v1:/var/www/old_website
-      - ./nginx:/etc/nginx/conf.d
+      # - ./nginx:/etc/nginx/conf.d
+      # - staticbuild:/app/
       # - /etc/letsencrypt:/etc/letsencrypt
     depends_on:
       - frontend
   frontend:
     container_name: frontend
-    build: ./frontend
-    volumes:
-      - ./frontend:/frontend:rw
-      - node_modules:/frontend/node_modules/
-    expose: ["3000"]
-    environment:
-      - NODE_ENV=development
-      - CHOKIDAR_USEPOLLING=true
-      
-volumes:
-  node_modules:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        ENV_VARIABLE: ${ENV_VARIABLE}
+        NEXT_PUBLIC_ENV_VARIABLE: ${NEXT_PUBLIC_ENV_VARIABLE}
+    restart: always
+    ports:
+      - 3000:3000

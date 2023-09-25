@@ -118,7 +118,6 @@ const sketch = (p5) => {
     }
   };
   p5.draw = () => {
-    console.log(quantity);
     yoff = 0;
     p5.background(bg);
     for (var y = 0; y < rows; y++) {
