@@ -22,7 +22,7 @@ const Nav = () => {
           myContext.toggleMenu();
         }
       }}
-      className={`fixed w-screen px-4 sm:px-24 md:px-60 lg:px-80 pt-6 sm:pt-12 z-20 text-dark dark:text-light  ${
+      className={`fixed w-screen px-4 sm:px-20 md:px-36 lg:px-56 pt-6 sm:pt-12 z-20 text-dark dark:text-light  ${
         myContext.menu
           ? " h-screen backdrop-blur-md dark:bg-black/60 bg-white/40 "
           : "backdrop-blur-[0px]"
@@ -46,12 +46,13 @@ const Nav = () => {
         </div>
       </div>
       <div
-        className={`w-full flex max-sm:px-2 menu-list duration-500 overflow-hidden`}
+        className={`w-full flex max-sm:px-2 gap-[0px] menu-list duration-500 overflow-hidden`}
       >
-        <div className="bg-arya1 w-[4px]" />
-        <div className="bg-arya6 w-[4px]" />
-        <div className="bg-arya5 w-[4px]" />
-        <ul className="flex-1 border-l-4 pl-8 border-current">
+        <div className="bg-aryaBorder4/80 w-[5px] my-8" />
+        <div className="bg-aryaBorder3/80 w-[5px] my-8" />
+        <div className="bg-aryaBorder2/80 w-[5px] my-8" />
+        <div className="bg-aryaBorder1/80 w-[5px] my-8" />
+        <ul className="flex-1 pl-8">
           <li
             className={`text-5xl md:text-6xl ${
               myContext.menu ? "menu-item-show my-8 mt-8" : "my-0"

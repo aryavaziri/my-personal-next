@@ -4,13 +4,13 @@ import Image from "next/image";
 const page = () => {
   return (
     <div className="min-h-screen h-full flex flex-col ">
-      <div className="pr-4 pl-2 sm:pl-24 md:pl-60 lg:pl-80 backdrop-blur z-[4] w-3/5 sm:w-full font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl fixed pt-6 sm:pt-24 md:pt-32">
+      <div className="pr-4 pl-2 sm:pl-20 md:pl-36 lg:pl-56 backdrop-blur z-[4] w-3/5 sm:w-full font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl fixed pt-6 sm:pt-24 md:pt-32">
         <h1 className="whitespace-nowrap pb-2 border-b-4 border-current w-min mb-4">
           About me
         </h1>
       </div>
       <div className="flex pb-24">
-        <div className="z-[3] pt-24 sm:pt-40 md:pt-56 lg:pt-60  pl-2 sm:pl-24 md:pl-60 lg:pl-80 w-[50vw] sm:w-[60vw] md:w-[58vw] lg:w-[65vw] text-justify md:w-2/3 text-md sm:text-lg md:text-2xl">
+        <div className="z-[3] pt-24 sm:pt-40 md:pt-56 lg:pt-60 pl-2 sm:pl-20 md:pl-36 lg:pl-56 w-[50vw] sm:w-[62vw] md:w-[65vw] lg:w-[65vw] text-justify md:w-2/3 text-md sm:text-lg md:text-2xl">
           <p>
             Hey there! I'm just a regular guy who took the road less traveled.
             Formerly an industrial automation engineer, PLC programmer, and
@@ -45,16 +45,16 @@ const page = () => {
             </button>
           </div>
         </div>
-        <div className="fixed sm:self-end z-[2] sm:z-[4] bg-right bottom-0 right-0 h-screen w-screen sm:w-1/2 md:w-1/3 lg:w-1/4 ">
+        <div className="fixed sm:self-end z-[2] sm:z-[4] bg-right bottom-0 right-0 h-screen w-screen sm:w-1/2 md:w-1/4 lg:w-1/5 max-h-[100vh]">
           <Image
-            className={`md:object-cover object-contain object-right-top imgLight dark:hidden`}
+            className={`md:object-cover object-contain object-right-bottom imgLight dark:hidden`}
             src="/images/light.png"
             fill
             alt="Profile picture"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
           <Image
-            className={`md:object-cover object-contain object-right-top hidden dark:block`}
+            className={`md:object-cover object-contain object-right-bottom hidden dark:block`}
             src="/images/dark.png"
             fill
             alt="Profile picture"

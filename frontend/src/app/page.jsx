@@ -4,23 +4,23 @@ import Image from "next/image";
 export default function Home() {
   const fetchData = async () => {
     try {
-    await fetch(`http://localhost:3000/api/lists`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZjMzM2VmODg1ZjljNmVkZTM1ODk4YyIsImlhdCI6MTY5Mzg0NTkwNCwiZXhwIjoxNjk0NzA5OTA0fQ.MC7OgffHGeWXH69jPByFO4WovqxaRm970IByyYwk6O0`,
-      },
-      body: JSON.stringify({ title: "ARYA" }),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Not OK");
-        }
-        return res.json();
+      await fetch(`http://localhost:3000/api/lists`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZjMzM2VmODg1ZjljNmVkZTM1ODk4YyIsImlhdCI6MTY5Mzg0NTkwNCwiZXhwIjoxNjk0NzA5OTA0fQ.MC7OgffHGeWXH69jPByFO4WovqxaRm970IByyYwk6O0`,
+        },
+        body: JSON.stringify({ title: "ARYA" }),
       })
-      .then((data) => {
-        console.log(data);
-      });
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error("Not OK");
+          }
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+        });
     } catch (error) {
       console.log(error);
     }
@@ -38,7 +38,7 @@ export default function Home() {
           I am a
           <br className="sm:hidden" />
           <span
-            className={`sm:font-extrabold max-sm:text-3xl px-3 inline-block hover:scale-x-105 text-arya4 dark:text-arya5 skills`}
+            className={`sm:font-extrabold max-sm:text-3xl px-3 inline-block hover:scale-x-105 text-secondaryLight dark:text-secondaryDark skills`}
           >
             <div
               className={`border-b-2 border-transparent hover:border-current mb-2`}
@@ -98,7 +98,7 @@ export default function Home() {
           </span>
           |
           <span
-            className={`sm:font-extrabold max-sm:text-3xl px-3 inline-block hover:scale-x-105 text-arya4 dark:text-arya5 skills`}
+            className={`sm:font-extrabold max-sm:text-3xl px-3 inline-block hover:scale-x-105 text-secondaryLight dark:text-secondaryDark skills`}
           >
             <div
               className={`border-b-2 border-transparent hover:border-current mb-2`}
@@ -158,7 +158,7 @@ export default function Home() {
           </span>
           |
           <span
-            className={`sm:font-extrabold max-sm:text-3xl px-3 inline-block hover:scale-x-105 text-arya4 dark:text-arya5 skills`}
+            className={`sm:font-extrabold max-sm:text-3xl px-3 inline-block hover:scale-x-105 text-secondaryLight dark:text-secondaryDark skills`}
           >
             <div
               className={`border-b-2 border-transparent hover:border-current mb-2`}
