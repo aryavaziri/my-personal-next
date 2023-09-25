@@ -1,12 +1,10 @@
 'use client'
 import React, { useState, useContext, useEffect } from "react";
-import { Context } from "@app/Provider";
 import { isMobile } from "react-device-detect";
 
 import { ProjectItem, ProjectMedia } from "@components/ProjectItem";
 
 function page() {
-    const myContext = useContext(Context);
     const [hoveredItem, setHoveredItem] = useState(null);
   useEffect(() => {
     hoveredItem && console.log(hoveredItem.title);
@@ -16,7 +14,7 @@ function page() {
       className={`$ relative h-screen w-screen font-custom2 px-4 sm:px-16 md:px-24 duration-500 overflow-hidden `}
     >
       <h1
-        className={`fixed px-4 pt-10 text-4xl sm:text-6xl font-bold border-inherit text-shadow pb-6 w-3/5`}
+        className={`fixed px-4 pt-24 text-4xl sm:text-6xl font-bold border-inherit text-shadow pb-6 w-3/5`}
       >
         Projects
       </h1>
@@ -70,7 +68,7 @@ function page() {
             item={{
               title: "2048",
               dev: "Javascript",
-              link: "/projectsr",
+              link: "/projects",
               src: "/images/2048.MOV",
               video: true,
             }}
@@ -82,7 +80,7 @@ function page() {
           className={`max-md:top-32 md:bottom-0 w-[90%] mx-auto md:w-1/2 overflow-hidden aspect-video fixed max-md:inset-0 md:right-0 bottom-0 rounded-tl-[30px] 
           `}
         >
-          <ProjectMedia item={hoveredItem ? hoveredItem : null} />
+          <ProjectMedia item={hoveredItem} />
         </div>
       )}
     </div>

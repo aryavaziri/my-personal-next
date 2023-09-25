@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-// import ProfileIMG from "@components/ProfileIMG";
 
 export default function Home() {
   const fetchData = async () => {
@@ -34,7 +33,6 @@ export default function Home() {
         <h1 className="text-4xl md:text-6xl text-center pt-24 sm:pt-48 font-extrabold">
           Hello! My name is Arya.
         </h1>
-        {/* <ProfileIMG /> */}
 
         <h3 className="text-3xl pt-8 md:text-4xl text-center sm:min-h-12">
           I am a
@@ -48,17 +46,54 @@ export default function Home() {
               front-end
             </div>
             <div className="absolute gap-1 hidden skills-icon">
-              <Image alt="react" src="logo/react.svg" width={20} height={20} />
+              <Image
+                alt="react"
+                src="logo/react.svg"
+                width="0"
+                height="0"
+                sizes="100vw"
+                style={{ width: "20px", height: "auto" }}
+              />
               <Image
                 alt="tailwind"
                 src="logo/tailwind.svg"
-                width={20}
-                height={20}
+                width="0"
+                height="0"
+                sizes="100vw"
+                style={{ width: "20px", height: "auto" }}
               />
-              <Image alt="p5js" src="logo/p5js.svg" width={20} height={20} />
-              <Image alt="ts" src="logo/ts.svg" width={20} height={20} />
-              <Image alt="js" src="logo/js.svg" width={20} height={20} />
-              <Image alt="next" src="logo/next.svg" width={20} height={20} />
+              <Image
+                alt="p5js"
+                src="logo/p5js.svg"
+                width="0"
+                height="0"
+                sizes="100vw"
+                style={{ width: "20px", height: "auto" }}
+              />
+              <Image
+                alt="ts"
+                src="logo/ts.svg"
+                width="0"
+                height="0"
+                sizes="100vw"
+                style={{ width: "20px", height: "auto" }}
+              />
+              <Image
+                alt="js"
+                src="logo/js.svg"
+                width="0"
+                height="0"
+                sizes="100vw"
+                style={{ width: "20px", height: "auto" }}
+              />
+              <Image
+                alt="next"
+                src="logo/next.svg"
+                width="0"
+                height="0"
+                sizes="100vw"
+                style={{ width: "20px", height: "auto" }}
+              />
             </div>
           </span>
           |
@@ -74,34 +109,51 @@ export default function Home() {
               <Image
                 alt="python"
                 src="logo/python.svg"
-                width={20}
-                height={20}
+                width="0"
+                height="0"
+                sizes="100vw"
+                style={{ width: "20px", height: "auto" }}
               />
               <Image
                 alt="django"
                 src="logo/django.svg"
-                width={20}
-                height={20}
+                width="0"
+                height="0"
+                sizes="100vw"
+                style={{ width: "20px", height: "auto" }}
               />
               <Image
                 alt="nodejs"
                 src="logo/nodejs.svg"
-                width={20}
-                height={20}
+                width="0"
+                height="0"
+                sizes="100vw"
+                style={{ width: "20px", height: "auto" }}
               />
               <Image
                 alt="mongodb"
                 src="logo/mongodb.svg"
-                width={20}
-                height={20}
+                width="0"
+                height="0"
+                sizes="100vw"
+                style={{ width: "20px", height: "auto" }}
               />
               <Image
                 alt="firebase"
                 src="logo/firebase.svg"
-                width={20}
-                height={20}
+                width="0"
+                height="0"
+                sizes="100vw"
+                style={{ width: "20px", height: "auto" }}
               />
-              <Image alt="jwt" src="logo/jwt.svg" width={20} height={20} />
+              <Image
+                alt="jwt"
+                src="logo/jwt.svg"
+                width="0"
+                height="0"
+                sizes="100vw"
+                style={{ width: "20px", height: "auto" }}
+              />
             </div>
           </span>
           |
@@ -114,19 +166,37 @@ export default function Home() {
               cloud
             </div>
             <div className="absolute gap-1 hidden skills-icon">
-              <Image alt="nginx" src="logo/nginx.svg" width={20} height={20} />
+              <Image
+                alt="nginx"
+                src="logo/nginx.svg"
+                width="0"
+                height="0"
+                sizes="100vw"
+                style={{ width: "20px", height: "auto" }}
+              />
               <Image
                 alt="docker"
                 src="logo/docker.svg"
-                width={20}
-                height={20}
+                width="0"
+                height="0"
+                sizes="100vw"
+                style={{ width: "20px", height: "auto" }}
               />
-              <Image alt="git" src="logo/git.svg" width={20} height={20} />
+              <Image
+                alt="git"
+                src="logo/git.svg"
+                width="0"
+                height="0"
+                sizes="100vw"
+                style={{ width: "20px", height: "auto" }}
+              />
               <Image
                 alt="kubernetes"
                 src="logo/kubernetes.svg"
-                width={20}
-                height={20}
+                width="0"
+                height="0"
+                sizes="100vw"
+                style={{ width: "20px", height: "auto" }}
               />
             </div>
           </span>
