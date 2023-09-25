@@ -1,3 +1,11 @@
+type Project {
+  _id: ID!
+  title: String!
+  link: String!
+  video: Boolean
+  src: String!
+}
+
 type User {
   _id: ID!
   name: String
@@ -29,9 +37,11 @@ type Query {
   users: [User]
   user(name: String!): [User]
   lists: [List]
+  projects: [Project]
 }
 
 type Mutation {
   addList(title: String!): List
   addItem(title: String!, list: ID!): List
+  addProject(title: String!, link: String!,video: Boolean,src: String):Project
 }

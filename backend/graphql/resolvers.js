@@ -1,4 +1,5 @@
 import { User } from "../models/user.js";
+import { Project } from "../models/project.js";
 import { List, Item } from "../models/list.js";
 
 const resolvers = {
@@ -13,8 +14,18 @@ const resolvers = {
       return user;
     },
     lists: async () => await List.find({}),
+    projects: async () => await Project.find({}),
   },
   Mutation: {
+    addProject: async (root, args, contextValue) => {
+      return Project.create({
+        title: args.title,
+        link: args.link,
+        video: args.video,
+        src: args.src,
+      });
+    },
+
     addList: async (root, args, contextValue) => {
       const list = await List.findOne({
         title: args.title,

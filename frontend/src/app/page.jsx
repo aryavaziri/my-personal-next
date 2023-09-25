@@ -3,6 +3,7 @@ import Image from "next/image";
 
 export default function Home() {
   const fetchData = async () => {
+    try {
     await fetch(`http://localhost:3000/api/lists`, {
       method: "POST",
       headers: {
@@ -20,7 +21,6 @@ export default function Home() {
       .then((data) => {
         console.log(data);
       });
-    try {
     } catch (error) {
       console.log(error);
     }

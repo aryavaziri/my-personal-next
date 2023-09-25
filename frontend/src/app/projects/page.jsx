@@ -5,6 +5,37 @@ import { isMobile } from "react-device-detect";
 import { ProjectItem, ProjectMedia } from "@components/ProjectItem";
 
 function page() {
+  const fetchData = async () => {
+    try {
+    await fetch(`http://localhost:3000/graphql`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        // authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZjMzM2VmODg1ZjljNmVkZTM1ODk4YyIsImlhdCI6MTY5Mzg0NTkwNCwiZXhwIjoxNjk0NzA5OTA0fQ.MC7OgffHGeWXH69jPByFO4WovqxaRm970IByyYwk6O0`,
+      },
+      body: JSON.stringify({ query: `{
+        projects {
+          _id
+          title
+          link
+          src
+        }
+      }` }),
+    })
+      .then((res) => {
+        console.log(res)
+        if (!res.ok) {
+          throw new Error("Not OK");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
     const [hoveredItem, setHoveredItem] = useState(null);
   useEffect(() => {
     hoveredItem && console.log(hoveredItem.title);
@@ -32,7 +63,8 @@ function page() {
               ? `grid gap-16 md:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 h-min`
               : `mr-4 w-full`
           } noscroll-bar`}
-        >
+        >      <button onClick={()=>fetchData()}>FETCH</button>
+
           <ProjectItem
             setHoveredItem={setHoveredItem}
             item={{

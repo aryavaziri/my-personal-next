@@ -32,7 +32,7 @@ app.use(authRoutes);
 app.use("/api", listRoutes);
 app.use(
   "/graphql",
-  isAuth,
+  // isAuth,
   expressMiddleware(server, { context: async ({ req, res }) => ({ req, res }) })
 );
 
