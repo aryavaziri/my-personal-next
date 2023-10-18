@@ -19,6 +19,9 @@ const projectSchema = new Schema(
       type: String,
       require: true,
     },
+    dev: {
+      type: [String],
+    }
   },
   { timestamps: true }
 );

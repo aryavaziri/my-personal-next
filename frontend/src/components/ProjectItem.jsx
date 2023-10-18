@@ -2,8 +2,10 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Context } from "@app/Provider";
+import Icon from "@components/Icon";
 import { BiChevronRight } from "react-icons/bi";
 import { isMobile } from "react-device-detect";
+import Image from "next/image";
 
 export const ProjectItem = ({ item, setHoveredItem }) => {
   const myContext = useContext(Context);
@@ -22,7 +24,7 @@ export const ProjectItem = ({ item, setHoveredItem }) => {
     <Link href={item.link} 
         className={`flex flex-col relative justify-between ${
           isMobile ? `max-sm:py-0 project-item-mobile` : `max-md:border-b py-2 `
-        } hover:pl-10 project-item content-start`}
+        } hover:pl-8 project-item content-start`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
@@ -31,20 +33,35 @@ export const ProjectItem = ({ item, setHoveredItem }) => {
           className={`flex flex-row relative h-18 justify-between ${
             isMobile
               ? `rounded-b-[30px] p-4 border-b project-item-mobile`
-              : ` hover:pl-8`
-          } project-item content-start border-b-2
-      ${myContext.theme ? `border-slate-800 drop-shadow-2xl` : `border-c1`}`}
+              : ` `
+          } project-item content-start border-b-2 border-current `}
         >
-          <div className="text-4xl flex left h-12 ">
+          <div className="text-3xl flex left h-12 ">
             <div className="w-10 overflow-hidden flex items-center max-sm:hidden">
               <BiChevronRight className="" />
             </div>
             <div>{item.title}</div>
           </div>
-          <div className="text-2xl right h-8 self-end justify-self-end">
+          {/* <div className="text-2xl right h-8 self-end justify-self-end">
             {item.dev}
+          </div> */}
+          <div className="absolute ic right-[250%] py-3 h-12 flex flex-row-reverse" >
+          {!isMobile && item.dev?.map(dev => {
+  return            <Icon key={dev} item={dev} />
+          })}
+          {/* <Icon item={"p5js"} />
+          <Icon item={"react"} />
+          <Image
+                alt="js"
+                src="logo/js.svg"
+                // fill
+                width="30"
+                height="0"
+                sizes="100vw"
+                style={{ width: "auto", height: "80%" }}
+              /> */}
           </div>
-        </div>{" "}
+        </div>
      </Link>
   );
 };
@@ -52,7 +69,7 @@ export const ProjectItem = ({ item, setHoveredItem }) => {
 export const ProjectMedia = ({ item }) => {
   const videoRef = useRef();
   useEffect(() => {
-    console.log(item);
+    // console.log(item);
     videoRef.current?.load();
   }, [item]);
   if (!item) {

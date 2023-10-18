@@ -11,6 +11,7 @@ import { ApolloServer } from "@apollo/server";
 import { buildSubgraphSchema } from "@apollo/subgraph";
 import { expressMiddleware } from "@apollo/server/express4";
 import resolvers from "./graphql/resolvers.js";
+import  graphqlUpload  from "graphql-upload/graphqlUploadExpress.mjs";
 
 const app = express();
 
@@ -25,8 +26,9 @@ const server = new ApolloServer({
 });
 await server.start();
 
+app.use(graphqlUpload());
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
 
 app.use(authRoutes);
 app.use("/api", listRoutes);
@@ -41,6 +43,7 @@ app.use((req, res) => {
 });
 
 app.use((error, req, res, next) => {
+  console.log(error)
   console.log(error.message);
   res.status(error.statusCode || 500).send(error.message);
 });

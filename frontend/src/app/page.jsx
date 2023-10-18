@@ -2,29 +2,29 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default function Home() {
-  const fetchData = async () => {
-    try {
-      await fetch(`http://localhost:3000/api/lists`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZjMzM2VmODg1ZjljNmVkZTM1ODk4YyIsImlhdCI6MTY5Mzg0NTkwNCwiZXhwIjoxNjk0NzA5OTA0fQ.MC7OgffHGeWXH69jPByFO4WovqxaRm970IByyYwk6O0`,
-        },
-        body: JSON.stringify({ title: "ARYA" }),
-      })
-        .then((res) => {
-          if (!res.ok) {
-            throw new Error("Not OK");
-          }
-          return res.json();
-        })
-        .then((data) => {
-          console.log(data);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const fetchData = async () => {
+  //   try {
+  //     await fetch(`http://localhost:3000/api/lists`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZjMzM2VmODg1ZjljNmVkZTM1ODk4YyIsImlhdCI6MTY5Mzg0NTkwNCwiZXhwIjoxNjk0NzA5OTA0fQ.MC7OgffHGeWXH69jPByFO4WovqxaRm970IByyYwk6O0`,
+  //       },
+  //       body: JSON.stringify({ title: "ARYA" }),
+  //     })
+  //       .then((res) => {
+  //         if (!res.ok) {
+  //           throw new Error("Not OK");
+  //         }
+  //         return res.json();
+  //       })
+  //       .then((data) => {
+  //         console.log(data);
+  //       });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   return (
     <>
       <div

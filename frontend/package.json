@@ -9,9 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.8.4",
+    "@apollo/experimental-nextjs-app-support": "^0.4.3",
     "@p5-wrapper/next": "^0.2.0",
     "@p5-wrapper/react": "latest",
+    "apollo-upload-client": "^17.0.0",
     "autoprefixer": "10.4.15",
+    "graphql": "^16.8.1",
     "next": "13.4.19",
     "next-themes": "^0.2.1",
     "p5": "^1.7.0",
@@ -19,6 +23,7 @@
     "react": "18.2.0",
     "react-device-detect": "^2.2.3",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.46.2",
     "react-icons": "^4.10.1",
     "sharp": "^0.32.6",
     "tailwindcss": "3.3.3"

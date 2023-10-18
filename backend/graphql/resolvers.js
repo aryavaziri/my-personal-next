@@ -1,8 +1,10 @@
 import { User } from "../models/user.js";
 import { Project } from "../models/project.js";
 import { List, Item } from "../models/list.js";
+import GraphQLUpload from "graphql-upload/GraphQLUpload.mjs";
 
 const resolvers = {
+  Upload: GraphQLUpload,
   Query: {
     user: async (_, { name }, contextValue) => {
       let user = [];
@@ -15,14 +17,27 @@ const resolvers = {
     },
     lists: async () => await List.find({}),
     projects: async () => await Project.find({}),
+    uploads: () => "Hello uploads",
   },
   Mutation: {
+    singleUpload: async (parent, {file}) => {
+      console.log("HI")
+      try {
+        console.log("HI")
+        const file2 = await file;
+        console.log(file2);
+        return "OKKKK";
+      } catch (error) {
+        console.log(error);
+      }
+    },
     addProject: async (root, args, contextValue) => {
+      args.media[0];
       return Project.create({
         title: args.title,
         link: args.link,
-        video: args.video,
         src: args.src,
+        dev: args.dev,
       });
     },
 
