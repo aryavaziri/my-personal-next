@@ -17,3 +17,16 @@ services:
     restart: always
     ports:
       - 4000:4000
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+
+    env_file:
+      - .env
+    # volumes:
+    #   - ./backend:/backend
+    restart: always
+    ports:
+      - 3000:3000

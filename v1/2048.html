@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+        }
+
+        #Main {
+            padding: 3%;
+            background-color: rgba(210, 162, 60, 0.407);
+            height: 100vh;
+            padding-bottom: 10vh;
+            margin: 0 auto;
+            overflow: hidden;
+            max-width: 450px;
+        }
+
+        #Main>div:nth-of-type(1) {
+            padding: 1%;
+
+        }
+
+        #Main>div:nth-of-type(1)>div:nth-of-type(2) {
+            margin: 3vh auto;
+            margin-top: 4vh;
+            font-size: 16px;
+            font-weight: bolder;
+        }
+
+        #Main>div:nth-of-type(2) {
+            background-color: #bbada0a3;
+            padding: 1%;
+            display: flex;
+            border-radius: 1vh;
+            flex-wrap: wrap;
+        }
+
+        #Main>div:nth-of-type(2)>span {
+            border-radius: 12%;
+            width: 22%;
+            margin: 1.5%;
+            color: aliceblue;
+            font-size: 2em;
+            text-align: center;
+            display: block;
+        }
+
+        .score {
+            display: flex;
+            justify-content: space-between;
+
+        }
+
+        .score>div {
+            width: 30%;
+            border-radius: 10%;
+            text-align: center;
+            font-size: 30px;
+            color: rgba(255, 255, 255, 0.901);
+        }
+
+        .score>div>div {
+            text-align: center;
+            font-size: 18px;
+            height: 65%;
+            padding-top: 5%;
+            margin-bottom: 5%;
+            border-radius: 0.5vh;
+            background-color: rgba(54, 54, 54, 0.622);
+        }
+
+        .score>div>div>div:nth-of-type(1) {
+            height: 40%;
+            font-size: 16px;
+        }
+
+        .score>div>div>div:nth-of-type(2) {
+            height: 60%;
+            font-size: 25px;
+        }
+
+        .score>div>button {
+            width: 100%;
+            height: 30%;
+            font-size: 12px;
+            display: block;
+            background-color: rgba(241, 102, 51, 0.775);
+            color: white;
+            border-radius: 0.5vh;
+            border: none;
+        }
+
+        .score>div:nth-of-type(1) {
+            background-color: rgb(255, 217, 0);
+            box-shadow: 0 0 20px 10px rgba(106, 106, 94, 0.586);
+        }
+    </style>
+</head>
+
+<body onresize="resize()">
+    <div id="Main">
+        <div>
+            <div class="score">
+                <div>2048</div>
+                <div>
+                    <div>
+                        <div>SCORE</div>
+                        <div class="sc">0</div>
+                    </div>
+                    <button>MENU</button>
+                </div>
+                <div>
+                    <div>
+                        <div>best</div>
+                        <div>122254</div>
+                    </div>
+                    <button class="nw">New</button>
+                </div>
+            </div>
+            <div>
+                Your next goal is to get ti the <strong class="max"></strong> tile!
+            </div>
+        </div>
+        <div id="touch">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</body>
+
+<script>
+    let _score = 0
+    let max = 4
+    let var1 = 0
+    let ddx = 0
+    let ddy = 0
+    let dx1 = 0
+    let dx2 = 0
+    let dy1 = 0
+    let dy2 = 0
+    let direction = 0
+    let _nums = new Array(4); // create an empty array of length n
+    for (var i = 0; i < 4; i++) { _nums[i] = new Array(4) }
+
+
+
+    generate()
+    resize()
+
+    document.getElementsByClassName('nw')[0].addEventListener("click", _new)
+    window.addEventListener('keyup', function (event) {
+        var1 = event.key
+        action(var1)
+    })
+
+    document.getElementById('touch').addEventListener("touchstart", function (event) {
+        dx1 = event.changedTouches[0].screenX
+        dy1 = event.changedTouches[0].screenY
+    })
+    document.getElementById('touch').addEventListener("touchend", function (event) {
+        dx2 = event.changedTouches[0].screenX
+        dy2 = event.changedTouches[0].screenY
+        ddx = dx2 - dx1
+        ddy = dy2 - dy1
+        if (Math.abs(ddx) > Math.abs(ddy)) {
+            if (ddx > 0) { direction = 'ArrowRight' }
+            else { direction = 'ArrowLeft' }
+        } else {
+            if (ddy > 0) { direction = 'ArrowDown' }
+            else { direction = 'ArrowUp' }
+        }
+        console.log("dx , dy , direction = " + ddx + " , " + ddy + ' , ' + direction)
+        action(direction)
+    })
+
+    function resize() {
+        for (i = 0; i < 16; i++) {
+            document.getElementsByTagName('span')[i].style.height = (document.querySelector('#Main>div:nth-of-type(2)>span').clientWidth) + 'px'
+            document.getElementsByTagName('span')[i].style.lineHeight = (document.querySelector('#Main>div:nth-of-type(2)>span').clientWidth) + 'px'
+        }
+        document.querySelector('.score>div').style.height = document.querySelector('.score>div').clientWidth + 'px'
+        document.querySelector('.score>div').style.lineHeight = document.querySelector('.score>div').clientHeight + 'px'
+    }
+
+    function _new() {
+        for (var i = 0; i < 4; i++) { _nums[i] = [0, 0, 0, 0] }
+        _score = 0
+        max = 4
+        document.getElementsByClassName('sc')[0].innerHTML = _score
+        generate()
+    }
+
+    function generate() {
+        let x = Math.floor(Math.random() * 4)
+        let y = Math.floor(Math.random() * 4)
+        let k = (Math.floor(Math.random() * 2) + 1) * 2
+        if (_nums[x][y] == 0 || _nums[x][y] == null) {
+            _nums[x][y] = k
+            wr()
+        } else { generate() }
+    }
+
+    function wr() {
+        let n = 0
+        if (_score > 0) { document.getElementsByClassName('sc')[0].innerHTML = _score }
+        for (i = 0; i < 4; i++) {
+            for (j = 0; j < 4; j++) {
+                if (_nums[i][j] > 0) {
+                    document.getElementsByTagName('span')[n].innerHTML = _nums[i][j]
+                    if (_nums[i][j] > max) { max = _nums[i][j] }
+                    document.getElementsByClassName('max')[0].innerHTML = max * 2
+                    switch (_nums[i][j]) {
+                        case 2:
+                            document.getElementsByTagName('span')[n].style.backgroundColor = 'orange';
+                            break;
+                        case 4:
+                            document.getElementsByTagName('span')[n].style.backgroundColor = 'red';
+                            break;
+                        case 8:
+                            document.getElementsByTagName('span')[n].style.backgroundColor = 'blue';
+                            break;
+                        case 16:
+                            document.getElementsByTagName('span')[n].style.backgroundColor = 'green';
+                            break;
+                        case 32:
+                            document.getElementsByTagName('span')[n].style.backgroundColor = 'pink';
+                            break;
+                        case 64:
+                            document.getElementsByTagName('span')[n].style.backgroundColor = 'aqua';
+                            break;
+                        case 128:
+                            document.getElementsByTagName('span')[n].style.backgroundColor = 'red';
+                            break;
+                        case 256:
+                            document.getElementsByTagName('span')[n].style.backgroundColor = 'red';
+                            break;
+                        case 512:
+                            document.getElementsByTagName('span')[n].style.backgroundColor = 'red';
+                            break;
+                        case 1024:
+                            document.getElementsByTagName('span')[n].style.backgroundColor = 'red';
+                            break;
+                        case 2048:
+                            document.getElementsByTagName('span')[n].style.backgroundColor = 'red';
+                            break;
+                        case 4096:
+                            document.getElementsByTagName('span')[n].style.backgroundColor = 'red';
+                            break;
+                        case 8192:
+                            document.getElementsByTagName('span')[n].style.backgroundColor = 'red';
+                            break;
+                        case 16384:
+                            document.getElementsByTagName('span')[n].style.backgroundColor = 'red';
+                            break;
+                    }
+                } else {
+                    _nums[i][j] = 0
+                    document.getElementsByTagName('span')[n].innerHTML = ""
+                    document.getElementsByTagName('span')[n].style.backgroundColor = 'darkgray';
+                }
+                n++
+            }
+        }
+        check()
+    }
+
+    function check() {
+        let var2 = 0
+        let var3 = 0
+        console.log(_nums)
+        for (go1 = 0; go1 < 4; go1++) {
+            var2 = 0
+            for (go2 = 0; go2 < 3; go2++) {
+                if (((_nums[go1][go2] != _nums[go1][go2 + 1]) && (_nums[go1][go2] > 0)) && (_nums[go1][go2 + 1] > 0)) {
+                    var2++
+                }
+                if (((_nums[go2][go1] != _nums[go2 + 1][go1]) && (_nums[go2][go1] > 0)) && (_nums[go2 + 1][go1] > 0)) {
+                    var2++
+                }
+                if (var2 == 6) {
+                    var3++
+                }
+            }
+        }
+        if (var3 == 4) {
+            alert('Game Over')
+        }
+    }
+
+    function sort(ar1) {
+        var1 = 0
+        let ar2 = ar1.filter(function (value, index, arr) { return value != 0 })
+        for (i = 0; i < 3; i++) {
+            if ((ar2[i] > 0) && (ar2[i] == ar2[i + 1])) {
+                ar2[i] *= 2
+                _score = _score + ar2[i]
+                ar2.splice(i + 1, 1)
+            }
+        }
+        for (i = 0; i < 4; i++) { if (ar2[i] > 0) { } else { ar2[i] = 0 } }
+        for (j3 = 0; j3 < 4; j3++) { if (ar2[j3] != ar1[j3]) { var1++ } }
+        return [ar2, var1]
+    }
+
+    function action(a) {
+        let tempsort = 0
+        let adau = [0, 0, 0, 0]
+        let temp2 = [0, 0, 0, 0]
+
+        switch (a) {
+            case "ArrowLeft":
+                for (ii = 0; ii < 4; ii++) {
+                    let temp = sort(_nums[ii])
+                    _nums[ii] = temp[0]
+                    if (temp[1] > 0) { tempsort++ }
+                }
+                break;
+            case "ArrowRight":
+                for (ii = 0; ii < 4; ii++) {
+                    temp = sort(_nums[ii].reverse())
+                    _nums[ii] = temp[0].reverse()
+                    if (temp[1] > 0) { tempsort++ }
+                }
+                break;
+            case "ArrowUp":
+                adau = [0, 0, 0, 0]
+                temp2 = [0, 0, 0, 0]
+                for (iu = 0; iu < 4; iu++) {
+                    for (iu2 = 0; iu2 < 4; iu2++) {
+                        adau[iu2] = _nums[iu2][iu]
+                    }
+                    temp2 = sort(adau)
+                    for (iu3 = 0; iu3 < 4; iu3++) {
+                        _nums[iu3][iu] = temp2[0][iu3]
+                    }
+                    if (temp2[1] > 0) { tempsort++ }
+                }
+                break;
+            case "ArrowDown":
+                adau = [0, 0, 0, 0]
+                temp2 = [0, 0, 0, 0]
+                for (iu = 0; iu < 4; iu++) {
+                    for (iu2 = 0; iu2 < 4; iu2++) {
+                        adau[iu2] = _nums[3 - iu2][iu]
+                    }
+                    temp2 = sort(adau)
+                    for (iu3 = 0; iu3 < 4; iu3++) {
+                        _nums[3 - iu3][iu] = temp2[0][iu3]
+                    }
+                    if (temp2[1] > 0) { tempsort++ }
+                }
+
+                break;
+        }
+
+        if (tempsort > 0) { generate() }
+
+
+
+
+    }
+
+
+
+</script>
+
+</html>

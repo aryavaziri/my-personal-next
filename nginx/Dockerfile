@@ -1,6 +1,6 @@
 FROM nginx:alpine
 
-COPY domain.conf /etc/nginx/conf.d/default.conf
+COPY domainTest.conf /etc/nginx/conf.d/default.conf
 
 # CMD echo pwd
 # COPY ../v1 /var/www/old_website

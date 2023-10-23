@@ -21,7 +21,7 @@ const Auth = () => {
     }
   }, []);
   const validate = async (token) => {
-    await fetch("http://localhost:3000/auth", {
+    await fetch("http://backend:3000/auth", {
       headers: { Authorization: `bearer ${token}` },
     })
       .then((res) => {

@@ -1,9 +1,9 @@
 FROM node:18-alpine
 
-WORKDIR /app
+WORKDIR /app/frontend
 
 # Install dependencies based on the preferred package manager
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+COPY package.json ./
 RUN npm i
 
 COPY . .

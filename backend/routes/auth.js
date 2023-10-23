@@ -40,7 +40,7 @@ passport.use(
       // clientID: "process.env.GOOGLE_CLIENT_ID",
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:3000/login/google/callback",
+      callbackURL: "http://backend:3000/login/google/callback",
       passReqToCallback: true,
     },
     function (request, accessToken, refreshToken, profile, done) {
@@ -90,7 +90,7 @@ router.get(
           .catch(next);
       }
       console.log(token);
-      return res.status(201).redirect(`http://localhost:4000/?token=${token}`);
+      return res.status(201).redirect(`http://frontendDev:4000/?token=${token}`);
     }
   }
 );
