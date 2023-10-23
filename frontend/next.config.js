@@ -5,8 +5,6 @@ const nextConfig = {
   // output: "export",
   output: "standalone",
   
-  // basePath: "/my-personal-next",
-  // assetPrefix: isProd ? "/my-personal-next/" : undefined,
   images: {
     remotePatterns: [
       {

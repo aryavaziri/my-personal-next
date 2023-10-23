@@ -37,3 +37,4 @@ async function page() {
 }
 
 export default page;
+export const runtime = "edge";
