@@ -1,7 +1,7 @@
 // "use client";
 import Link from "next/link";
 import Image from "next/image";
-import ProjectCard from "@components/ProjectCard";
+// import ProjectCard from "@components/ProjectCard";
 
 const fetchData = async () => {
   const response = await fetch(`http://localhost:3000/graphql`, {
@@ -32,7 +32,6 @@ const page = async () => {
         {}
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 ld:grid-cols-3 gap-4 mt-2 text-xl px-36">
-        <ProjectCard />
         {/* <ProjectCard /> */}
       </div>
     </div>

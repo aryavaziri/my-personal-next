@@ -2,16 +2,14 @@
 import { useController, useForm } from "react-hook-form";
 import React from "react";
 
-const Input = ({
-  name,
-  label,
-  errors,
-  register,
-  placeholder,
-  autoFocus,
-  required,type,
-  ...rest
-}) => {
+const Input = ({name, label,type,placeholder, autoFocus}) => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    required,
+    formState: { errors },
+  } = useForm()
   return (
     <div className="flex flex-col mb-4">
       <div className="flex gap-2">

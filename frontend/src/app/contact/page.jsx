@@ -22,19 +22,19 @@ const page = () => {
     <div className={`md:grid overflow-auto mt-32 sm:mt-52 py-4 grid-cols-2 gap-4`}>
         <form method='POST' action='/contact' className='flex flex-col md:px-8 gap-2 text-lg max-md:pb-8'>
             <Input
-                title='Name'
+                name='Name'
                 // onValueChange={(e) => { console.log(e) }}
             />
             <Input
-                title='Email'
+                name='Email'
                 // onValueChange={(e) => { console.log(e) }}
             />
             <Input
-                title='Subject'
+                name='Subject'
                 // onValueChange={(e) => { console.log(e) }}
             />
             <Input
-                title='Message'
+                name='Message'
                 // onValueChange={(e) => { console.log(e) }}
             />
             <button

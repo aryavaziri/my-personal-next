@@ -1,9 +1,9 @@
 import Projects from "@components/Projects";
 
 const fetchData = async () =>{
-  const response = await fetch(`http://backend:3000/graphql`, {
+  const response = await fetch(`localhost:3000/graphql`, {
     method: "POST",
-    cache: "no-cache",
+    cache: "no-store",
     headers: {
       "Content-Type": "application/json",
       // authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZjMzM2VmODg1ZjljNmVkZTM1ODk4YyIsImlhdCI6MTY5Mzg0NTkwNCwiZXhwIjoxNjk0NzA5OTA0fQ.MC7OgffHGeWXH69jPByFO4WovqxaRm970IByyYwk6O0`,
