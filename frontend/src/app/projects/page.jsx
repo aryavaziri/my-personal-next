@@ -1,26 +1,12 @@
+// 'use client'
+// import dynamic from "next/dynamic";
 import Projects from "@components/Projects";
 
-const fetchData = async () =>{
-  const response = await fetch(`localhost:3000/graphql`, {
-    method: "POST",
-    cache: "no-store",
-    headers: {
-      "Content-Type": "application/json",
-      // authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZjMzM2VmODg1ZjljNmVkZTM1ODk4YyIsImlhdCI6MTY5Mzg0NTkwNCwiZXhwIjoxNjk0NzA5OTA0fQ.MC7OgffHGeWXH69jPByFO4WovqxaRm970IByyYwk6O0`,
-    },
-    body: JSON.stringify({
-      query: `{ projects { title dev link src } }`,
-    }),
-  })
-  const data = await response.json()
-  return data
-
-}
-
 async function page() {
-
-  const data = await fetchData()
-  console.log(data.data.projects)
+  // const Projects = dynamic(()=>import("@components/Projects"))
+  // const data = await fetchData()
+  // const data = await fetch(`/api/projects`)
+  // console.log(data.data.projects)
 
   return (
     <div
@@ -31,10 +17,9 @@ async function page() {
           Projects
         </h1>
       </div>
-      <Projects items={data.data.projects} />
+      <Projects />
     </div>
   );
 }
 
 export default page;
-export const runtime = "edge";

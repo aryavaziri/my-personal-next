@@ -1,10 +1,28 @@
 "use client";
+import dynamic from "next/dynamic";
 import { useState, useContext, useEffect } from "react";
 import { isMobile } from "react-device-detect";
 import { ProjectItem, ProjectMedia } from "@components/ProjectItem";
 
 
-const Projects = ({ items }) => {
+const Projects = () => {
+  const items = dynamic(async () => {
+
+    const response = await fetch(`http://localhost:3000/graphql`, {
+        method: "POST",
+        cache: "no-store",
+        headers: {
+          "Content-Type": "application/json",
+          // authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZjMzM2VmODg1ZjljNmVkZTM1ODk4YyIsImlhdCI6MTY5Mzg0NTkwNCwiZXhwIjoxNjk0NzA5OTA0fQ.MC7OgffHGeWXH69jPByFO4WovqxaRm970IByyYwk6O0`,
+        },
+        body: JSON.stringify({
+          query: `{ projects { title dev link src } }`,
+        }),
+      })
+      const data = await response.json()
+      return data
+    })
+
   console.log(items);
   const [hoveredItem, setHoveredItem] = useState(null);
 
@@ -25,7 +43,7 @@ const Projects = ({ items }) => {
               : `w-full`
           } noscroll-bar`}
         >
-          <button onClick={() => fetchData()}>FETCH</button>
+          {/* <button onClick={() => fetchData()}>FETCH</button> */}
           <ProjectItem
             setHoveredItem={setHoveredItem}
             item={{
