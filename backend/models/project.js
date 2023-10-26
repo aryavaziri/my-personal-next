@@ -19,7 +19,7 @@ const projectSchema = new Schema(
       type: String,
       require: true,
     },
-    dev: {
+    tech: {
       type: [String],
     }
   },

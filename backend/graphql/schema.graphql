@@ -4,7 +4,7 @@ type Project {
   link: String!
   video: Boolean
   src: String!
-  dev: [String]
+  tech: [String]
 }
 
 type User {
@@ -13,25 +13,6 @@ type User {
   email: String
   profileImg: String
   language: String
-}
-
-type List {
-  _id: ID!
-  title: String
-  author: User
-  items: [Item]
-  colaborators: [User]
-}
-
-type Item {
-  _id: ID!
-  title: String
-  quantity: Int
-  done: Boolean
-}
-
-input AddList {
-  title: String
 }
 
 type File {
@@ -43,19 +24,19 @@ scalar Upload
 type Query {
   users: [User]
   user(name: String!): [User]
-  lists: [List]
   projects: [Project]
 }
 
-type Mutation {
-  singleUpload(file: Upload!): String!
-  addList(title: String!): List
-  addItem(title: String!, list: ID!): List
-  addProject(
+input ProjectInput {
     title: String!
     link: String!
     video: Boolean
     src: String
-    dev: [String]
-  ): Project
+    tech: String
+}
+
+
+type Mutation {
+  singleUpload(file: Upload!): String!
+  addProject(project:ProjectInput!): Project
 }

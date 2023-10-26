@@ -26,12 +26,16 @@ const page = () => {
             Let's build, explore, and create some amazing things together!
           </p>
           <div className="flex justify-center gap-12 px-2 sm:px-4 md:px-12 my-6">
+            <Link href={`/cv.pdf`} >
             <button className="border border-current rounded-lg px-4 sm:px-6 py-2 hover:shadow-lg hover:shadow-arya2">
               Resume
             </button>
+            </Link>
+            <Link href={`/projects`} >
             <button className="border border-current rounded-lg px-4 sm:px-6 py-2 hover:shadow-lg hover:shadow-arya2">
               Projects
             </button>
+            </Link>
           </div>
           <br />
           <p className="my-2">
@@ -40,9 +44,11 @@ const page = () => {
             clicking the link below:
           </p>
           <div className="flex justify-center mt-6">
+            <Link href={`https://v1.aryav.nl`} >
             <button className="border border-current rounded-lg px-4 sm:px-6 py-2 hover:shadow-lg hover:shadow-arya2">
               check out my previous website
             </button>
+            </Link>
           </div>
         </div>
         <div className="fixed sm:self-end z-[2] sm:z-[4] bg-right bottom-0 right-0 h-screen w-screen sm:w-1/2 md:w-1/4 lg:w-1/5 max-h-[100vh]">

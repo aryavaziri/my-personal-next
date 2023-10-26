@@ -3,21 +3,16 @@ import Input from "@components/form/Input";
 import { useForm, Form } from "react-hook-form";
 import { useEffect } from "react";
 import { ApolloWrapper } from "@lib/ApolloWrapper";
-
 import { gql, useMutation } from "@apollo/client";
-const MUTATION = gql`
-  mutation ($file: Upload!) {
-    uploadFile(file: $file) {
-      success
-    }
+
+const MUTATION = gql`mutation ($file: Upload!) {uploadFile(file: $file) {success}}`;
+const MUTATION2 = gql`mutation { addProject(
+  project : {
+  title: "test1", 
+  link: "link 1", 
+  tech: "p5js;graphql ; arya; aaa ;art"
   }
-`;
-
-const [queryRef] = useBackgroundQuery(GetPollDocument, {
-  variables: { id: "1", delay: 0 },
-});
-
-
+  ){ _id title tech}}`;
 
 const fetchData = async (data) => {
   const token = localStorage.getItem("accessToken");
@@ -48,25 +43,24 @@ const fetchData = async (data) => {
   return data2;
 };
 
+
+
 const ProejctCard = ({ item }) => {
-  const {
-    register,
-    control,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
+  const [fetchData2, { data, loading, error }] = useMutation(MUTATION2);
+  const { register, control, handleSubmit, watch, formState: { errors }, } = useForm();
   const onSubmit = async (data) => {
     try {
       console.log(data);
-      const arya = await fetchData(data);
+      const arya = await fetchData2();
       console.log(arya);
     } catch (e) {
       console.log(e);
     }
   };
   useEffect(() => {
-    console.log(errors);
+    if(errors){
+      console.log(errors);
+    }
   }, [errors]);
   return (
     <ApolloWrapper>
@@ -74,52 +68,45 @@ const ProejctCard = ({ item }) => {
         <Form
           className="w-full pt-2 px-6 bg-gradient-to-b h-full from-purple-500/20 to-pink-500/40 pb-6"
           onSubmit={handleSubmit(onSubmit)}
-          // action="/api"
-          control={control}
-          onSuccess={() => {
-            alert("Success");
-          }}
-          onError={() => {
-            alert("error");
-          }}
+          // action="/admin"
+          // control={control}
+          // onSuccess={() => {
+          //   alert("Success");
+          // }}
+          // onError={() => {
+          //   alert("error");
+          // }}
         >
           <h1 className="mt-2 mb-4 pb-1 border-b border-current">
             Add Project
           </h1>
+          <Input
+            name="title"
+            label="title"
+            autoFocus
+            control={control}
+            required
+            />
+          <Input
+            name="link"
+            label="link"
+            required={`Please fill this field...`}
+            control={control}
+            />
+          <Input
+            name="tech"
+            label="tech"
+            placeholder="add techs you used. seperate with ;"
+            control={control}
+            />
           {/* <Input
-          name="title"
-          label="title"
-          placeholder="title"
-          autoFocus
-          required={true}
-          register={register}
-          errors={errors}
-          />
-          <Input
-          name="link"
-          label="link"
-          placeholder="link"
-          register={register}
-          required={"Fill this form"}
-          errors={errors}
-          />
-          <Input
-          name="tech"
-          label="tech"
-          placeholder="add techs you used. seperate with ;"
-          register={register}
-          required={"Fill this form"}
-          errors={errors}
-        /> */}
-          <Input
+            control={control}
             type={"file"}
             name="media"
             label="media"
             placeholder="Media Place Holder"
-            register={register}
             required={"Add a photo please"}
-            errors={errors}
-          />
+          /> */}
           <button
             className="mt-4 w-full text-light bg-dark/80 hover:bg-dark shadow shadow-dark/50 hover:shadow-dark/50 hover:shadow-md py-3 px-6 font-semibold text-md rounded"
             type="submit"

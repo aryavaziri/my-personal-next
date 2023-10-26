@@ -2,29 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default function Home() {
-  // const fetchData = async () => {
-  //   try {
-  //     await fetch(`http://localhost:3000/api/lists`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZjMzM2VmODg1ZjljNmVkZTM1ODk4YyIsImlhdCI6MTY5Mzg0NTkwNCwiZXhwIjoxNjk0NzA5OTA0fQ.MC7OgffHGeWXH69jPByFO4WovqxaRm970IByyYwk6O0`,
-  //       },
-  //       body: JSON.stringify({ title: "ARYA" }),
-  //     })
-  //       .then((res) => {
-  //         if (!res.ok) {
-  //           throw new Error("Not OK");
-  //         }
-  //         return res.json();
-  //       })
-  //       .then((data) => {
-  //         console.log(data);
-  //       });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
   return (
     <>
       <div
@@ -205,13 +182,13 @@ export default function Home() {
         </h3>
         <div className="flex justify-center mx-auto  text-lg my-6 gap-4">
           <Link
-            className="bg-black/10 dark:bg-light/20 backdrop-blur rounded px-4 py-1 shadow-lg"
+            className="bg-black/10 dark:bg-light/20 hover:bg-black/20 dark:hover:bg-light/40 backdrop-blur rounded px-4 py-1 shadow-lg"
             href={`/projects`}
           >
             See my projects
           </Link>
           <Link
-            className="bg-black/10 dark:bg-light/20 backdrop-blur rounded px-4 py-1 shadow-lg"
+            className="bg-black/10 dark:bg-light/20 hover:bg-black/20 dark:hover:bg-light/40 backdrop-blur rounded px-4 py-1 shadow-lg"
             href={`/about`}
           >
             <span>More about me</span>

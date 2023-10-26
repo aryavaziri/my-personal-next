@@ -15,7 +15,6 @@ const resolvers = {
       }
       return user;
     },
-    lists: async () => await List.find({}),
     projects: async () => await Project.find({}),
     uploads: () => "Hello uploads",
   },
@@ -32,56 +31,32 @@ const resolvers = {
       }
     },
     addProject: async (root, args, contextValue) => {
-      args.media[0];
+      console.log("HI")
+      // args.media[0];
+      const tech = args.project.tech.split(';').map(item => item.trim())
+
       return Project.create({
-        title: args.title,
-        link: args.link,
-        src: args.src,
-        dev: args.dev,
+        title: args.project.title,
+        link: args.project.link,
+        src: args.project.src,
+        tech: tech,
       });
     },
 
-    addList: async (root, args, contextValue) => {
-      const list = await List.findOne({
-        title: args.title,
-        author: contextValue.req.user._id,
-      }).populate("items");
-      if (list) {
-        console.log("list exists");
-        return list;
-      }
-      return List.create({
-        title: args.title,
-        author: contextValue.req.user._id,
-      });
-    },
-    addItem: async (root, args, contextValue) => {
-      const list = await List.findById(args.list).populate("items");
-      if (list) {
-        let item = await Item.findById(
-          list.items
-            .filter((item) => {
-              return item.title === args.title;
-            })
-            .map((item) => {
-              return item._id;
-            })[0]?._id
-        );
-        if (item) {
-          item.quantity += 1;
-          await item.save();
-          console.log("item exists. Quantity updated");
-          return await List.findById(args.list).populate("items");
-        } else {
-          item = await Item.create({
-            title: args.title,
-            author: contextValue.req.user._id,
-          });
-          list.items.push(item);
-          return list.save();
-        }
-      }
-    },
+    // addList: async (root, args, contextValue) => {
+    //   const list = await List.findOne({
+    //     title: args.title,
+    //     author: contextValue.req.user._id,
+    //   }).populate("items");
+    //   if (list) {
+    //     console.log("list exists");
+    //     return list;
+    //   }
+    //   return List.create({
+    //     title: args.title,
+    //     author: contextValue.req.user._id,
+    //   });
+    // }
   },
 };
 export default resolvers;

@@ -9,6 +9,7 @@ import {
   ApolloNextAppProvider,
   NextSSRInMemoryCache,
   SSRMultipartLink,
+  NextSSRApolloClient,
 } from "@apollo/experimental-nextjs-app-support/ssr";
 
 function makeClient() {
