@@ -13,11 +13,6 @@ const SketchComponent = dynamic(() => import("@components/Sketch8"));
 const BG = ({ children }) => {
   const { resolvedTheme } = useTheme();
   const pathname = usePathname();
-  useEffect(() => {
-    console.log(pathname);
-  }, []);
-
-  const myContext = useContext(Context);
   return (
     <div>
       {pathname !== "/" && (
