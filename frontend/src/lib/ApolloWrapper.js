@@ -1,4 +1,5 @@
 "use client";
+import { onError } from '@apollo/client/link/error';
 
 import {
   ApolloLink,
@@ -10,12 +11,29 @@ import {
   SSRMultipartLink,
   NextSSRApolloClient,
 } from "@apollo/experimental-nextjs-app-support/ssr";
+import createUploadLink from "apollo-upload-client/createUploadLink.mjs";
 
 function makeClient() {
-  const httpLink = new HttpLink({
-      uri: "http://localhost:3000/graphql",
-  });
-
+  // const httpLink = new HttpLink({
+    //     uri: "http://localhost:3000/graphql",
+    // });
+    const httpLink = createUploadLink({ uri: "http://localhost:3000/graphql" ,headers: {"Apollo-Require-Preflight": "true"}});
+    
+    const errorLink = onError(({ graphQLErrors, networkError }) => {
+      if (graphQLErrors) {
+        graphQLErrors.forEach(({ message, locations, path }) => {
+          console.error(
+            `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+          );
+          // You can also display the error message in your UI here
+        });
+      }
+      if (networkError) {
+        console.error(`[Network error]: ${networkError}`);
+        // You can also display the network error message in your UI here
+      }
+    });
+    
   return new NextSSRApolloClient({
     cache: new NextSSRInMemoryCache(),
     link:
@@ -24,9 +42,10 @@ function makeClient() {
             new SSRMultipartLink({
               stripDefer: true,
             }),
+            errorLink,
             httpLink,
           ])
-        : httpLink,
+        : ApolloLink.from([errorLink,httpLink]),
   });
 }
 

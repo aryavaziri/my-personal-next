@@ -2,6 +2,7 @@ import { User } from "../models/user.js";
 import { Project } from "../models/project.js";
 import { List, Item } from "../models/list.js";
 import GraphQLUpload from "graphql-upload/GraphQLUpload.mjs";
+import fs from 'fs';
 
 const resolvers = {
   Upload: GraphQLUpload,
@@ -19,27 +20,37 @@ const resolvers = {
     uploads: () => "Hello uploads",
   },
   Mutation: {
-    singleUpload: async (parent, {file}) => {
-      console.log("HI")
-      try {
-        console.log("HI")
-        const file2 = await file;
-        console.log(file2);
-        return "OKKKK";
-      } catch (error) {
-        console.log(error);
-      }
+    uploadFile: async (parent, { file }) => {
+      const { createReadStream, filename, mimetype, encoding } = await file;
+      const stream = createReadStream();
+      const path = `/app/uploads/${filename}`;
+      return new Promise((resolve, reject) => {
+        stream
+          .on('error', (error) => {
+            if (stream.truncated)
+              fs.unlinkSync(path);
+            reject(error);
+          })
+          .pipe(fs.createWriteStream(path))
+          .on('error', (error) => reject(error))
+          .on('finish', () => resolve({ filename, mimetype, encoding }));
+      });
     },
+    
     addProject: async (root, args, contextValue) => {
-      console.log("HI")
-      // args.media[0];
+      console.log("PROJECT")
       const tech = args.project.tech.split(';').map(item => item.trim())
-
+      let video = false
+      if(args.extention.toLowerCase()===".mov" ||args.extention.toLowerCase()===".mp4" || args.extention.toLowerCase()===".mkv"){
+        video = true 
+      }
       return Project.create({
         title: args.project.title,
         link: args.project.link,
         src: args.project.src,
         tech: tech,
+        extention: args.extention,
+        video: video
       });
     },
 

@@ -12,8 +12,8 @@ const projectSchema = new Schema(
       require: true,
     },
     video: {
-        type: Boolean,
-        default: false,
+      type: Boolean,
+      default: false,
     },
     src: {
       type: String,
@@ -21,6 +21,9 @@ const projectSchema = new Schema(
     },
     tech: {
       type: [String],
+    },
+    extention: {
+      type: String,
     }
   },
   { timestamps: true }

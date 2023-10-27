@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import ProjectCard from "@components/ProjectCard";
+export const dynamic = "force-dynamic";
 
 const fetchData = async () => {
   const response = await fetch(`http://localhost:3000/graphql`, {

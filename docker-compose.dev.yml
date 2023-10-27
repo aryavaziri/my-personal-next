@@ -1,32 +1,50 @@
-version: '3'
-
+version: '3.7'
 services:
-  next-app:
-    container_name: frontendDEV
+  nginx:
+    build:
+      context: ./nginx/
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./v1:/var/www/old_website
+      - ./nginx:/etc/nginx/conf.d
+      - /etc/letsencrypt:/etc/letsencrypt
+    depends_on:
+      - frontend
+  frontend:
+    container_name: frontend
     build:
       context: ./frontend
       dockerfile: dev.Dockerfile
-
+    volumes:
+      - ./frontend:/app/frontend
+      - /app/frontend/node_modules/
+      - uploads:/app/frontend/public/uploads
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
     env_file:
       - .env
-    volumes:
-      - ./frontend/src:/app/src
-      - ./frontend/public:/app/public
-    # volumes:
-    #   - ./frontend:/app
     restart: always
     ports:
-      - 4000:4000
+      - 4000:3000
+    depends_on:
+      - backend
   backend:
     container_name: backend
     build:
       context: ./backend
       dockerfile: Dockerfile
-
+    volumes:
+      - ./backend:/app/backend
+      - /app/backend/node_modules
+      - uploads:/app/uploads
     env_file:
       - .env
-    # volumes:
-    #   - ./backend:/backend
     restart: always
     ports:
       - 3000:3000
+volumes:
+  uploads:

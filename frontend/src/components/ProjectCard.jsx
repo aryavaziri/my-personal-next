@@ -8,23 +8,32 @@ import { gql, useMutation } from "@apollo/client";
 export const dynamic = "force-dynamic";
 
 const MUTATION = gql`
-mutation AddProject($project: ProjectInput!) {
-  addProject(project: $project) {
+mutation AddProject($project: ProjectInput!, $extention: String!) {
+  addProject(project: $project, extention: $extention) {
     _id
-    title
-    tech
+    extention
   }
 }`;
 
+const UPLOAD_FILE = gql`
+  mutation UploadFile($file: Upload!) {
+    uploadFile(file: $file){filename}
+  }
+`;
+
+
 const ProejctCard = ({ item }) => {
   const { register, control, handleSubmit, watch, formState: { errors }, } = useForm();
-  const [fetchData, { data, loading, error }] = useMutation(MUTATION);
-  const onSubmit = async (data2) => {
+  const [fetchData] = useMutation(MUTATION);
+  const [uploadFile] = useMutation(UPLOAD_FILE);
+  const onSubmit = async (payload) => {
     try {
-      console.log(data2);
-      const arya = await fetchData({ variables: { project: data2 } });
-      // console.log(arya);
-      // console.log(data, error, loading)
+      const { media, ...rest } = payload
+      const fileExtension = media[0].name.substring(media[0].name.lastIndexOf('.'));
+      const { data } = await fetchData({ variables: { project: rest , extention: fileExtension} });
+      console.log(data)
+      const newFile = new File([media[0]], data.addProject._id + fileExtension, { type: media[0].type })
+      await uploadFile({ variables: { file: newFile } });
     } catch (e) {
       console.log(e);
     }
@@ -56,12 +65,12 @@ const ProejctCard = ({ item }) => {
           label="title"
           autoFocus
           control={control}
-          required
+        // required
         />
         <Input
           name="link"
           label="link"
-          required={`Please fill this field...`}
+          // required={`Please fill this field...`}
           control={control}
         />
         <Input
@@ -70,14 +79,10 @@ const ProejctCard = ({ item }) => {
           placeholder="add techs you used. seperate with ;"
           control={control}
         />
-        {/* <Input
-            control={control}
-            type={"file"}
-            name="media"
-            label="media"
-            placeholder="Media Place Holder"
-            required={"Add a photo please"}
-          /> */}
+        <input
+          {...register('media',{required:true})}
+          type="file"
+        />
         <button
           className="mt-4 w-full text-light bg-dark/80 hover:bg-dark shadow shadow-dark/50 hover:shadow-dark/50 hover:shadow-md py-3 px-6 font-semibold text-md rounded"
           type="submit"

@@ -13,7 +13,7 @@
     "@apollo/experimental-nextjs-app-support": "^0.4.3",
     "@p5-wrapper/next": "^0.2.0",
     "@p5-wrapper/react": "latest",
-    "apollo-upload-client": "^17.0.0",
+    "apollo-upload-client": "^18.0.0",
     "autoprefixer": "10.4.15",
     "graphql": "^16.8.1",
     "next": "13.4.19",

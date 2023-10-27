@@ -5,6 +5,7 @@ type Project {
   video: Boolean
   src: String!
   tech: [String]
+  extention: String!
 }
 
 type User {
@@ -16,9 +17,11 @@ type User {
 }
 
 type File {
-  url: String!
-}
-
+    filename: String!
+    mimetype: String!
+    encoding: String!
+  }
+  
 scalar Upload
 
 type Query {
@@ -37,6 +40,6 @@ input ProjectInput {
 
 
 type Mutation {
-  singleUpload(file: Upload!): String!
-  addProject(project:ProjectInput!): Project
+  uploadFile(file: Upload!): File!
+  addProject(project:ProjectInput!, extention:String!): Project
 }

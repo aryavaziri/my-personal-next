@@ -19,22 +19,23 @@ const typeDefs = gql(
   readFileSync("./graphql/schema.graphql", {
     encoding: "utf-8",
   })
-);
-
-const server = new ApolloServer({
-  schema: buildSubgraphSchema({ typeDefs, resolvers }),
-});
-await server.start();
-
-app.use(graphqlUpload());
-app.use(cors());
-app.use(express.json({ limit: '10mb' }));
-
+  );
+  
+  const server = new ApolloServer({
+    schema: buildSubgraphSchema({ typeDefs, resolvers,csrfPrevention: true, cache: 'bounded' }),
+    uploads: true
+  });
+  await server.start();
+  
+  app.use('/static',cors(), express.static('uploads'))
 app.use(authRoutes);
 app.use("/api", listRoutes);
 app.use(
   "/graphql",
   // isAuth,
+  express.json(),
+  cors(),
+  graphqlUpload({ maxFileSize: 10000000, maxFiles: 10 }),
   expressMiddleware(server, { context: async ({ req, res }) => ({ req, res }) })
 );
 

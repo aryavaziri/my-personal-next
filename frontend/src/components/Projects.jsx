@@ -1,49 +1,44 @@
 "use client";
-import dynamic from "next/dynamic";
+// import dynamic from "next/dynamic";
 import { useState, useContext, useEffect } from "react";
 import { isMobile } from "react-device-detect";
 import { ProjectItem, ProjectMedia } from "@components/ProjectItem";
+import { useSuspenseQuery } from "@apollo/experimental-nextjs-app-support/ssr"
+import { gql } from "@apollo/client";
+
+const PROJECTS = gql`query {projects{_id title tech link video extention}}`
 
 
 const Projects = () => {
-  const items = dynamic(async () => {
-
-    const response = await fetch(`http://localhost:3000/graphql`, {
-        method: "POST",
-        cache: "no-store",
-        headers: {
-          "Content-Type": "application/json",
-          // authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZjMzM2VmODg1ZjljNmVkZTM1ODk4YyIsImlhdCI6MTY5Mzg0NTkwNCwiZXhwIjoxNjk0NzA5OTA0fQ.MC7OgffHGeWXH69jPByFO4WovqxaRm970IByyYwk6O0`,
-        },
-        body: JSON.stringify({
-          query: `{ projects { title dev link src } }`,
-        }),
-      })
-      const data = await response.json()
-      return data
-    })
-
-  console.log(items);
+  const {data} = useSuspenseQuery(PROJECTS)
   const [hoveredItem, setHoveredItem] = useState(null);
 
   return (
     <>
       <div
-        className={`${
-          isMobile
+        className={`${isMobile
             ? `top-28 w-[95%] sm:w-[90%] max-md:inset-x-0 `
             : `top-[30vh] h-[70vh]  md:w-2/5 pl-2 sm:pl-20 md:pl-36 lg:pl-56`
-        } 
+          } 
         fixed mx-auto overflow-y-scroll noscroll-bar flex`}
       >
         <div
-          className={`${
-            isMobile
+          className={`${isMobile
               ? `grid gap-16 md:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3`
               : `w-full`
-          } noscroll-bar`}
+            } noscroll-bar`}
         >
-          {/* <button onClick={() => fetchData()}>FETCH</button> */}
+          {data?.projects && data.projects.map(item => (
+            <ProjectItem
+            setHoveredItem={setHoveredItem}
+            item={item}
+            key={item._id}
+            />
+          ))}
+          {/* <ProjectItem
+            setHoveredItem={setHoveredItem}
+            item={data.projects[1]}
+          />
           <ProjectItem
             setHoveredItem={setHoveredItem}
             item={{
@@ -133,7 +128,7 @@ const Projects = () => {
               src: "/images/2048.MOV",
               video: true,
             }}
-          />
+          /> */}
         </div>
       </div>
       {!isMobile && hoveredItem && (

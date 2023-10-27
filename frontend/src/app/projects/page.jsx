@@ -1,4 +1,5 @@
 import Projects from "@components/Projects";
+export const dynamic = "force-dynamic";
 
 async function page() {
 
