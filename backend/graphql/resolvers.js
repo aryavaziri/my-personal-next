@@ -23,7 +23,7 @@ const resolvers = {
     uploadFile: async (parent, { file }) => {
       const { createReadStream, filename, mimetype, encoding } = await file;
       const stream = createReadStream();
-      const path = `/app/uploads/${filename}`;
+      const path = `/app/backend/public/${filename}`;
       return new Promise((resolve, reject) => {
         stream
           .on('error', (error) => {
@@ -33,7 +33,8 @@ const resolvers = {
           })
           .pipe(fs.createWriteStream(path))
           .on('error', (error) => reject(error))
-          .on('finish', () => resolve({ filename, mimetype, encoding }));
+          // .on('finish', () => resolve({ filename, mimetype, encoding }))
+          .on('finish', () => resolve("OK"))
       });
     },
     

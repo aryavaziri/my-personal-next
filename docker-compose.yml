@@ -24,8 +24,6 @@ services:
     restart: always
     ports:
       - 4000:3000
-    volumes:
-      - uploads:/app/frontend/public/uploads
 
     depends_on:
       - backend
@@ -34,12 +32,8 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    volumes:
-      - uploads:/app/uploads
     env_file:
       - .env
     restart: always
     ports:
       - 3000:3000
-volumes:
-  uploads:

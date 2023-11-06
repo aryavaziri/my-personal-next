@@ -11,7 +11,7 @@ import { ApolloServer } from "@apollo/server";
 import { buildSubgraphSchema } from "@apollo/subgraph";
 import { expressMiddleware } from "@apollo/server/express4";
 import resolvers from "./graphql/resolvers.js";
-import  graphqlUpload  from "graphql-upload/graphqlUploadExpress.mjs";
+import graphqlUpload from "graphql-upload/graphqlUploadExpress.mjs";
 
 const app = express();
 
@@ -19,22 +19,27 @@ const typeDefs = gql(
   readFileSync("./graphql/schema.graphql", {
     encoding: "utf-8",
   })
-  );
-  
-  const server = new ApolloServer({
-    schema: buildSubgraphSchema({ typeDefs, resolvers,csrfPrevention: true, cache: 'bounded' }),
-    uploads: true
-  });
-  await server.start();
-  
-  app.use('/static',cors(), express.static('uploads'))
+);
+
+const server = new ApolloServer({
+  schema: buildSubgraphSchema({ typeDefs, resolvers, cache: 'bounded' }),
+  uploads: true
+});
+await server.start();
+// app.use((req, res, next) => {
+//   console.log(req)
+//   next()
+// })
+
+// app.use(cors());
+app.use(cors({ origin: ['https://www.aryav.nl', 'http://localhost', 'https://aryav.nl'], methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', credentials: true }));
+app.use('/static', express.static('public'))
 app.use(authRoutes);
 app.use("/api", listRoutes);
 app.use(
   "/graphql",
   // isAuth,
   express.json(),
-  cors(),
   graphqlUpload({ maxFileSize: 10000000, maxFiles: 10 }),
   expressMiddleware(server, { context: async ({ req, res }) => ({ req, res }) })
 );

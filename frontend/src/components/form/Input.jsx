@@ -1,10 +1,8 @@
 "use client";
-import { useController, useForm } from "react-hook-form";
+import { useController } from "react-hook-form";
 import React from "react";
 
 const Input = ({ name, label, type, placeholder, autoFocus, required, control }) => {
-
-  // const { register, watch, formState: { errors } } = useForm()
   const {
     field: { ref, ...inputProps },
     fieldState: { error },
@@ -27,19 +25,17 @@ const Input = ({ name, label, type, placeholder, autoFocus, required, control })
         <input
           {...inputProps}
           ref={ref}
-
-          // {...register(name, { required: required })}
-          placeholder={type !== "file" ? placeholder || name:""}
+          placeholder={type !== "file" ? placeholder || name : ""}
           autoFocus={autoFocus}
           className="py-1 px-2 flex-1 shadow bg-white/60 dark:bg-black/40 rounded"
           id={name}
           type={type || "text"}
         />
-
       </div>
       {error && (
         <span className="text-danger text-sm ml-12">
           {error.message || "This field is required"}
+          {console.log(error)}
         </span>
       )}
     </div>

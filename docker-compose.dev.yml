@@ -21,7 +21,6 @@ services:
     volumes:
       - ./frontend:/app/frontend
       - /app/frontend/node_modules/
-      - uploads:/app/frontend/public/uploads
     environment:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
@@ -40,11 +39,8 @@ services:
     volumes:
       - ./backend:/app/backend
       - /app/backend/node_modules
-      - uploads:/app/uploads
     env_file:
       - .env
     restart: always
     ports:
       - 3000:3000
-volumes:
-  uploads:

@@ -3,13 +3,15 @@ import React, { useState, useContext, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Context } from "@app/Provider";
 import Icon from "@components/Icon";
-import { BiChevronRight } from "react-icons/bi";
+import { BiChevronRight, BiDotsVerticalRounded, BiEditAlt, BiX, BiInfoCircle } from "react-icons/bi";
 import { isMobile } from "react-device-detect";
 import Image from "next/image";
+import Popup from "@components/Popup";
 
 export const ProjectItem = ({ item, setHoveredItem }) => {
   const myContext = useContext(Context);
   const [isHover, setIsHover] = useState(false);
+  const [details, setDetails] = useState(false);
   const handleMouseEnter = () => {
     setHoveredItem(item);
     setIsHover(true);
@@ -18,6 +20,7 @@ export const ProjectItem = ({ item, setHoveredItem }) => {
   const handleMouseLeave = () => {
     setHoveredItem(null);
     setIsHover(false);
+    setDetails(false)
   };
 
   return (
@@ -29,7 +32,7 @@ export const ProjectItem = ({ item, setHoveredItem }) => {
     >
       {isMobile && <ProjectMedia item={item} />}
       <div
-        className={`flex flex-row relative h-18 justify-between ${isMobile
+        className={`flex flex-row relative h-18 justify-between w-full ${isMobile
           ? `rounded-b-[30px] p-4 border-b project-item-mobile`
           : ` `
           } project-item content-start border-b-2 border-current `}
@@ -38,26 +41,30 @@ export const ProjectItem = ({ item, setHoveredItem }) => {
           <div className="w-10 overflow-hidden flex items-center max-sm:hidden">
             <BiChevronRight className="" />
           </div>
-          <div>{item.title}</div>
+          <div className={``} >{item.title}</div>
         </div>
-        {/* <div className="text-2xl right h-8 self-end justify-self-end">
-            {item.dev}
-          </div> */}
-        <div className="absolute ic right-[250%] py-3 h-12 flex flex-row-reverse" >
+        <div className="absolute ic right-[250%] py-3 h-12 flex flex-row-reverse gap-1" >
           {!isMobile && item.tech?.map(tech => {
             return <Icon key={tech} item={tech} />
           })}
-          {/* <Icon item={"p5js"} />
-          <Icon item={"react"} />
-          <Image
-                alt="js"
-                src="logo/js.svg"
-                // fill
-                width="30"
-                height="0"
-                sizes="100vw"
-                style={{ width: "auto", height: "80%" }}
-              /> */}
+        </div>
+
+        <div className={`absolute ic2 right-[-2500px] py-3 h-12 flex`}  onClick={(e) => { e.preventDefault()}} >
+          {!details ?
+            <button className={`h-full right-0 absolute top-0`} onClick={(e) => { e.preventDefault(); setDetails((prev) => { return !prev }) }} >
+              <BiDotsVerticalRounded className={`text-xl`} />
+            </button>
+            :
+            <div className={`absolute h-full right-2 grid grid-cols-3 gap-2 place-items-center text-xl`} >
+              <button className={`hover:text-2xl w-4 hover:text-sky-400`}><BiInfoCircle /></button>
+              <button className={`hover:text-2xl w-4 hover:text-green-400`}><BiEditAlt /></button>
+              <button className={`hover:text-2xl w-4 hover:text-rose-400`}>
+                <Popup placeholder={<BiX />} className={`z-[5]`} >
+                  <div onClick={()=>{close}}>cancel or close</div>
+                </Popup>
+              </button>
+            </div>
+          }
         </div>
       </div>
     </Link>
@@ -67,7 +74,6 @@ export const ProjectItem = ({ item, setHoveredItem }) => {
 export const ProjectMedia = ({ item }) => {
   const videoRef = useRef();
   useEffect(() => {
-    // console.log(item);
     videoRef.current?.load();
   }, [item]);
   if (!item) {
@@ -84,13 +90,13 @@ export const ProjectMedia = ({ item }) => {
       muted
       playsInline
     >
-      <source src={`/uploads/${item._id}${item.extention}`} alt={item.title} type="video/mp4" />
+      <source src={`http://localhost:3000/static/${item._id}${item.extention}`} alt={item.title} type="video/mp4" />
     </video>
   ) : (
     <img
       className={` object-cover aspect-video ${isMobile ? `rounded-tr-[30px] w-full` : `w-full`
         } rounded-tl-[30px] `}
-      src={`/uploads/${item._id}${item.extention}`}
+      src={`http://localhost:3000/static/${item._id}${item.extention}`}
       alt={item.title}
     />
   );
