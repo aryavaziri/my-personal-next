@@ -12,12 +12,11 @@ import { AiOutlineClose } from "react-icons/ai";
 const PROJECTS = gql`query {projects{_id title tech link video extention}}`
 
 
-const Projects = () => {
+const Projects2 = () => {
 
   const { data } = useQuery(PROJECTS)
   const [hoveredItem, setHoveredItem] = useState(null);
   const [active, setActive] = useState(false)
-  console.log(data)
 
   return (
     <>
@@ -67,4 +66,4 @@ const Projects = () => {
   );
 };
 
-export default Projects;
+export default Projects2;

@@ -16,7 +16,7 @@ const resolvers = {
       }
       return user;
     },
-    projects: async () => await Project.find({}),
+    projects: async () => { console.log("ARYA"); return await Project.find({}) },
     uploads: () => "Hello uploads",
   },
   Mutation: {
@@ -37,13 +37,13 @@ const resolvers = {
           .on('finish', () => resolve("OK"))
       });
     },
-    
+
     addProject: async (root, args, contextValue) => {
       console.log("PROJECT")
       const tech = args.project.tech.split(';').map(item => item.trim())
       let video = false
-      if(args.extention.toLowerCase()===".mov" ||args.extention.toLowerCase()===".mp4" || args.extention.toLowerCase()===".mkv"){
-        video = true 
+      if (args.extention.toLowerCase() === ".mov" || args.extention.toLowerCase() === ".mp4" || args.extention.toLowerCase() === ".mkv") {
+        video = true
       }
       return Project.create({
         title: args.project.title,

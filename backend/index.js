@@ -14,6 +14,10 @@ import resolvers from "./graphql/resolvers.js";
 import graphqlUpload from "graphql-upload/graphqlUploadExpress.mjs";
 
 const app = express();
+// app.use((req, res, next) => {
+//   console.log(req)
+//   next()
+// })
 
 const typeDefs = gql(
   readFileSync("./graphql/schema.graphql", {
@@ -26,10 +30,6 @@ const server = new ApolloServer({
   uploads: true
 });
 await server.start();
-// app.use((req, res, next) => {
-//   console.log(req)
-//   next()
-// })
 
 // app.use(cors());
 app.use(cors({ origin: ['https://www.aryav.nl', 'http://localhost', 'https://aryav.nl'], methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', credentials: true }));
