@@ -2,6 +2,9 @@ import Projects from "@components/Projects";
 export const dynamic = "force-dynamic";
 
 async function page() {
+  const res = await fetch(`http://frontend:3000/api/getprojects`)
+  const data = await res.json()
+  console.log(data)
 
   return (
     <div className={`relative h-screen w-screen overflow-hidden `}>
@@ -9,8 +12,9 @@ async function page() {
         <h1 className="whitespace-nowrap pb-2 border-b-4 border-current w-min mb-4">
           Projects
         </h1>
+        <div>{data.data} arya</div>
       </div>
-      <Projects />
+      {/* <Projects data={data} /> */}
     </div>
   );
 }

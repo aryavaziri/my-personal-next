@@ -49,7 +49,7 @@ export const ProjectItem = ({ item, setHoveredItem }) => {
           })}
         </div>
 
-        <div className={`absolute ic2 right-[-2500px] py-3 h-12 flex`}  onClick={(e) => { e.preventDefault()}} >
+        <div className={`absolute ic2 right-[-2500px] py-3 h-12 flex`} onClick={(e) => { e.preventDefault() }} >
           {!details ?
             <button className={`h-full right-0 absolute top-0`} onClick={(e) => { e.preventDefault(); setDetails((prev) => { return !prev }) }} >
               <BiDotsVerticalRounded className={`text-xl`} />
@@ -60,7 +60,7 @@ export const ProjectItem = ({ item, setHoveredItem }) => {
               <button className={`hover:text-2xl w-4 hover:text-green-400`}><BiEditAlt /></button>
               <button className={`hover:text-2xl w-4 hover:text-rose-400`}>
                 <Popup placeholder={<BiX />} className={`z-[5]`} >
-                  <div onClick={()=>{close}}>cancel or close</div>
+                  <div onClick={() => { close }}>cancel or close</div>
                 </Popup>
               </button>
             </div>
@@ -90,13 +90,13 @@ export const ProjectMedia = ({ item }) => {
       muted
       playsInline
     >
-      <source src={`http://localhost:3000/static/${item._id}${item.extention}`} alt={item.title} type="video/mp4" />
+      <source src={`/static/${item._id}${item.extention}`} alt={item.title} type="video/mp4" />
     </video>
   ) : (
     <img
       className={` object-cover aspect-video ${isMobile ? `rounded-tr-[30px] w-full` : `w-full`
         } rounded-tl-[30px] `}
-      src={`http://localhost:3000/static/${item._id}${item.extention}`}
+      src={`http://backend:3000/static/${item._id}${item.extention}`}
       alt={item.title}
     />
   );

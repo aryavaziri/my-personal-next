@@ -3,21 +3,16 @@ import { useState, useContext, useEffect } from "react";
 import Link from "next/link";
 import { isMobile } from "react-device-detect";
 import { ProjectItem, ProjectMedia } from "@components/ProjectItem";
-import { useSuspenseQuery, useQuery } from "@apollo/experimental-nextjs-app-support/ssr"
-import { gql } from "@apollo/client";
 import ProjectCard from "./ProjectCard"
 import { AiOutlineClose } from "react-icons/ai";
 
 
-const PROJECTS = gql`query {projects{_id title tech link video extention}}`
 
 
-const Projects = () => {
+const Projects = ({ data }) => {
 
-  const { data } = useQuery(PROJECTS)
   const [hoveredItem, setHoveredItem] = useState(null);
   const [active, setActive] = useState(false)
-  console.log(data)
 
   return (
     <>

@@ -14,7 +14,7 @@ const Nav = () => {
   const pathname = usePathname();
   const [toggle, setToggle] = useState(false);
   const myContext = useContext(Context);
-  console.log(myContext);
+  // console.log(myContext);
   return (
     <div
       onClick={() => {
@@ -22,18 +22,16 @@ const Nav = () => {
           myContext.toggleMenu();
         }
       }}
-      className={`fixed w-screen px-4 sm:px-20 md:px-36 lg:px-56 pt-6 sm:pt-12 z-20 text-dark dark:text-light  ${
-        myContext.menu
+      className={`fixed w-screen px-4 sm:px-20 md:px-36 lg:px-56 pt-6 sm:pt-12 z-20 text-dark dark:text-light  ${myContext.menu
           ? " h-screen backdrop-blur-md dark:bg-black/60 bg-white/40 "
           : "backdrop-blur-[0px]"
-      }`}
+        }`}
     >
       <div className="flex justify-between h-[40px]">
         <Link href={`/`}>
           <Image
-            className={`max-sm:opacity-0 ${
-              (pathname === "/" || myContext?.menu) && "max-sm:opacity-100 "
-            } h-full py-1 w-min object-fill`}
+            className={`max-sm:opacity-0 ${(pathname === "/" || myContext?.menu) && "max-sm:opacity-100 "
+              } h-full py-1 w-min object-fill`}
             alt="LOGO"
             src={Logo}
           />
@@ -54,11 +52,9 @@ const Nav = () => {
         <div className="bg-aryaBorder1/80 w-[5px] my-8" />
         <ul className="flex-1 pl-8">
           <li
-            className={`text-5xl md:text-6xl ${
-              myContext.menu ? "menu-item-show my-8 mt-8" : "my-0"
-            } ${
-              myContext.title === "Welcome" ? "text-orange-400" : ""
-            }  font-extrabold`}
+            className={`text-5xl md:text-6xl ${myContext.menu ? "menu-item-show my-8 mt-8" : "my-0"
+              } ${myContext.title === "Welcome" ? "text-orange-400" : ""
+              }  font-extrabold`}
           >
             <Link
               className={`${myContext.menu ? "delay-100" : "delay-300"} `}
@@ -68,11 +64,9 @@ const Nav = () => {
             </Link>
           </li>
           <li
-            className={`text-5xl md:text-6xl ${
-              myContext.menu ? "menu-item-show my-8" : "my-0"
-            } ${
-              myContext.title === "Projects" ? "text-orange-400" : ""
-            }  font-extrabold`}
+            className={`text-5xl md:text-6xl ${myContext.menu ? "menu-item-show my-8" : "my-0"
+              } ${myContext.title === "Projects" ? "text-orange-400" : ""
+              }  font-extrabold`}
           >
             <Link
               className={`${myContext.menu ? "delay-200" : "delay-200"} `}
@@ -82,11 +76,9 @@ const Nav = () => {
             </Link>
           </li>
           <li
-            className={`text-5xl md:text-6xl ${
-              myContext.menu ? "menu-item-show my-8" : "my-0"
-            } ${
-              myContext.title === "About" ? "text-orange-400" : ""
-            }  font-extrabold`}
+            className={`text-5xl md:text-6xl ${myContext.menu ? "menu-item-show my-8" : "my-0"
+              } ${myContext.title === "About" ? "text-orange-400" : ""
+              }  font-extrabold`}
           >
             <Link
               className={`${myContext.menu ? "delay-300" : "delay-100"} `}
@@ -96,11 +88,9 @@ const Nav = () => {
             </Link>
           </li>
           <li
-            className={`text-5xl md:text-6xl ${
-              myContext.menu ? "menu-item-show my-8 " : "my-0"
-            } ${
-              myContext.title === "Contact" ? "text-orange-400" : ""
-            }  font-extrabold`}
+            className={`text-5xl md:text-6xl ${myContext.menu ? "menu-item-show my-8 " : "my-0"
+              } ${myContext.title === "Contact" ? "text-orange-400" : ""
+              }  font-extrabold`}
           >
             <Link
               className={`${myContext.menu ? "delay-400" : ""} `}

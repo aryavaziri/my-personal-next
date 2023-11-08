@@ -31,8 +31,8 @@ const server = new ApolloServer({
 });
 await server.start();
 
-// app.use(cors());
-app.use(cors({ origin: ['https://www.aryav.nl', 'http://localhost', 'https://aryav.nl'], methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', credentials: true }));
+app.use(cors());
+// app.use(cors({ origin: ['https://www.aryav.nl', 'http://localhost', 'https://aryav.nl'], methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', credentials: true }));
 app.use('/static', express.static('public'))
 app.use(authRoutes);
 app.use("/api", listRoutes);
