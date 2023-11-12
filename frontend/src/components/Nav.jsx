@@ -22,9 +22,9 @@ const Nav = () => {
           myContext.toggleMenu();
         }
       }}
-      className={`fixed w-screen px-4 sm:px-20 md:px-36 lg:px-56 pt-6 sm:pt-12 z-20 text-dark dark:text-light  ${myContext.menu
-          ? " h-screen backdrop-blur-md dark:bg-black/60 bg-white/40 "
-          : "backdrop-blur-[0px]"
+      className={`fixed w-screen px-4 sm:px-20 md:px-36 lg:px-56 pt-6 sm:pt-12 z-40 text-dark dark:text-light  ${myContext.menu
+        ? " h-screen backdrop-blur-md dark:bg-black/60 bg-white/40 "
+        : "backdrop-blur-[0px]"
         }`}
     >
       <div className="flex justify-between h-[40px]">

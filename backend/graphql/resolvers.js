@@ -23,7 +23,7 @@ const resolvers = {
     uploadFile: async (parent, { file }) => {
       const { createReadStream, filename, mimetype, encoding } = await file;
       const stream = createReadStream();
-      const path = `/app/backend/public/${filename}`;
+      const path = `/app/backend/public/projects/${filename}`;
       return new Promise((resolve, reject) => {
         stream
           .on('error', (error) => {

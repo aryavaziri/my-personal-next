@@ -5,6 +5,9 @@ import cors from "cors";
 import { readFileSync } from "fs";
 import { router as authRoutes, isAuth } from "./routes/auth.js";
 import { router as listRoutes } from "./routes/list.js";
+import { join, dirname } from "path"
+import { fileURLToPath } from 'url';
+
 
 import gql from "graphql-tag";
 import { ApolloServer } from "@apollo/server";
@@ -12,6 +15,9 @@ import { buildSubgraphSchema } from "@apollo/subgraph";
 import { expressMiddleware } from "@apollo/server/express4";
 import resolvers from "./graphql/resolvers.js";
 import graphqlUpload from "graphql-upload/graphqlUploadExpress.mjs";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 // app.use((req, res, next) => {
@@ -31,8 +37,8 @@ const server = new ApolloServer({
 });
 await server.start();
 
-app.use(cors());
-// app.use(cors({ origin: ['https://www.aryav.nl', 'http://localhost', 'https://aryav.nl'], methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', credentials: true }));
+// app.use(cors());
+app.use(cors({ origin: ['https://www.aryav.nl', 'http://localhost', 'https://aryav.nl'], methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', credentials: true }));
 app.use('/static', express.static('public'))
 app.use(authRoutes);
 app.use("/api", listRoutes);
@@ -58,6 +64,8 @@ mongoose
   .connect(process.env.DB_uri)
   .then(() => {
     console.log("Listening to port 3000...")
+    // app.use('/static', express.static(join(__dirname, 'public')));
+    // console.log(join(__dirname, 'public', 'static'))
     app.listen(3000);
   })
   .catch((err) => {

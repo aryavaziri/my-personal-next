@@ -1,8 +1,9 @@
+import { Suspense } from 'react'
 import "@app/globals.css";
 import Provider from "@app/Provider";
 import Nav from "@components/Nav";
 import BG from "@components/BG";
-// import { ApolloWrapper } from "@lib/ApolloWrapper";
+import { ApolloWrapper } from "@lib/ApolloWrapper";
 
 import { Oswald, MuseoModerno, Agdasima, Inconsolata } from "next/font/google";
 
@@ -21,12 +22,14 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body className={`${oswald.className}`}>
         <Provider>
-          {/* <ApolloWrapper> */}
-          <Nav />
-          <main className="text-dark dark:text-light">
-            <BG>{children}</BG>
-          </main>
-          {/* </ApolloWrapper> */}
+          <ApolloWrapper>
+            <Nav />
+            <main className="text-dark dark:text-light">
+              <Suspense fallback={<p>Loading...</p>}>
+                <BG>{children}</BG>
+              </Suspense>
+            </main>
+          </ApolloWrapper>
         </Provider>
       </body>
     </html>

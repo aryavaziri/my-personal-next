@@ -26,7 +26,7 @@ const page = () => {
             Let's build, explore, and create some amazing things together!
           </p>
           <div className="flex justify-center gap-12 px-2 sm:px-4 md:px-12 my-6">
-            <Link href={`/cv.pdf`} >
+            <Link href={`/static/cv.pdf`} >
             <button className="border border-current rounded-lg px-4 sm:px-6 py-2 hover:shadow-lg hover:shadow-arya2">
               Resume
             </button>

@@ -13,7 +13,7 @@ export default function Provider({ children }) {
     setMenu((menu) => !menu);
   };
   return (
-    <ThemeProvider attribute="class">
+    <ThemeProvider defaultTheme="dark" attribute="class">
       <Context.Provider
         value={{
           menu,

@@ -1,33 +1,37 @@
 "use client";
 import { useState, useContext, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { isMobile } from "react-device-detect";
 import { ProjectItem, ProjectMedia } from "@components/ProjectItem";
 import ProjectCard from "./ProjectCard"
 import { AiOutlineClose } from "react-icons/ai";
 
-
-
-
 const Projects = ({ data }) => {
-
+  const router = useRouter();
   const [hoveredItem, setHoveredItem] = useState(null);
   const [active, setActive] = useState(false)
+
+  useEffect(() => {
+    data?.projects.forEach(item => {
+      router.prefetch(`/static/projects/${item._id}${item.extention}`);
+    });
+  }, [data]);
 
   return (
     <>
       <div
         className={`${isMobile
           ? `top-28 w-[95%] sm:w-[90%] max-md:inset-x-0 `
-          : `top-[30vh] h-[70vh]  md:w-2/5 pl-2 sm:pl-20 md:pl-36 lg:pl-56`
+          : `top-[32vh] max-h-[60vh]  md:w-2/5 pl-2 sm:pl-20 md:pl-36 lg:pl-56`
           } 
-        fixed z-30 mx-auto overflow-y-scroll noscroll-bar flex`}
+        fixed z-30 mx-auto overflow-y-scroll overflow-x-clip flex noscroll-bar`}
       >
         <div
           className={`${isMobile
             ? `grid gap-16 md:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3`
             : `w-full`
-            } noscroll-bar`}
+            }  min-h-content noscroll-bar `}
         >
           {data?.projects && data.projects.map(item => (
             <ProjectItem
@@ -61,5 +65,7 @@ const Projects = ({ data }) => {
     </>
   );
 };
+
+
 
 export default Projects;
