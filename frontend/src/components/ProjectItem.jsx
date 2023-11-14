@@ -92,9 +92,9 @@ export const ProjectItem = ({ item, setHoveredItem, edit }) => {
             })}
           </div>
 
-          {myContext?.user?.isAdmin && <div className={`absolute ic2 right-[-2500px] py-3 h-12 flex`} onClick={(e) => { e.preventDefault() }} >
+          {myContext?.user?.isAdmin && <div className={`absolute ic2 right-[-2500px] py-3 h-12 flex`} >
             {!details ?
-              <button className={`h-full right-0 absolute top-0`} onClick={(e) => { e.preventDefault(); setDetails((prev) => { return !prev }) }} >
+              <button className={`h-full right-0 absolute top-0`} onClick={(e) => { e.preventDefault(); setDetails(true) }} >
                 <BiDotsVerticalRounded className={`text-xl`} />
               </button>
               :

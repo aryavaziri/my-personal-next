@@ -46,7 +46,7 @@ app.use(
   "/graphql",
   // isAuth,
   express.json(),
-  graphqlUpload({ maxFileSize: 10000000, maxFiles: 1 }),
+  graphqlUpload({ maxFileSize: 100000000, maxFiles: 10 }),
   expressMiddleware(server, { context: async ({ req, res }) => ({ req, res }) })
 );
 

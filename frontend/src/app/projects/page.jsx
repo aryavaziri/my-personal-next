@@ -2,7 +2,7 @@ import Projects from "@components/Projects";
 import { getClient } from "@lib/client";
 import { gql } from "@apollo/client";
 import { Suspense } from 'react'
-// export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 
 const PROJECTS = gql`query {projects{_id title tech link video extention}}`
 

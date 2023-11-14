@@ -22,8 +22,8 @@ function makeClient() {
   // const httpLink = new HttpLink({
   //     uri: "http://localhost:3000/graphql",
   // });
-  // const httpLink = createUploadLink({ uri: "https://www.aryav.nl:3000/graphql" ,headers: {"Apollo-Require-Preflight": "true"}});
-  const httpLink = createUploadLink({ uri: "http://localhost:3000/graphql", headers: { "Apollo-Require-Preflight": "true" } });
+  const httpLink = createUploadLink({ uri: "https://aryav.nl/graphql/", headers: { "Apollo-Require-Preflight": "true" } });
+  // const httpLink = createUploadLink({ uri: "http://localhost:3000/graphql", headers: { "Apollo-Require-Preflight": "true" } });
 
   return new NextSSRApolloClient({
     cache: new NextSSRInMemoryCache(),

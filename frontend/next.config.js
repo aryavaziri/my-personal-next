@@ -4,11 +4,15 @@
 const nextConfig = {
   // output: "export",
   output: "standalone",
-  
+
   images: {
     remotePatterns: [
       {
         hostname: "**.googleusercontent.com",
+        protocol: "https",
+      },
+      {
+        hostname: "aryav.nl",
         protocol: "https",
       },
       // {
