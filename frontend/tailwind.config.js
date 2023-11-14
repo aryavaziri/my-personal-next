@@ -15,12 +15,13 @@ module.exports = {
     extend: {
       boxShadow: {
         'center': '0 0px 0px -5px rgba(250, 250, 250, 0.3)',
+        'arya': '0 0 10px -5px',
       },
       colors: {
         arya1: "#caf0f8",
         arya2: "#cag0b8",
         arya3: "#cbf4f8",
-        danger:"#FF6969",
+        danger: "#FF6969",
         secondaryLight: "#56a020",
         secondaryDark: "#99ee88",
         arya6: "#f1f2f2",

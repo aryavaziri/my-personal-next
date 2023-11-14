@@ -34,7 +34,8 @@ const Nav = () => {
         </Link>
 
         <div className="flex gap-4 h-full" >
-          {myContext?.menu && <Auth />}
+          <Auth />
+          {/* {myContext?.menu && <Auth />} */}
           {myContext?.menu && <ThemeButton />}
           <Menu />
         </div>

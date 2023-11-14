@@ -2,62 +2,31 @@
 import Input from "@components/form/Input";
 import Link from "next/link";
 
-import { BiArrowToBottom } from "react-icons/bi";
-import { BiArrowFromBottom } from "react-icons/bi";
+import { BiArrowToBottom, BiArrowFromBottom, BiChevronRight } from "react-icons/bi";
+import { FiInstagram, FiLinkedin, FiGithub } from "react-icons/fi";
 import { MdOutlineMailOutline } from "react-icons/md";
-import { BiChevronRight } from "react-icons/bi";
-import { FiInstagram } from "react-icons/fi";
-import { FiLinkedin } from "react-icons/fi";
-import { FiGithub } from "react-icons/fi";
 import { BsTelephone } from "react-icons/bs";
+
 import { useForm, Form } from "react-hook-form";
 
 const page = () => {
-    const { register, control, handleSubmit, watch, formState: { errors }, } = useForm() 
+    const { register, control, handleSubmit, watch, formState: { errors }, } = useForm()
+
+    const onSubmit = async (payload) => {
+        console.log(payload)
+    }
 
     return (
         <div
-            className={`border-current relative max-h-screen w-screen font-custom2 px-4 sm:px-24 md:px-40 duration-500 overflow-hidden ${false ? "mt--2 opacity-0" : " delay-300"}`} >
-            <div className="pr-4 pl-2 sm:pl-24 backdrop-blur z-[4] w-3/5 sm:w-full font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl fixed pt-6 sm:pt-24 md:pt-32">
-                <h1 className="whitespace-nowrap pb-2 border-b-4 border-current w-min mb-4">
+            className={`border-current relative max-h-screen w-screen font-custom2 px-4 sm:px-20 md:px-36 lg:px-56 duration-500 overflow-hidden ${false ? "mt--2 opacity-0" : " delay-300"}`} >
+            <div className="pr-2 pl-2 sm:pl-0 backdrop-blur z-[4] w-3/5 sm:w-full font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl fixed pt-6 sm:pt-24 md:pt-32">
+                <h1 className="whitespace-nowrap pb-2 pl-2 border-b-4 border-current w-min mb-4">
                     Contact
                 </h1>
             </div>
-            <div className={`md:grid overflow-auto mt-32 sm:mt-52 py-4 grid-cols-2 gap-4`}>
-                <Form control={control} className='flex flex-col md:px-8 gap-2 text-lg max-md:pb-8'>
-                    <Input
-                        name='Name'
-                        control={control}
+            <div className={`md:grid overflow-auto mt-32 sm:mt-52 grid-cols-2 gap-20 p-2`}>
 
-                    // onValueChange={(e) => { console.log(e) }}
-                    />
-                    <Input
-                        name='Email'
-                        control={control}
-                    // onValueChange={(e) => { console.log(e) }}
-                    />
-                    <Input
-                        control={control}
-                        name='Subject'
-                    // onValueChange={(e) => { console.log(e) }}
-                    />
-                    <Input
-                        control={control}
-                        name='Message'
-                    // onValueChange={(e) => { console.log(e) }}
-                    />
-                    <button
-                        target="_blank"
-                        download
-                        // onMouseEnter={() => setMyContext({ ...myContext, cursorh: true })}
-                        // onMouseLeave={() => setMyContext({ ...myContext, cursorh: false })}
-                        className={`flex justify-center mx-auto relative items-center gap-2 text-2xl border-2 w-fit rounded h-12 max-w-full w-52 min-w-fit px-4 font-medium font-custom2 hover:text-3xl ${(false) ? "border-slate-500" : "border-c1"} `}>
-                        <span>Submit</span>
-                        <BiArrowFromBottom className='' />
-                    </button>
-                </Form>
-                {/* <hr className='my-8 sm:hidden' /> */}
-                <div className={`flex flex-col gap-4 h-fit md:shadow-arya rounded-lg mx-auto p-4 w-4/5 md:order-first`}>
+                <div className={`flex flex-col gap-2 h-fit p-4 md:shadow-arya rounded-lg mx-auto w-full md:order-first`}>
                     <div className='pb-2 flex flex-col text-2xl'>
                         <h1
                             className={`text-3xl flex gap-2 items-center`}>
@@ -117,8 +86,46 @@ const page = () => {
                         </div>
                     </div>
                 </div>
+                <Form control={control} className='flex flex-col gap-2 text-lg max-md:pb-8' onSubmit={handleSubmit(onSubmit)} >
+                    <p className={`text-sm font-light text-justify p-2 pt-0`} >Lorem ipsum dolor, sit amet consectetur adipisicing elit. In, consectetur veniam sapiente ab laborum eum iusto asperiores doloribus obcaecati vel reprehenderit.</p>
+                    <Input
+                        name='Name'
+                        label
+                        placeholder={`Your Name`}
+                        control={control}
+                        autoFocus
+                        errors={errors}
+                    />
+                    <Input
+                        name='Email'
+                        placeholder={`Your Email`}
+                        label
+                        control={control}
+                        errors={errors}
+                        type='email'
+                        required={"Please enter your email"}
+                    />
+                    <Input
+                        control={control}
+                        label
+                        name='Subject'
+                        errors={errors}
+                    />
+                    <Input
+                        control={control}
+                        name='Message'
+                        errors={errors}
+                        type='textarea'
+                        label
+                    />
+                    <button
+                        type="submit"
+                        className={`flex justify-center relative items-center gap-2 text-2xl border-2 rounded h-12 px-4 ml-20 font-medium font-custom2 hover:text-3xl ${(false) ? "border-slate-500" : "border-c1"} `}>
+                        <span>Submit</span>
+                        <BiArrowFromBottom className='' />
+                    </button>
+                </Form>
             </div>
-
         </div>
     )
 }

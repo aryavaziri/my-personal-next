@@ -11,6 +11,7 @@ const Auth = () => {
   const router = useRouter();
   const myContext = useContext(Context);
   const { user } = myContext
+
   useEffect(() => {
     if (newToken) {
       localStorage.setItem("accessToken", newToken);
@@ -19,6 +20,7 @@ const Auth = () => {
     const token = localStorage.getItem("accessToken");
     if (token) {
       validate(token);
+      router.refresh();
     }
   }, [newToken]);
   const validate = async (token) => {
@@ -37,7 +39,9 @@ const Auth = () => {
       })
       .then((res) => {
         console.log(res);
-        res.user && myContext.setUser(res.user);
+        if (res.user) {
+          myContext.setUser(res.user);
+        };
       })
       .catch((err) => {
         console.log("Server connection error!!!");
@@ -52,6 +56,7 @@ const Auth = () => {
     myContext.setIsAuth(false);
     myContext.setUser(null)
   };
+  if (!myContext?.menu) return null
   return (
     <>
       {!myContext?.isAuth ? (
