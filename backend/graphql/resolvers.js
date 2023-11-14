@@ -16,7 +16,7 @@ const resolvers = {
       }
       return user;
     },
-    projects: async () => { console.log("ARYA"); return await Project.find({}) },
+    projects: async () => await Project.find({}),
     uploads: () => "Hello uploads",
   },
   Mutation: {
@@ -24,35 +24,49 @@ const resolvers = {
       const { createReadStream, filename, mimetype, encoding } = await file;
       const stream = createReadStream();
       const path = `/app/backend/public/projects/${filename}`;
-      return new Promise((resolve, reject) => {
-        stream
-          .on('error', (error) => {
-            if (stream.truncated)
-              fs.unlinkSync(path);
-            reject(error);
-          })
-          .pipe(fs.createWriteStream(path))
-          .on('error', (error) => reject(error))
-          // .on('finish', () => resolve({ filename, mimetype, encoding }))
-          .on('finish', () => resolve("OK"))
-      });
+      const [id, extention] = filename.split('.')
+      let video = false
+      if (extention.toLowerCase() === "mov" || extention.toLowerCase() === "mp4" || extention.toLowerCase() === "mkv") { video = true }
+      try {
+        const res = new Promise((resolve, reject) => {
+          stream
+            .on('error', (error) => {
+              if (stream.truncated)
+                fs.unlinkSync(path);
+              reject(error);
+            })
+            .pipe(fs.createWriteStream(path))
+            .on('error', (error) => reject(error))
+            .on('finish', () => resolve("OK"))
+        });
+        await Project.updateOne({ _id: id }, { video: video, extention: extention })
+        return "OK"
+      } catch (error) {
+        console.log(error)
+      }
     },
 
     addProject: async (root, args, contextValue) => {
-      console.log("PROJECT")
-      const tech = args.project.tech.split(';').map(item => item.trim())
-      let video = false
-      if (args.extention.toLowerCase() === ".mov" || args.extention.toLowerCase() === ".mp4" || args.extention.toLowerCase() === ".mkv") {
-        video = true
-      }
+      console.log("ADD-PROJECT")
+      const tech = args.project.tech[0].split(',').map(item => item.trim())
       return Project.create({
         title: args.project.title,
         link: args.project.link,
         src: args.project.src,
         tech: tech,
         extention: args.extention,
-        video: video
       });
+    },
+
+    editProject: async (root, args, contextValue) => {
+      const tech = args.project.tech[0].split(',').map(item => item.trim())
+      await Project.updateOne({ _id: args.projectId }, { extention: args.extention, title: args.project.title, link: args.project.link, tech: tech })
+      return await Project.findById(args.projectId)
+    },
+    delProject: async (root, args, contextValue) => {
+      console.log("DEL-PROJECT", args)
+      await Project.deleteOne({ _id: args.id });
+      return "Deleted Successfully"
     },
 
     // addList: async (root, args, contextValue) => {

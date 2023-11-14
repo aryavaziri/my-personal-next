@@ -35,11 +35,13 @@ input ProjectInput {
     link: String!
     video: Boolean
     src: String
-    tech: String
+    tech: [String]
 }
 
 
 type Mutation {
   uploadFile(file: Upload!): String!
   addProject(project:ProjectInput!, extention:String!): Project
+  editProject(project:ProjectInput!, extention:String!, projectId:ID!): Project
+  delProject(id:ID!): String
 }

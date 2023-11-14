@@ -4,12 +4,14 @@ const Icon = ({ item }) => {
 
   return (
     <div className="relative w-6">
-      <Image
-        alt={item}
-        src={`logo/${item}.svg`}
-        fill
-        sizes="20vw"
-      />
+      {item &&
+        <Image
+          alt={item}
+          src={`logo/${item}.svg`}
+          fill
+          sizes="20vw"
+        />
+      }
     </div>
   )
 }

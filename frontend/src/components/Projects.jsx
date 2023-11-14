@@ -6,12 +6,15 @@ import { isMobile } from "react-device-detect";
 import { ProjectItem, ProjectMedia } from "@components/ProjectItem";
 import ProjectCard from "./ProjectCard"
 import { AiOutlineClose } from "react-icons/ai";
+import { Suspense } from 'react'
 
 const Projects = ({ data }) => {
   const router = useRouter();
   const [hoveredItem, setHoveredItem] = useState(null);
   const [active, setActive] = useState(false)
+  const [selectedItem, setSelectedItem] = useState(null)
 
+  // const edit = ()=>{setActive(true)}
   useEffect(() => {
     data?.projects.forEach(item => {
       router.prefetch(`/static/projects/${item._id}${item.extention}`);
@@ -33,23 +36,26 @@ const Projects = ({ data }) => {
             : `w-full`
             }  min-h-content noscroll-bar `}
         >
-          {data?.projects && data.projects.map(item => (
-            <ProjectItem
-              setHoveredItem={setHoveredItem}
-              item={item}
-              key={item._id}
-            />
-          ))}
+          <Suspense fallback={"LOADING"}>
+            {data?.projects && data.projects.map(item => (
+              <ProjectItem
+                setHoveredItem={setHoveredItem}
+                item={item}
+                key={item._id}
+                edit={() => { setActive(true); setSelectedItem(item) }}
+              />
+            ))}
+          </Suspense>
 
           <div className={`z-[5]`}>
             {active ?
               <div className={`grid place-items-center fixed top-0 backdrop-blur-md left-0 h-screen w-screen justify-center`}>
                 <div className={`relative`} >
-                  <ProjectCard close={() => setActive(false)} />
+                  <ProjectCard close={() => setActive(false)} item={selectedItem} />
                   <div className={`absolute top-4 right-4 text-sm text-slate-300/60 cursor-pointer`} onClick={() => setActive(false)} ><AiOutlineClose /></div>
                 </div>
               </div>
-              : <div className={`text-center cursor-pointer`} onClick={() => setActive(true)} >+ Add your own</div>
+              : <div className={`text-center cursor-pointer`} onClick={() => { setSelectedItem(null); setActive(true) }} >+ Add your own</div>
             }
           </div>
         </div>

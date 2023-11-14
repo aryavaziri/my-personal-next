@@ -40,13 +40,13 @@ await server.start();
 // app.use(cors());
 app.use(cors({ origin: ['https://www.aryav.nl', 'http://localhost', 'https://aryav.nl'], methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', credentials: true }));
 app.use('/static', express.static('public'))
-app.use(authRoutes);
+app.use('/auth', authRoutes);
 app.use("/api", listRoutes);
 app.use(
   "/graphql",
   // isAuth,
   express.json(),
-  graphqlUpload({ maxFileSize: 10000000, maxFiles: 10 }),
+  graphqlUpload({ maxFileSize: 10000000, maxFiles: 1 }),
   expressMiddleware(server, { context: async ({ req, res }) => ({ req, res }) })
 );
 

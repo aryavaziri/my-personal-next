@@ -8,18 +8,19 @@
   }
 }
 
-@media only screen and (min-width: 600px) {
-}
+@media only screen and (min-width: 600px) {}
+
 .skills:hover .skills-icon {
   display: flex;
 }
+
 body {
   height: 100vh;
   background-color: black;
 }
 
 body,
-body > *,
+body>*,
 body * {
   scrollbar-width: none;
 }
@@ -56,15 +57,24 @@ body::-webkit-scrollbar {
   /* overflow: hidden; */
   position: relative;
 }
+
 .project-item-mobile {
   opacity: 1;
 }
 
-.project-item:hover .ic { width: 20vw;}
-.project-item:hover .ic2 { width: 20vw;transition-timing-function:ease-out}
+.project-item:hover .ic {
+  width: 20vw;
+}
+
+.project-item:hover .ic2 {
+  width: 20vw;
+  transition-timing-function: ease-out
+}
+
 .project-item:hover .ic {
   right: 100% !important;
 }
+
 .project-item:hover .ic2 {
   right: 0% !important;
   padding: 0 !important;
@@ -76,4 +86,28 @@ body::-webkit-scrollbar {
   margin: 0;
   transition-duration: 0.1s;
   transition-timing-function: ease-out;
+}
+
+
+.fade-out {
+  animation: fade 3s forwards linear;
+  animation-delay: 1s;
+  overflow: hidden;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 100%;
+    height: auto
+  }
+
+  99% {
+    opacity: 0%;
+    height: auto
+  }
+
+  100% {
+    opacity: 0%;
+    height: 0;
+  }
 }

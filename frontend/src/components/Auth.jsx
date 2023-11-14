@@ -10,18 +10,20 @@ const Auth = () => {
   const newToken = useSearchParams().get("token");
   const router = useRouter();
   const myContext = useContext(Context);
+  const { user } = myContext
   useEffect(() => {
     if (newToken) {
       localStorage.setItem("accessToken", newToken);
-      router.push("/");
+      router.refresh();
     }
     const token = localStorage.getItem("accessToken");
     if (token) {
       validate(token);
     }
-  }, []);
+  }, [newToken]);
   const validate = async (token) => {
-    await fetch("http://backend:3000/auth", {
+    console.log(token)
+    await fetch("https://aryav.nl/auth/", {
       headers: { Authorization: `bearer ${token}` },
     })
       .then((res) => {
@@ -43,11 +45,12 @@ const Auth = () => {
   };
 
   const login = () => {
-    window.open("http://localhost:3000/login/google", "_self");
+    window.open("https://aryav.nl/auth/login/google", "_self");
   };
   const logout = () => {
-    // localStorage.removeItem("accessToken");
+    localStorage.removeItem("accessToken");
     myContext.setIsAuth(false);
+    myContext.setUser(null)
   };
   return (
     <>
@@ -62,9 +65,7 @@ const Auth = () => {
         myContext.user?.profileImg && (
           <div
             className="h-auto my-1 aspect-square cursor-pointer"
-            onClick={() => {
-              setToggle((prev) => !prev);
-            }}
+            onClick={(e) => { e.preventDefault(); e.stopPropagation(); setToggle((prev) => !prev); }}
           >
             <Image
               className="h-full w-full rounded-full"
@@ -76,7 +77,7 @@ const Auth = () => {
             {toggle && (
               <button
                 onClick={() => logout()}
-                className=" bg-slate-200 absolute h-auto px-2 my-1 flex duration-300 justify-center items-center rounded border"
+                className="z-20 bg-slate-200 absolute h-auto px-2 my-1 flex duration-300 justify-center items-center rounded border"
               >
                 Logout
               </button>

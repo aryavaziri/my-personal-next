@@ -1,12 +1,12 @@
 import Projects from "@components/Projects";
 import { getClient } from "@lib/client";
 import { gql } from "@apollo/client";
-
+import { Suspense } from 'react'
 // export const dynamic = "force-dynamic";
 
-export default async function page() {
-  const PROJECTS = gql`query {projects{_id title tech link video extention}}`
+const PROJECTS = gql`query {projects{_id title tech link video extention}}`
 
+export default async function page() {
   const { data } = await getClient().query({ query: PROJECTS })
   // console.log(data)
   return (
@@ -16,7 +16,9 @@ export default async function page() {
           Projects
         </h1>
       </div>
-      <Projects data={data} />
+      <Suspense fallback={"Loading..."}>
+        <Projects data={data} />
+      </Suspense>
 
     </div>
   );

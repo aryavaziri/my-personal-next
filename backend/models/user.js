@@ -18,6 +18,9 @@ const userSchema = new Schema(
     language: {
       type: String,
     },
+    isAdmin: {
+      type: Boolean,
+    },
   },
   { timestamps: { updatedAt: "lastLogin" } }
 );

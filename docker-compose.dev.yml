@@ -13,6 +13,7 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt
     depends_on:
       - frontend
+    restart: always
   frontend:
     container_name: frontend
     build:

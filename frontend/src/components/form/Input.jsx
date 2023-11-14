@@ -2,7 +2,7 @@
 import { useController } from "react-hook-form";
 import React from "react";
 
-const Input = ({ name, label, type, placeholder, autoFocus, required, control }) => {
+const Input = ({ name, label, type, placeholder, autoFocus, required, control, value }) => {
   const {
     field: { ref, ...inputProps },
     fieldState: { error },
@@ -10,7 +10,7 @@ const Input = ({ name, label, type, placeholder, autoFocus, required, control })
     name: name,
     control: control,
     rules: { required: required },
-    defaultValue: '',
+    defaultValue: value || '',
   });
 
 

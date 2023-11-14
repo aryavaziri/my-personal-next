@@ -40,7 +40,7 @@ passport.use(
       // clientID: "process.env.GOOGLE_CLIENT_ID",
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://backend:3000/login/google/callback",
+      callbackURL: "https://aryav.nl/auth/login/google/callback",
       passReqToCallback: true,
     },
     function (request, accessToken, refreshToken, profile, done) {
@@ -49,7 +49,7 @@ passport.use(
   )
 );
 
-router.get("/auth", isAuth, (req, res) => {
+router.get("/", isAuth, (req, res) => {
   res.json({ user: req.user });
 });
 
@@ -81,6 +81,7 @@ router.get(
           name: req.user.displayName,
           profileImg: req.user.picture,
           language: req.user.language,
+          isAdmin: false
         })
           .then((user) => {
             token = jwt.sign({ id: user._id }, "SECRET_KEY", {
@@ -90,7 +91,7 @@ router.get(
           .catch(next);
       }
       console.log(token);
-      return res.status(201).redirect(`http://frontendDev:4000/?token=${token}`);
+      return res.status(201).redirect(`https://aryav.nl/?token=${token}`);
     }
   }
 );
