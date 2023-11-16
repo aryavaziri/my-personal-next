@@ -6,6 +6,7 @@ type Project {
   src: String!
   tech: [String]
   extention: String!
+  creator: ID
 }
 
 type User {

@@ -15,11 +15,11 @@ export const isAuth = async (req, res, next) => {
     }
     const userId = jwt.verify(token, "SECRET_KEY").id;
     User.findByIdAndUpdate(userId, {
-      lastLogin: Date.now(),
+      // lastLogin: Date.now(),
     })
       .then((user) => {
         if (user) {
-          console.log("User is Authenticated");
+          console.log("User is Authenticated?!");
           req.user = user;
           next();
         } else {
@@ -28,9 +28,33 @@ export const isAuth = async (req, res, next) => {
           throw error;
         }
       })
-      .catch(next);
   } catch (error) {
     next(error);
+  }
+};
+
+export const auth = async (req, res, next) => {
+  const token = req.headers["authorization"]?.split(" ")[1];
+  req.isAuth = false;
+  // console.log(token)
+  // console.log(req)
+  // if (!token) { console.log("KOSSHER"); next() }
+  try {
+    const userId = jwt.verify(token, "SECRET_KEY").id;
+
+    // User.findByIdAndUpdate(userId, { lastLogin: Date.now() })
+    User.findByIdAndUpdate(userId, {})
+      .then((user) => {
+        if (user?._id == userId) {
+          console.log("User is Authenticated!!!!!!!");
+          req.user = user;
+          req.isAuth = true;
+        }
+        next();
+      })
+  } catch (error) {
+    // console.log(error)
+    next();
   }
 };
 
@@ -85,7 +109,7 @@ router.get(
         })
           .then((user) => {
             token = jwt.sign({ id: user._id }, "SECRET_KEY", {
-              expiresIn: "1h",
+              expiresIn: "2d",
             });
           })
           .catch(next);

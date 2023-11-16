@@ -10,21 +10,25 @@ const Auth = () => {
   const newToken = useSearchParams().get("token");
   const router = useRouter();
   const myContext = useContext(Context);
-  const { user } = myContext
+  // const { user } = myContext
+
+  // const { isAuth, user, setUser, ...rest } = myContext
+  useEffect(() => {
+    console.log(myContext)
+  }, [myContext]);
 
   useEffect(() => {
     if (newToken) {
       localStorage.setItem("accessToken", newToken);
-      router.refresh();
     }
     const token = localStorage.getItem("accessToken");
     if (token) {
       validate(token);
-      router.refresh();
+      // router.refresh();
     }
-  }, [newToken]);
+  }, []);
+
   const validate = async (token) => {
-    console.log(token)
     await fetch("https://aryav.nl/auth/", {
       headers: { Authorization: `bearer ${token}` },
     })
@@ -38,13 +42,13 @@ const Auth = () => {
         return res.text();
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.user) {
           myContext.setUser(res.user);
         };
       })
       .catch((err) => {
-        console.log("Server connection error!!!");
+        console.log("Server connection error bla bla bla!!!");
       });
   };
 
@@ -55,6 +59,9 @@ const Auth = () => {
     localStorage.removeItem("accessToken");
     myContext.setIsAuth(false);
     myContext.setUser(null)
+    myContext.toggleMenu()
+
+    // router.refresh();
   };
   if (!myContext?.menu) return null
   return (

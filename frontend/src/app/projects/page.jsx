@@ -4,7 +4,7 @@ import { gql } from "@apollo/client";
 import { Suspense } from 'react'
 export const dynamic = "force-dynamic";
 
-const PROJECTS = gql`query {projects{_id title tech link video extention}}`
+const PROJECTS = gql`query {projects{_id title tech link video extention creator}}`
 
 export default async function page() {
   const { data } = await getClient().query({ query: PROJECTS })

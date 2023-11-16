@@ -3,21 +3,13 @@ import { ApolloLink, HttpLink } from "@apollo/client";
 import { ApolloNextAppProvider, NextSSRInMemoryCache, SSRMultipartLink, NextSSRApolloClient } from "@apollo/experimental-nextjs-app-support/ssr";
 import createUploadLink from "apollo-upload-client/createUploadLink.mjs";
 import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
-import { setContext } from '@apollo/client/link/context';
+import { useEffect } from 'react'
 
 if (process.env.NODE_ENV === "development") { loadDevMessages(); loadErrorMessages() }
 
-function makeClient() {
-  const httpLink = createUploadLink({ uri: "https://aryav.nl/graphql/", headers: { "Apollo-Require-Preflight": "true" } })
-  const authLink = setContext((_, { headers }) => {
-    const token = localStorage.getItem('accessToken');
-    return {
-      headers: {
-        ...headers,
-        authorization: token ? `Bearer ${token}` : "",
-      }
-    }
-  });
+function makeClient(token) {
+  // console.log(token)
+  const httpLink = createUploadLink({ uri: "https://aryav.nl/graphql/", headers: { "Apollo-Require-Preflight": "true", 'authorization': token ? `Bearer ${token}` : "" } })
 
   return new NextSSRApolloClient({
     cache: new NextSSRInMemoryCache(),
@@ -29,14 +21,20 @@ function makeClient() {
           }),
           httpLink,
         ])
-        : authLink.concat(httpLink),
+        : httpLink,
     credentials: 'include'
   });
 }
 
-export function ApolloWrapper({ children }) {
+export function ApolloWrapper2({ children }) {
+  // let token = localStorage.getItem('accessToken')
+  let token = ''
+  useEffect(() => {
+    if (typeof window !== "undefined") { token = localStorage.getItem('accessToken'); console.log(token) }
+  }, [])
+
   return (
-    <ApolloNextAppProvider makeClient={makeClient} >
+    <ApolloNextAppProvider makeClient={() => makeClient(typeof window !== "undefined" && localStorage.getItem('accessToken'))}>
       {children}
     </ApolloNextAppProvider>
   );

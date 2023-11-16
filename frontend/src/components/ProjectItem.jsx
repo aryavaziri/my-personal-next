@@ -52,7 +52,8 @@ export const ProjectItem = ({ item, setHoveredItem, edit }) => {
       await delProject({ variables: { projectId: item._id } })
     }
   }
-  const onEdit = () => {
+  const onEdit = (e) => {
+    e.preventDefault()
     console.log("To edit", item._id)
     edit()
   }
@@ -63,7 +64,7 @@ export const ProjectItem = ({ item, setHoveredItem, edit }) => {
       <Link href={`/static/projects/${item._id}${item.extention}`} className={`hidden`} />
 
       {/* <p className={`duration-[3000] text-rose-400 ${(data?.delProject === "Deleted Successfully") ? 'h-0' : 'h-16 hidden'}`}>{data?.delProject}</p> */}
-      <Link href={`${item.link}`}
+      <Link href={`${item.link}`} target="_blank"
         className={`flex flex-col relative justify-between ${isMobile ? `max-sm:py-0 project-item-mobile` : ` py-2 `
           } hover:pl-8 project-item content-start`}
         onMouseEnter={handleMouseEnter}
@@ -92,16 +93,17 @@ export const ProjectItem = ({ item, setHoveredItem, edit }) => {
             })}
           </div>
 
-          {myContext?.user?.isAdmin && <div className={`absolute ic2 right-[-2500px] py-3 h-12 flex`} >
+          {myContext && <div className={`absolute ic2 right-[-2500px] py-3 h-12 flex`} >
+            {/* {myContext?.user?.isAdmin && <div className={`absolute ic2 right-[-2500px] py-3 h-12 flex`} > */}
             {!details ?
               <button className={`h-full right-0 absolute top-0`} onClick={(e) => { e.preventDefault(); setDetails(true) }} >
                 <BiDotsVerticalRounded className={`text-xl`} />
               </button>
               :
               <div className={`absolute h-full right-2 grid grid-cols-3 gap-2 place-items-center text-xl`} >
-                <button className={`hover:text-2xl w-4 hover:text-sky-400`} onClick={() => { setInfoActive(pre => !pre) }} ><BiInfoCircle /></button>
-                <button className={`hover:text-2xl w-4 hover:text-green-400`} onClick={onEdit} ><BiEditAlt /></button>
-                <button className={`hover:text-2xl w-4 hover:text-rose-400`} onClick={() => { setDeleteActive(true) }} ><BiX /></button>
+                <button className={`hover:text-2xl w-4 hover:text-sky-400`} onClick={(e) => { e.preventDefault(); setInfoActive(pre => !pre) }} ><BiInfoCircle /></button>
+                <button className={`hover:text-2xl w-4 hover:text-green-400`} onClick={(e) => onEdit(e)} ><BiEditAlt /></button>
+                <button className={`hover:text-2xl w-4 hover:text-rose-400`} onClick={(e) => { e.preventDefault(); setDeleteActive(true) }} ><BiX /></button>
               </div>
             }
           </div>}

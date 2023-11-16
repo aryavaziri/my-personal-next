@@ -3,7 +3,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import { readFileSync } from "fs";
-import { router as authRoutes, isAuth } from "./routes/auth.js";
+import { router as authRoutes, isAuth, auth } from "./routes/auth.js";
 import { router as listRoutes } from "./routes/list.js";
 import { join, dirname } from "path"
 import { fileURLToPath } from 'url';
@@ -33,22 +33,23 @@ const typeDefs = gql(
 
 const server = new ApolloServer({
   schema: buildSubgraphSchema({ typeDefs, resolvers, cache: 'bounded' }),
-  uploads: true
+  uploads: true,
+  credentials: true
 });
 await server.start();
 
-// app.use(cors());
 app.use(cors({ origin: ['https://www.aryav.nl', 'http://localhost', 'https://aryav.nl'], methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', credentials: true }));
 app.use('/static', express.static('public'))
-app.use('/auth', authRoutes);
-app.use("/api", listRoutes);
+app.use(auth);
 app.use(
   "/graphql",
-  // isAuth,
+  // auth,
   express.json(),
   graphqlUpload({ maxFileSize: 100000000, maxFiles: 10 }),
   expressMiddleware(server, { context: async ({ req, res }) => ({ req, res }) })
 );
+app.use('/auth', authRoutes);
+app.use("/api", listRoutes);
 
 app.use((req, res) => {
   res.status(404).send("ERROR 404 - PAGE NOT FOUND");

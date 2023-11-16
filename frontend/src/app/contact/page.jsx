@@ -26,7 +26,7 @@ const page = () => {
             </div>
             <div className={`md:grid overflow-auto mt-32 sm:mt-52 grid-cols-2 gap-20 p-2`}>
 
-                <div className={`flex flex-col gap-2 h-fit p-4 md:shadow-arya rounded-lg mx-auto w-full md:order-first`}>
+                <div className={`flex flex-col gap-2 h-fit p-4 md:shadow-arya rounded-lg mx-auto w-full max-md:order-first`}>
                     <div className='pb-2 flex flex-col text-2xl'>
                         <h1
                             className={`text-3xl flex gap-2 items-center`}>

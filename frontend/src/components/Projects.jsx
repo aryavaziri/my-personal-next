@@ -17,7 +17,7 @@ const Projects = ({ data }) => {
   // const edit = ()=>{setActive(true)}
   useEffect(() => {
     data?.projects.forEach(item => {
-      router.prefetch(`/static/projects/${item._id}${item.extention}`);
+      router.prefetch(`/static/projects/${item._id}.${item.extention}`);
     });
   }, [data]);
 

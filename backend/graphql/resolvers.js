@@ -3,6 +3,7 @@ import { Project } from "../models/project.js";
 import { List, Item } from "../models/list.js";
 import GraphQLUpload from "graphql-upload/GraphQLUpload.mjs";
 import fs from 'fs';
+import { isAuth } from "../routes/auth.js";
 
 const resolvers = {
   Upload: GraphQLUpload,
@@ -16,7 +17,7 @@ const resolvers = {
       }
       return user;
     },
-    projects: async () => await Project.find({}),
+    projects: async (_, __, contextValue) => await Project.find({}),
     uploads: () => "Hello uploads",
   },
   Mutation: {
@@ -48,6 +49,7 @@ const resolvers = {
 
     addProject: async (root, args, contextValue) => {
       console.log("ADD-PROJECT")
+      if (!contextValue.req.isAuth) { console.log("Not authenticated"); return }
       const tech = args.project.tech[0].split(',').map(item => item.trim())
       return Project.create({
         title: args.project.title,
@@ -55,18 +57,39 @@ const resolvers = {
         src: args.project.src,
         tech: tech,
         extention: args.extention,
+        creator: contextValue.req.user._id
       });
     },
 
     editProject: async (root, args, contextValue) => {
+      if (!contextValue.req.isAuth) { console.log("Not authenticated"); return }
       const tech = args.project.tech[0].split(',').map(item => item.trim())
-      await Project.updateOne({ _id: args.projectId }, { extention: args.extention, title: args.project.title, link: args.project.link, tech: tech })
-      return await Project.findById(args.projectId)
+      try {
+        let project = await Project.findById(args.projectId)
+        // console.log(project)
+        if ((project.creator?.toString() == contextValue.req.user._id) || (contextValue.req.user.isAdmin)) {
+          await Project.updateOne({ _id: args.projectId }, { extention: args.extention, title: args.project.title, link: args.project.link, tech: tech })
+          return await Project.findById(args.projectId)
+        } else {
+          throw new Error('You are not allowed to edit this project!')
+        }
+      } catch (error) {
+        console.log(error)
+      }
     },
     delProject: async (root, args, contextValue) => {
-      console.log("DEL-PROJECT", args)
-      await Project.deleteOne({ _id: args.id });
-      return "Deleted Successfully"
+      if (!contextValue.req.isAuth) { console.log("Not authenticated"); return }
+      try {
+        let project = await Project.findById(args.id)
+        if ((project.creator.toString() == contextValue.req.user?._id) || (contextValue.req.user.isAdmin)) {
+          await Project.deleteOne({ _id: args.id });
+          return "Deleted Successfully"
+        } else {
+          throw new Error('You are not allowed to delete this project!')
+        }
+      } catch (error) {
+        console.log(error)
+      }
     },
 
     // addList: async (root, args, contextValue) => {
