@@ -5,6 +5,7 @@ import cors from "cors";
 import { readFileSync } from "fs";
 import { router as authRoutes, isAuth, auth } from "./routes/auth.js";
 import { router as listRoutes } from "./routes/list.js";
+import { router as api } from "./routes/api.js"
 import { join, dirname } from "path"
 import { fileURLToPath } from 'url';
 
@@ -41,15 +42,15 @@ await server.start();
 app.use(cors({ origin: ['https://www.aryav.nl', 'http://localhost', 'https://aryav.nl'], methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', credentials: true }));
 app.use('/static', express.static('public'))
 app.use(auth);
+app.use(express.json())
 app.use(
   "/graphql",
-  // auth,
-  express.json(),
   graphqlUpload({ maxFileSize: 100000000, maxFiles: 10 }),
   expressMiddleware(server, { context: async ({ req, res }) => ({ req, res }) })
 );
+app.use(express.urlencoded({ extended: true }))
 app.use('/auth', authRoutes);
-app.use("/api", listRoutes);
+app.use("/api", api);
 
 app.use((req, res) => {
   res.status(404).send("ERROR 404 - PAGE NOT FOUND");
@@ -57,6 +58,7 @@ app.use((req, res) => {
 
 app.use((error, req, res, next) => {
   console.log(error)
+  console.log("---------------------------------------------------------------------------------")
   console.log(error.message);
   res.status(error.statusCode || 500).send(error.message);
 });

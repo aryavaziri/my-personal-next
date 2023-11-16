@@ -52,7 +52,7 @@ const Projects = ({ data }) => {
               <div className={`grid place-items-center fixed top-0 backdrop-blur-md left-0 h-screen w-screen justify-center`}>
                 <div className={`relative`} >
                   <ProjectCard close={() => setActive(false)} item={selectedItem} />
-                  <div className={`absolute top-4 right-4 text-sm text-slate-300/60 cursor-pointer`} onClick={() => setActive(false)} ><AiOutlineClose /></div>
+                  {/* <div className={`absolute top-4 right-4 text-sm text-slate-300/60 cursor-pointer`} onClick={() => setActive(false)} ><AiOutlineClose /></div> */}
                 </div>
               </div>
               : <div className={`text-center cursor-pointer`} onClick={() => { setSelectedItem(null); setActive(true) }} >+ Add your own</div>

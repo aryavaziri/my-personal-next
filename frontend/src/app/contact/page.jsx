@@ -14,6 +14,9 @@ const page = () => {
 
     const onSubmit = async (payload) => {
         console.log(payload)
+        const res = await fetch("/rh/mail", { method: "POST", body: JSON.stringify(payload) })
+        const data = await res.json()
+        console.log(data)
     }
 
     return (
@@ -86,6 +89,9 @@ const page = () => {
                         </div>
                     </div>
                 </div>
+
+
+
                 <Form control={control} className='flex flex-col gap-2 text-lg max-md:pb-8' onSubmit={handleSubmit(onSubmit)} >
                     <p className={`text-sm font-light text-justify p-2 pt-0`} >Lorem ipsum dolor, sit amet consectetur adipisicing elit. In, consectetur veniam sapiente ab laborum eum iusto asperiores doloribus obcaecati vel reprehenderit.</p>
                     <Input

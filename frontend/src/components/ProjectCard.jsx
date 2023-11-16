@@ -5,6 +5,8 @@ import { useEffect, useRef } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { useRouter } from 'next/navigation';
 import { ProjectMedia } from "./ProjectItem";
+import { AiOutlineClose } from "react-icons/ai";
+
 export const dynamic = "force-dynamic";
 
 const ADD_PROJECT = gql`
@@ -83,65 +85,68 @@ const ProejctCard = ({ close, item }) => {
   if (editing) return 'Chainging...'
   if (uploading) return 'Uploading...'
   return (
-    <div className="max-w-xs w-full shadow-[0_3px_20px_3px] shadow-dark/40 dark:shadow-light/40 rounded overflow-hidden bg-gradient h-full">
-      <Form
-        className="w-full pt-2 px-4 bg-gradient-to-b h-full from-purple-500/20 to-pink-500/40 pb-6 flex flex-col gap-2"
-        onSubmit={handleSubmit(onSubmit)}
-        control={control}
-      >
-        <h1 className="mt-2 mb-4 pb-1 border-b border-current text-center text-xl">
-          {item ? `Edit ${item.title} ` : `Add `}Project
-        </h1>
-        <Input
-          name="title"
-          label="title"
-          autoFocus
+    <>
+      {!loading && !editing && !uploading && <div className={`absolute top-4 right-4 text-sm text-slate-300/60 cursor-pointer`} onClick={() => close()} ><AiOutlineClose /></div>}
+      <div className="max-w-xs w-full shadow-[0_3px_20px_3px] shadow-dark/40 dark:shadow-light/40 rounded overflow-hidden bg-gradient h-full">
+        <Form
+          className="w-full pt-2 px-4 bg-gradient-to-b h-full from-purple-500/20 to-pink-500/40 pb-6 flex flex-col gap-2"
+          onSubmit={handleSubmit(onSubmit)}
           control={control}
-          required
-          value={item?.title}
-        />
-        <Input
-          name="link"
-          label="link"
-          required={`Please fill this field...`}
-          control={control}
-          errors={errors}
-          value={item?.link}
-        />
-        <Input
-          name="tech"
-          label="tech"
-          placeholder="add techs you used. seperate with ;"
-          control={control}
-          value={item?.tech.join(', ')}
-        />
-        {item && <>
-          <button className={`relative overflow-hidden rounded-lg mt-4`} onClick={(e) => { e.preventDefault(); hiddenFileInput.current.click() }} >
-            <ProjectMedia item={item} />
-            <div className={`absolute top-0 left-0 w-full h-full z-[70] hover:bg-slate-300/80 pt-12`} >Click to change the media</div>
-          </button>
-        </>}
-        <input
-          ref={e => { ref(e); hiddenFileInput.current = e }}
-          className={`${item ? 'hidden' : ''}`}
-          {...rest}
-          type="file"
-          onChange={onUpload}
-        />
-        {errors?.media && (
-          <span className="text-danger text-sm ml-12">
-            {errors.media.message || "This field is required"}
-            {console.log(errors.media)}
-          </span>
-        )}
-        <button
-          className="mt-4 w-full text-light bg-dark/80 hover:bg-dark shadow shadow-dark/50 hover:shadow-dark/50 hover:shadow-md py-3 px-6 font-semibold text-md rounded"
-          type="submit"
         >
-          Submit
-        </button>
-      </Form>
-    </div>
+          <h1 className="mt-2 mb-4 pb-1 border-b border-current text-center text-xl">
+            {item ? `Edit ${item.title} ` : `Add `}Project
+          </h1>
+          <Input
+            name="title"
+            label="title"
+            autoFocus
+            control={control}
+            required
+            value={item?.title}
+          />
+          <Input
+            name="link"
+            label="link"
+            required={`Please fill this field...`}
+            control={control}
+            errors={errors}
+            value={item?.link}
+          />
+          <Input
+            name="tech"
+            label="tech"
+            placeholder="add techs you used. seperate with ;"
+            control={control}
+            value={item?.tech.join(', ')}
+          />
+          {item && <>
+            <button className={`relative overflow-hidden rounded-lg mt-4`} onClick={(e) => { e.preventDefault(); hiddenFileInput.current.click() }} >
+              <ProjectMedia item={item} />
+              <div className={`absolute top-0 left-0 w-full h-full z-[70] hover:bg-slate-300/80 pt-12`} >Click to change the media</div>
+            </button>
+          </>}
+          <input
+            ref={e => { ref(e); hiddenFileInput.current = e }}
+            className={`${item ? 'hidden' : ''}`}
+            {...rest}
+            type="file"
+            onChange={onUpload}
+          />
+          {errors?.media && (
+            <span className="text-danger text-sm ml-12">
+              {errors.media.message || "This field is required"}
+              {console.log(errors.media)}
+            </span>
+          )}
+          <button
+            className="mt-4 w-full text-light bg-dark/80 hover:bg-dark shadow shadow-dark/50 hover:shadow-dark/50 hover:shadow-md py-3 px-6 font-semibold text-md rounded"
+            type="submit"
+          >
+            Submit
+          </button>
+        </Form>
+      </div>
+    </>
   );
 };
 

@@ -78,17 +78,18 @@ const resolvers = {
       }
     },
     delProject: async (root, args, contextValue) => {
-      if (!contextValue.req.isAuth) { console.log("Not authenticated"); return }
       try {
+        if (!contextValue.req.isAuth) { console.log("Not authenticated"); throw new Error('You are not authenticated!') }
         let project = await Project.findById(args.id)
-        if ((project.creator.toString() == contextValue.req.user?._id) || (contextValue.req.user.isAdmin)) {
+        if ((project.creator?.toString() == contextValue.req.user?._id) || (contextValue.req.user.isAdmin)) {
           await Project.deleteOne({ _id: args.id });
           return "Deleted Successfully"
         } else {
           throw new Error('You are not allowed to delete this project!')
         }
       } catch (error) {
-        console.log(error)
+        // console.log(error)
+        return error
       }
     },
 

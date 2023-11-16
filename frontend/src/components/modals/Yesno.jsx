@@ -9,7 +9,7 @@ const Yesno = ({ onAnswer, active, setActive, placeholder }) => {
   return (
     <div className={`fixed z-[80] top-0 left-0 w-screen pt-[40vh] bg-slate-100/50 dark:bg-dark/50 h-screen backdrop-blur-[2px] ${!active && "hidden"}`} onClick={() => { setActive(false) }} >
       <div className={`max-w-sm rounded-lg overflow-hidden mx-auto bg-arya3`}>
-        <h1 className={`text-center text-2xl p-4 py-2`} >
+        <h1 className={`text-center text-dark text-2xl p-4 py-2`} >
           {placeholder ? placeholder : `Are you Sure??? Are you fucken really sure you want to do that???? If you do it you may won't be able to restore it.`}
 
         </h1>

@@ -10,12 +10,6 @@ const Auth = () => {
   const newToken = useSearchParams().get("token");
   const router = useRouter();
   const myContext = useContext(Context);
-  // const { user } = myContext
-
-  // const { isAuth, user, setUser, ...rest } = myContext
-  useEffect(() => {
-    console.log(myContext)
-  }, [myContext]);
 
   useEffect(() => {
     if (newToken) {

@@ -11,6 +11,7 @@ import Popup from "@components/Popup";
 import Yesno from '@components/modals/Yesno'
 import { gql, useMutation } from "@apollo/client";
 import { Suspense } from 'react'
+import OK from "./modals/OK";
 
 ///heeree is the problem///
 const MUTATION = gql`
@@ -24,6 +25,7 @@ export const ProjectItem = ({ item, setHoveredItem, edit }) => {
   const myContext = useContext(Context);
   const [isHover, setIsHover] = useState(false);
   const [details, setDetails] = useState(false);
+  const [errMode, setErrMode] = useState(false)
   const handleMouseEnter = () => {
     setHoveredItem(item);
     setIsHover(true);
@@ -45,13 +47,20 @@ export const ProjectItem = ({ item, setHoveredItem, edit }) => {
       <p className={`duration-[3000] text-rose-400 fade-out`}>Deleted successfully</p>
     )
   };
-  if (error) return `Submission error! ${error.message}`;
+  // if (error) return `Submission error! ${error.message}`;
+
+  // if (error) console.log(`Submission error! ${error.message}`);
 
   const onDeleteAnswer = async (answer) => {
     if (answer) {
-      await delProject({ variables: { projectId: item._id } })
+      try {
+        await delProject({ variables: { projectId: item._id } })
+      } catch (err) {
+        setErrMode(true)
+      }
     }
   }
+
   const onEdit = (e) => {
     e.preventDefault()
     console.log("To edit", item._id)
@@ -60,6 +69,7 @@ export const ProjectItem = ({ item, setHoveredItem, edit }) => {
 
   return (
     <>
+      <OK active={errMode} setActive={setErrMode} message={error?.message} refresh={() => ''} />
       <Yesno active={deleteActive} setActive={setDeleteActive} onAnswer={onDeleteAnswer} placeholder={`Are you sure you want to delete this Project?`} />
       <Link href={`/static/projects/${item._id}${item.extention}`} className={`hidden`} />
 
