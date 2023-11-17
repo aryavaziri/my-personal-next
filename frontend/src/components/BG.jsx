@@ -2,7 +2,7 @@
 import { usePathname } from "next/navigation";
 import { Context } from "@app/Provider";
 import { useState, useContext, useEffect } from "react";
-import { isMobile } from "react-device-detect";
+// import { isMobile } from "react-device-detect";
 
 // import P5Sketch from "@components/P5Sketch";
 import dynamic from "next/dynamic";
@@ -11,6 +11,7 @@ import { useTheme } from "next-themes";
 const SketchComponent = dynamic(() => import("@components/Sketch8"));
 
 const BG = ({ children }) => {
+  const myContext = useContext(Context)
   const { resolvedTheme } = useTheme();
   const pathname = usePathname();
   return (
@@ -23,7 +24,7 @@ const BG = ({ children }) => {
 
       {pathname === "/" && (
         <div className="fixed w-screen h-screen z-[-20]">
-          <SketchComponent theme={resolvedTheme} isMobile={isMobile} />
+          <SketchComponent theme={resolvedTheme} isMobile={myContext.isMobile} />
         </div>
       )}
 

@@ -10,7 +10,9 @@ import { BsTelephone } from "react-icons/bs";
 import { useForm, Form } from "react-hook-form";
 
 const page = () => {
-    const { register, control, handleSubmit, watch, formState: { errors }, } = useForm()
+    const { register, control, handleSubmit, watch, formState: { errors }, } = useForm({
+        shouldUseNativeValidation: true,
+    })
 
     const onSubmit = async (payload) => {
         console.log(payload)
@@ -27,9 +29,9 @@ const page = () => {
                     Contact
                 </h1>
             </div>
-            <div className={`md:grid overflow-auto mt-32 sm:mt-52 grid-cols-2 gap-20 p-2`}>
+            <div className={`md:grid overflow-auto mt-32 sm:mt-52 grid-cols-2 gap-16 p-2`}>
 
-                <div className={`flex flex-col gap-2 h-fit p-4 md:shadow-arya rounded-lg mx-auto w-full max-md:order-first`}>
+                <div className={`flex flex-col gap-2 h-fit p-4 md:shadow-arya bg-gradient-to-b to-arya1/50 from-arya1/10 dark:from-dark/60 dark:to-gradientDark/40 rounded-lg mx-auto w-full max-md:order-first`}>
                     <div className='pb-2 flex flex-col text-2xl'>
                         <h1
                             className={`text-3xl flex gap-2 items-center`}>
@@ -93,7 +95,7 @@ const page = () => {
 
 
                 <Form control={control} className='flex flex-col gap-2 text-lg max-md:pb-8' onSubmit={handleSubmit(onSubmit)} >
-                    <p className={`text-sm font-light text-justify p-2 pt-0`} >Lorem ipsum dolor, sit amet consectetur adipisicing elit. In, consectetur veniam sapiente ab laborum eum iusto asperiores doloribus obcaecati vel reprehenderit.</p>
+                    <p className={`text-md font-normal text-justify p-2 pt-0`} >Connect with me! Interested in collaborating or have a project in mind? Drop your name, email, and message below. Excited to hear from you and explore potential opportunities together.</p>
                     <Input
                         name='Name'
                         label
@@ -111,22 +113,23 @@ const page = () => {
                         type='email'
                         required={"Please enter your email"}
                     />
-                    <Input
+                    {/* <Input
                         control={control}
                         label
                         name='Subject'
                         errors={errors}
-                    />
+                    /> */}
                     <Input
                         control={control}
                         name='Message'
                         errors={errors}
                         type='textarea'
                         label
+                        required
                     />
                     <button
                         type="submit"
-                        className={`flex justify-center relative items-center gap-2 text-2xl border-2 rounded h-12 px-4 ml-20 font-medium font-custom2 hover:text-3xl ${(false) ? "border-slate-500" : "border-c1"} `}>
+                        className={`flex justify-center relative items-center gap-2 text-2xl border-2 rounded h-12 px-4 ml-20 font-medium font-custom2 hover:text-3xl dark:border-light`}>
                         <span>Submit</span>
                         <BiArrowFromBottom className='' />
                     </button>

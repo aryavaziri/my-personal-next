@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
         <Provider>
           <ApolloWrapper>
             <Nav />
-            <main className="text-dark dark:text-light">
+            <main className="text-dark dark:text-light ">
               <Suspense fallback={<p>Loading...</p>}>
                 <BG>{children}</BG>
               </Suspense>

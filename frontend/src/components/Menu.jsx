@@ -16,9 +16,8 @@ function Menu() {
       }}
     >
       <div
-        className={`grid grid-cols-3 menu relative ${
-          myContext.menu ? "menu-open" : ""
-        }`}
+        className={`grid grid-cols-3 menu relative ${myContext.menu ? "menu-open" : ""
+          }`}
       >
         <div className="bg-current"></div>
         <div className="bg-current"></div>

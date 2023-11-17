@@ -86,7 +86,7 @@ const ProejctCard = ({ close, item }) => {
   if (uploading) return 'Uploading...'
   return (
     <>
-      {!loading && !editing && !uploading && <div className={`absolute top-4 right-4 text-sm text-slate-300/60 cursor-pointer`} onClick={() => close()} ><AiOutlineClose /></div>}
+      {!loading && !editing && !uploading && <div className={`absolute top-4 right-4 text-sm cursor-pointer`} onClick={() => close()} ><AiOutlineClose /></div>}
       <div className="max-w-xs w-full shadow-[0_3px_20px_3px] shadow-dark/40 dark:shadow-light/40 rounded overflow-hidden bg-gradient h-full">
         <Form
           className="w-full pt-2 px-4 bg-gradient-to-b h-full from-purple-500/20 to-pink-500/40 pb-6 flex flex-col gap-2"
@@ -120,7 +120,7 @@ const ProejctCard = ({ close, item }) => {
             value={item?.tech.join(', ')}
           />
           {item && <>
-            <button className={`relative overflow-hidden rounded-lg mt-4`} onClick={(e) => { e.preventDefault(); hiddenFileInput.current.click() }} >
+            <button className={`relative overflow-hidden rounded-[30px] sm:rounded-lg mt-4`} onClick={(e) => { e.preventDefault(); hiddenFileInput.current.click() }} >
               <ProjectMedia item={item} />
               <div className={`absolute top-0 left-0 w-full h-full z-[70] hover:bg-slate-300/80 pt-12`} >Click to change the media</div>
             </button>
@@ -139,7 +139,7 @@ const ProejctCard = ({ close, item }) => {
             </span>
           )}
           <button
-            className="mt-4 w-full text-light bg-dark/80 hover:bg-dark shadow shadow-dark/50 hover:shadow-dark/50 hover:shadow-md py-3 px-6 font-semibold text-md rounded"
+            className="mt-4 w-full text-light bg-dark/80 hover:bg-dark shadow shadow-dark/50 hover:shadow-dark/50 hover:shadow-md py-2 px-6 font-semibold text-2xl rounded"
             type="submit"
           >
             Submit

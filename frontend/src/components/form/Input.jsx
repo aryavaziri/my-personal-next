@@ -44,7 +44,7 @@ const Input = ({ name, label, type, placeholder, autoFocus, required, control, v
         }
       </div>
       {error && (
-        <span className="text-danger text-sm ml-12">
+        <span className="text-danger text-sm ml-20">
           {error.message || "This field is required"}
           {console.log(error)}
         </span>
