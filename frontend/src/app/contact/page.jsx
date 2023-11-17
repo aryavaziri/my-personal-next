@@ -23,13 +23,13 @@ const page = () => {
 
     return (
         <div
-            className={`border-current relative max-h-screen w-screen font-custom2 px-4 sm:px-20 md:px-36 lg:px-56 duration-500 overflow-hidden ${false ? "mt--2 opacity-0" : " delay-300"}`} >
+            className={`border-current relative w-screen font-custom2 px-4 sm:px-20 md:px-36 lg:px-56 duration-500 overflow-hidden ${false ? "mt--2 opacity-0" : " delay-300"}`} >
             <div className="pr-2 pl-2 sm:pl-0 backdrop-blur z-[4] w-3/5 sm:w-full font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl fixed pt-6 sm:pt-24 md:pt-32">
                 <h1 className="whitespace-nowrap pb-2 pl-2 border-b-4 border-current w-min mb-4">
                     Contact
                 </h1>
             </div>
-            <div className={`md:grid overflow-auto mt-32 sm:mt-52 grid-cols-2 gap-16 p-2`}>
+            <div className={`grid grid-cols-1 mt-20 h-auto overflow-y-scroll noscroll-bar sm:mt-52 md:grid-cols-2 gap-8 sm:gap-16 p-2`}>
 
                 <div className={`flex flex-col gap-2 h-fit p-4 md:shadow-arya bg-gradient-to-b to-arya1/50 from-arya1/10 dark:from-dark/60 dark:to-gradientDark/40 rounded-lg mx-auto w-full max-md:order-first`}>
                     <div className='pb-2 flex flex-col text-2xl'>

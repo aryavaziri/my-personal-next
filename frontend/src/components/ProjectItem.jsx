@@ -6,7 +6,6 @@ import { Context } from "@app/Provider";
 import Icon from "@components/Icon";
 import { BiChevronRight, BiDotsVerticalRounded, BiEditAlt, BiX, BiInfoCircle } from "react-icons/bi";
 import Image from "next/image";
-import Popup from "@components/Popup";
 import Yesno from '@components/modals/Yesno'
 import { gql, useMutation } from "@apollo/client";
 import { Suspense } from 'react'
@@ -59,6 +58,11 @@ export const ProjectItem = ({ item, setHoveredItem, edit }) => {
     console.log("To edit", item._id)
     edit()
   }
+  useEffect(() => {
+    console.log(myContext)
+    // console.log(item?.creator)
+  }, [myContext])
+
 
   return (
     <>
@@ -71,14 +75,8 @@ export const ProjectItem = ({ item, setHoveredItem, edit }) => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-
         {myContext.isMobile && <ProjectMedia item={item} />}
-        <div
-          className={`flex flex-row relative h-18 justify-between w-full ${myContext.isMobile
-            ? `rounded-b-[30px] p-4 border-b project-item-mobile`
-            : ` `
-            } project-item content-start border-b-2 border-current `}
-        >
+        <div className={`flex flex-row relative h-18 justify-between w-full project-item content-start border-b-2 border-current ${myContext.isMobile ? `rounded-b-[30px] p-4 border-b project-item-mobile` : ``}`} >
           <div className="text-3xl flex left h-12 ">
             <div className="w-10 overflow-hidden flex items-center max-sm:hidden">
               <BiChevronRight className="" />
@@ -95,7 +93,7 @@ export const ProjectItem = ({ item, setHoveredItem, edit }) => {
             })}
           </div>}
 
-          {myContext && <div className={`sm:absolute ic2 right-0 top-0 relative max-sm:w-auto sm:right-[-2500px] sm:py-3 h-12 max-sm:flex-1`} >
+          {((myContext?.user?._id == item.creator) || (myContext?.user?.isAdmin)) && <div className={`sm:absolute ic2 right-0 top-0 relative max-sm:w-auto sm:right-[-2500px] sm:py-3 h-12 max-sm:flex-1`} >
             {!details ?
               <button className={`sm:w-4 h-full right-0 md:right-2 absolute top-0`} onClick={(e) => { e.preventDefault(); setDetails(true) }} >
                 <BiDotsVerticalRounded className={`text-4xl sm:text-xl`} />
@@ -116,10 +114,9 @@ export const ProjectItem = ({ item, setHoveredItem, edit }) => {
 
 export const ProjectMedia = ({ item }) => {
   const myContext = useContext(Context);
-  const videoRef = useRef();
+  const videoRef = myContext.isMobile ? null : useRef();
   useEffect(() => {
-    videoRef.current?.load();
-    // videoRef.src = `/static/projects/${item._id}${item.extention}`
+    videoRef?.current?.load();
   }, [item]);
 
   if (!item) {
