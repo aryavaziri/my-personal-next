@@ -7,6 +7,10 @@ const projectSchema = new Schema(
       type: String,
       require: true,
     },
+    preset: {
+      type: Boolean,
+      default: false,
+    },
     link: {
       type: String,
       require: true,

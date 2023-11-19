@@ -8,8 +8,12 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import { BsTelephone } from "react-icons/bs";
 
 import { useForm, Form } from "react-hook-form";
+import { useState } from 'react'
+import OK from "@components/modals/OK";
+
 
 const page = () => {
+    const [emailModal, setEmailModal] = useState(false)
     const { register, control, handleSubmit, watch, formState: { errors }, } = useForm({
         shouldUseNativeValidation: true,
     })
@@ -17,19 +21,21 @@ const page = () => {
     const onSubmit = async (payload) => {
         console.log(payload)
         const res = await fetch("/rh/mail", { method: "POST", body: JSON.stringify(payload) })
-        const data = await res.json()
+        const { data } = await res.json()
         console.log(data)
+        setEmailModal(data.message)
+
     }
 
     return (
         <div
             className={`border-current relative w-screen font-custom2 px-4 sm:px-20 md:px-36 lg:px-56 duration-500 overflow-hidden ${false ? "mt--2 opacity-0" : " delay-300"}`} >
-            <div className="pr-2 pl-2 sm:pl-0 backdrop-blur z-[4] w-3/5 sm:w-full font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl fixed pt-6 sm:pt-24 md:pt-32">
+            <div className="pr-2 pl-2 sm:pl-0 backdrop-blur z-[4] w-3/5 sm:w-full font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl fixed pt-6 sm:pt-24 md:pt-28">
                 <h1 className="whitespace-nowrap pb-2 pl-2 border-b-4 border-current w-min mb-4">
                     Contact
                 </h1>
             </div>
-            <div className={`grid grid-cols-1 mt-20 h-auto overflow-y-scroll noscroll-bar sm:mt-52 md:grid-cols-2 gap-8 sm:gap-16 p-2`}>
+            <div className={`grid grid-cols-1 mt-20 h-auto overflow-y-scroll noscroll-bar sm:mt-48 md:grid-cols-2 gap-8 sm:gap-16 p-2`}>
 
                 <div className={`flex flex-col gap-2 h-fit p-4 md:shadow-arya bg-gradient-to-b to-arya1/50 from-arya1/10 dark:from-dark/60 dark:to-gradientDark/40 rounded-lg mx-auto w-full max-md:order-first`}>
                     <div className='pb-2 flex flex-col text-2xl'>
@@ -95,7 +101,9 @@ const page = () => {
 
 
                 <Form control={control} className='flex flex-col gap-2 text-lg max-md:pb-8' onSubmit={handleSubmit(onSubmit)} >
-                    <p className={`text-md font-normal text-justify p-2 pt-0`} >Connect with me! Interested in collaborating or have a project in mind? Drop your name, email, and message below. Excited to hear from you and explore potential opportunities together.</p>
+                    <OK active={emailModal} setActive={setEmailModal} message={emailModal} />
+
+                    <p className={`text-md font-normal text-justify `} >Connect with me! Interested in collaborating or have a project in mind? Drop your name, email, and message below. Excited to hear from you and explore potential opportunities together.</p>
                     <Input
                         name='Name'
                         label
@@ -113,12 +121,12 @@ const page = () => {
                         type='email'
                         required={"Please enter your email"}
                     />
-                    {/* <Input
+                    <Input
                         control={control}
                         label
                         name='Subject'
                         errors={errors}
-                    /> */}
+                    />
                     <Input
                         control={control}
                         name='Message'

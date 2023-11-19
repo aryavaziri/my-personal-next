@@ -11,6 +11,7 @@ export default function Provider({ children }) {
   const [isMobile, setIsMobile] = useState();
   const [isAuth, setIsAuth] = useState(false);
   const [menu, setMenu] = useState(false);
+  const [bgb, setBgb] = useState(false);
   const toggleMenu = () => {
     setMenu((menu) => !menu);
   };
@@ -28,6 +29,8 @@ export default function Provider({ children }) {
           user,
           setUser,
           isMobile,
+          bgb,
+          setBgb
         }}
       >
         {children}

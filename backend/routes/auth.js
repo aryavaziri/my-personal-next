@@ -97,7 +97,7 @@ router.get(
       );
       if (user) {
         token = jwt.sign({ id: user._id }, "SECRET_KEY", {
-          expiresIn: "1h",
+          expiresIn: "10d",
         });
       } else {
         await User.create({
@@ -105,11 +105,12 @@ router.get(
           name: req.user.displayName,
           profileImg: req.user.picture,
           language: req.user.language,
-          isAdmin: false
+          isAdmin: false,
+          isGoogleAccount: true,
         })
           .then((user) => {
             token = jwt.sign({ id: user._id }, "SECRET_KEY", {
-              expiresIn: "2d",
+              expiresIn: "10d",
             });
           })
           .catch(next);

@@ -13,6 +13,7 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt
     depends_on:
       - frontend
+    restart: always
   frontend:
     container_name: frontend
     build:
@@ -32,11 +33,11 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    env_file:
-      - .env
     volumes:
       - ./backend:/app/backend
       - /app/backend/node_modules
+    env_file:
+      - .env
     restart: always
     ports:
       - 3000:3000

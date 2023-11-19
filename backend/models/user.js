@@ -21,6 +21,14 @@ const userSchema = new Schema(
     isAdmin: {
       type: Boolean,
     },
+    isGoogleAccount: {
+      type: Boolean,
+      default: false,
+    },
+    isSignByMail: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: { updatedAt: "lastLogin" } }
 );

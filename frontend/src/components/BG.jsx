@@ -14,22 +14,26 @@ const BG = ({ children }) => {
   const myContext = useContext(Context)
   const { resolvedTheme } = useTheme();
   const pathname = usePathname();
+  // useEffect(() => {
+  //   console.log((pathname === "/" || pathname === "/test"))
+  // }, [])
+
   return (
     <div>
-      {pathname !== "/" && (
+      {(pathname !== "/") && (!myContext.bgb) && (
         <div
           className={`bg-white dark:bg-black h-screen w-screen fixed z-[-11]`}
         />
       )}
 
-      {pathname === "/" && (
-        <div className="fixed w-screen h-screen z-[-20]">
-          <SketchComponent theme={resolvedTheme} isMobile={myContext.isMobile} />
+      {pathname === "/" | myContext.bgb ? (
+        <div className={`${myContext.bgb ? 'z-[-20]' : 'z-[-20]'} aryaryarya fixed w-screen h-screen`} >
+          <SketchComponent theme={resolvedTheme} isMobile={myContext.isMobile || myContext.bgb} />
         </div>
-      )}
+      ) : ''}
 
       <div
-        className={`z-[-10] max-sm:backdrop-blur-sm h-screen w-screen fixed bg-gradient-to-b from-30% dark:from-15% dark:from-gradientDark/40 from-gradientLight/50 to-80% to-transparent`}
+        className={`z-[-10] max-sm:backdrop-blur-sm ${pathname !== "/" && 'sm:backdrop-blur-[3px]'} h-screen w-screen fixed bg-gradient-to-b from-30% dark:from-15% dark:from-gradientDark/40 from-gradientLight/50 to-80% to-transparent`}
       />
 
       {children}

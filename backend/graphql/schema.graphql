@@ -29,6 +29,7 @@ type Query {
   users: [User]
   user(name: String!): [User]
   projects: [Project]
+  projects2: [Project]
 }
 
 input ProjectInput {

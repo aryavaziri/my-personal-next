@@ -1,0 +1,20 @@
+version: '3.7'
+services:
+  frontend_dev:
+    container_name: frontend_dev
+    build:
+      context: ./frontend
+      dockerfile: dev2.Dockerfile
+    volumes:
+      - ./frontend:/app/frontend
+      - /app/frontend/node_modules/
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+    env_file:
+      - .env
+    restart: always
+    ports:
+      - 5000:5000
+    # depends_on:
+    #   - backend

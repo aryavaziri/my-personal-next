@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "HTTPS=true next dev",
+    "dev2": "HTTPS=true next dev -p 5000",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

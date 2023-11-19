@@ -4,6 +4,8 @@ import { List, Item } from "../models/list.js";
 import GraphQLUpload from "graphql-upload/GraphQLUpload.mjs";
 import fs from 'fs';
 import { isAuth } from "../routes/auth.js";
+import mongoose from "mongoose";
+
 
 const resolvers = {
   Upload: GraphQLUpload,
@@ -17,7 +19,16 @@ const resolvers = {
       }
       return user;
     },
-    projects: async (_, __, contextValue) => await Project.find({}),
+    projects: async () => {
+      return await Project.find({ preset: true })
+    },
+    projects2: async (_, __, contextValue) => {
+      if (contextValue.req.user?.isAdmin) {
+        return await Project.find({ preset: false })
+      } else {
+        return await Project.find({ creator: new mongoose.Types.ObjectId(contextValue.req.user?._id), preset: false })
+      }
+    },
     uploads: () => "Hello uploads",
   },
   Mutation: {
@@ -49,20 +60,21 @@ const resolvers = {
 
     addProject: async (root, args, contextValue) => {
       console.log("ADD-PROJECT")
-      if (!contextValue.req.isAuth) { console.log("Not authenticated"); return }
+      if (!contextValue.req.isAuth) { console.log("Not authenticated"); throw new Error('You are not authenticated!') }
       const tech = args.project.tech[0].split(',').map(item => item.trim())
-      return Project.create({
+      return await Project.create({
         title: args.project.title,
         link: args.project.link,
         src: args.project.src,
         tech: tech,
         extention: args.extention,
-        creator: contextValue.req.user._id
+        creator: contextValue.req.user?._id
       });
     },
 
     editProject: async (root, args, contextValue) => {
-      if (!contextValue.req.isAuth) { console.log("Not authenticated"); return }
+      console.log("EDIT-PROJECT")
+      if (!contextValue.req.isAuth) { console.log("Not authenticated"); throw new Error('You are not authenticated!') }
       const tech = args.project.tech[0].split(',').map(item => item.trim())
       try {
         let project = await Project.findById(args.projectId)
@@ -78,6 +90,7 @@ const resolvers = {
       }
     },
     delProject: async (root, args, contextValue) => {
+      console.log("DEL-PROJECT")
       try {
         if (!contextValue.req.isAuth) { console.log("Not authenticated"); throw new Error('You are not authenticated!') }
         let project = await Project.findById(args.id)

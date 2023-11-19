@@ -6,6 +6,8 @@ import { gql, useMutation } from "@apollo/client";
 import { useRouter } from 'next/navigation';
 import { ProjectMedia } from "./ProjectItem";
 import { AiOutlineClose } from "react-icons/ai";
+import { useState } from 'react'
+import OK from "./modals/OK";
 
 export const dynamic = "force-dynamic";
 
@@ -30,10 +32,11 @@ const UPLOAD_FILE = gql`
 
 
 const ProejctCard = ({ close, item }) => {
-  const { register, control, handleSubmit, watch, formState: { errors }, } = useForm();
-  const [addProject, { loading }] = useMutation(ADD_PROJECT);
+  const { register, control, handleSubmit, watch, formState: { errors }, } = useForm({ shouldUseNativeValidation: true });
+  const [addProject, { loading, error }] = useMutation(ADD_PROJECT);
   const [editProject, { loading: editing }] = useMutation(EDIT_PROJECT);
   const [uploadFile, { loading: uploading }] = useMutation(UPLOAD_FILE);
+  const [errMode, setErrMode] = useState(false)
   const router = useRouter()
   const hiddenFileInput = useRef();
 
@@ -49,16 +52,17 @@ const ProejctCard = ({ close, item }) => {
         : await addProject({ variables: { project: rest, extention: fileExtension } })
       if (item) {
         close();
-        router.refresh()
+        // router.refresh()
       } else {
         const newFile = new File([media[0]], data.addProject._id + fileExtension, { type: media[0].type })
         const res = await uploadFile({ variables: { file: newFile } });
         if (res.data.uploadFile == "OK") {
           close()
-          router.refresh()
+          // router.refresh()
         }
       }
     } catch (e) {
+      setErrMode(true)
       console.log(e);
     }
   };
@@ -77,7 +81,7 @@ const ProejctCard = ({ close, item }) => {
       console.log(res)
       if (res.data.uploadFile == "OK") {
         close()
-        router.refresh()
+        // router.refresh()
       }
     }
   }
@@ -96,6 +100,7 @@ const ProejctCard = ({ close, item }) => {
           <h1 className="mt-2 mb-4 pb-1 border-b border-current text-center text-xl">
             {item ? `Edit ${item.title} ` : `Add `}Project
           </h1>
+          <OK active={errMode} setActive={setErrMode} message={error?.message} />
           <Input
             name="title"
             label="title"

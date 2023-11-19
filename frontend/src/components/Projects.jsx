@@ -7,6 +7,11 @@ import ProjectCard from "./ProjectCard"
 import { AiOutlineClose } from "react-icons/ai";
 import { Suspense } from 'react'
 import { Context } from "@app/Provider";
+import { gql, useQuery, useSuspenseQuery } from "@apollo/client";
+
+const PROJECTS = gql`query {projects2{_id title tech link video extention creator}}`
+
+
 
 const Projects = ({ data }) => {
   const myContext = useContext(Context)
@@ -14,10 +19,10 @@ const Projects = ({ data }) => {
   const [hoveredItem, setHoveredItem] = useState(null);
   const [active, setActive] = useState(false)
   const [selectedItem, setSelectedItem] = useState(null)
+  const { error, data: projects2, refetch } = useSuspenseQuery(PROJECTS, { fetchPolicy: 'network-only' });
 
-  // const edit = ()=>{setActive(true)}
+
   useEffect(() => {
-
     data?.projects.forEach(item => {
       router.prefetch(`/static/projects/${item._id}.${item.extention}`);
     });
@@ -38,27 +43,35 @@ const Projects = ({ data }) => {
             : `w-full`
             }  min-h-content noscroll-bar `}
         >
-          <Suspense fallback={"LOADING"}>
-            {data?.projects && data.projects.map(item => (
-              <ProjectItem
-                setHoveredItem={setHoveredItem}
-                item={item}
-                key={item._id}
-                edit={() => { setActive(true); setSelectedItem(item) }}
-              />
-            ))}
-          </Suspense>
+          {data?.projects && data.projects.map(item => (
+            <ProjectItem
+              setHoveredItem={setHoveredItem}
+              item={item}
+              key={item._id}
+              edit={() => { setActive(true); setSelectedItem(item) }}
+            />
+          ))}
+          {myContext.isAuth && projects2?.projects2?.map(item => (
+            <ProjectItem
+              setHoveredItem={setHoveredItem}
+              item={item}
+              key={item._id}
+              edit={() => { setActive(true); setSelectedItem(item) }}
+            />
+          ))}
+
 
           <div className={`z-[5] pb-6`}>
             {active ?
               <div className={`grid place-items-center fixed top-0 backdrop-blur-md bg-light/80 dark:bg-dark/70 left-0 h-screen w-screen justify-center`}>
                 <div className={`relative`} >
-                  <ProjectCard close={() => setActive(false)} item={selectedItem} />
+                  <ProjectCard close={() => { refetch(); setActive(false) }} item={selectedItem} />
                 </div>
               </div>
-              : <div className={`text-center cursor-pointer text-2xl`} onClick={() => { setSelectedItem(null); setActive(true) }} >+ Add your own</div>
+              : myContext.isAuth ? <div className={`text-center cursor-pointer text-2xl`} onClick={() => { setSelectedItem(null); setActive(true) }} >+ Add your own</div> : <p>Login to add your project here.</p>
             }
           </div>
+          {/* <button onClick={() => refetch()} >refetch</button> */}
         </div>
       </div>
       {!myContext.isMobile && hoveredItem && (
