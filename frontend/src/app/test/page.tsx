@@ -1,11 +1,6 @@
 'use client'
-import React from 'react'
-import Yesno from '@components/modals/Yesno'
+import React, { useState, useEffect } from 'react'
 import Login from '@components/modals/Login';
-// import { getClient } from "@lib/client";
-import { gql } from "@apollo/client";
-import { useState, useEffect } from 'react'
-import { Image } from 'next/image'
 
 const page = () => {
     const [active, setActive] = useState(true)
@@ -17,7 +12,7 @@ const page = () => {
                 LOGIN
             </button>
             <div className={`absolute `} >
-                <Login data={"data"} active={active} setActive={setActive} onAnswer={onAnswer} />
+                <Login placeholder={''} active={active} setActive={setActive} onAnswer={onAnswer} />
             </div>
         </div>
     )
