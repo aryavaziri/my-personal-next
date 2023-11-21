@@ -5,11 +5,13 @@ const userSchema = new Schema(
   {
     name: {
       type: String,
-      require: true,
     },
     email: {
       type: String,
       require: true,
+    },
+    hpassword: {
+      type: String,
     },
     profileImg: {
       type: String,
@@ -20,12 +22,17 @@ const userSchema = new Schema(
     },
     isAdmin: {
       type: Boolean,
+      default: false,
     },
     isGoogleAccount: {
       type: Boolean,
       default: false,
     },
     isSignByMail: {
+      type: Boolean,
+      default: false,
+    },
+    isVerified: {
       type: Boolean,
       default: false,
     },
