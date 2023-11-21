@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "HTTPS=true next dev",
-    "dev2": "HTTPS=true next dev -p 5000",
+    "dev2": "next dev -p 5000",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -28,7 +28,8 @@
     "react-hook-form": "^7.46.2",
     "react-icons": "^4.10.1",
     "sharp": "^0.32.6",
-    "tailwindcss": "3.3.3"
+    "tailwindcss": "3.3.3",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@hookform/devtools": "^4.3.1",

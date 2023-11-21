@@ -5,7 +5,7 @@ export const { getClient } = registerApolloClient(() => {
   return new ApolloClient({
     cache: new InMemoryCache(),
     link: new HttpLink({
-      uri: "http://backend:3000/graphql",
+      uri: "https://aryav.nl/graphql/",
     }),
   });
 });

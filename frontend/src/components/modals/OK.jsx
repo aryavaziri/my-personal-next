@@ -1,5 +1,5 @@
 
-const OK = ({ message, active, setActive, refresh }) => {
+const OK = ({ message, active, setActive }) => {
   // console.log(message)
   active && message && console.log(message)
   return (
