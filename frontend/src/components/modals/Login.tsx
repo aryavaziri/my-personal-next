@@ -85,12 +85,11 @@ const Login = ({ active, setActive }) => {
     // defaultValues: { password: " ", password2: " " },
   });
 
-  useEffect(() => {
-    console.log(formState.errors);
-  }, [formState]);
+  // useEffect(() => {
+  //   console.log(formState.errors);
+  // }, [formState]);
 
   useEffect(() => {
-    console.log(token);
     token && redirect(`/?token=${token}`);
   }, [token]);
 
@@ -102,10 +101,10 @@ const Login = ({ active, setActive }) => {
         method: "POST",
         body: JSON.stringify(payload),
       });
-      const { err, token } = await res.json();
-      err && setCredentialFail(err);
+      const { data, token } = await res.json();
+      (!token || data) && setCredentialFail(data);
       token && setToken(token);
-      // redirect(`/?token=${data}`);
+      token && redirect(`/?token=${token}`);
       // redirect(`/`);
     } catch (error) {
       console.log(error as Error);
@@ -183,7 +182,7 @@ const Login = ({ active, setActive }) => {
       />
 
       <div
-        className={`fixed z-[20] top-0 left-0 w-screen font-normal pt-[15vh] text-xl h-screen bg-dark/80 backdrop-blur-[2px] ${
+        className={`fixed z-[40] top-0 left-0 w-screen font-normal pt-[15vh] text-xl h-screen bg-dark/80 backdrop-blur-[2px] ${
           !active && "hidden"
         }`}
         onClick={() => {
@@ -191,7 +190,7 @@ const Login = ({ active, setActive }) => {
         }}
       >
         <div
-          className={`w-4/5 max-w-md px-4 pb-4 rounded-lg overflow-hidden mx-auto bg-gradient-to-b from-purple-400/60 to-light/90 drop-shadow-lg`}
+          className={`w-4/5 max-w-md px-4 pb-4 rounded-lg overflow-hidden mx-auto bg-gradient-to-b from-purple-500 to-light/90 drop-shadow-lg`}
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();

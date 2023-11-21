@@ -90,7 +90,7 @@ const ProejctCard = ({ close, item }) => {
   if (uploading) return 'Uploading...'
   return (
     <>
-      {!loading && !editing && !uploading && <div className={`absolute top-4 right-4 text-sm cursor-pointer`} onClick={() => close()} ><AiOutlineClose /></div>}
+      {!loading && !editing && !uploading && <div className={`absolute z-[40] top-4 right-4 text-sm cursor-pointer`} onClick={() => close()} ><AiOutlineClose /></div>}
       <div className="max-w-xs w-full shadow-[0_3px_20px_3px] shadow-dark/40 dark:shadow-light/40 z-[60] rounded overflow-hidden bg-gradient h-full">
         <Form
           className="w-full pt-2 px-4 bg-gradient-to-b h-full from-purple-500/20 to-pink-500/40 pb-6 flex flex-col gap-2"

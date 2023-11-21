@@ -11,9 +11,6 @@ export const POST = async (req) => {
             body: JSON.stringify(data)
         })
         const d = await res.text()
-        if (d === 'waiting for confirmation') {
-            return NextResponse.json({ confirm: d })
-        }
         return NextResponse.json({ data: d })
 
         // console.log(res)

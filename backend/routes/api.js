@@ -83,7 +83,7 @@ router.post("/signup", async (req, res, next) => {
         const [user] = await User.find({ email: data.email, isSignByMail: true })
         let token
         let hashp
-        if (user) { return res.send("exists") }
+        if (user) { return res.send("This email is already registered.") }
         bcrypt.hash(data.password, 8, (err, hash) => {
             User.create({
                 email: data.email,
@@ -109,7 +109,7 @@ router.post("/signup", async (req, res, next) => {
                 .catch(next);
             if (err) { next(err) }
         })
-        return res.send("waiting for confirmation");
+        return res.send("Please check your Email to continue.");
     }
     catch (err) {
         next(err);

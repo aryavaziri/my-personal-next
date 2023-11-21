@@ -25,7 +25,7 @@ export const POST = async (req) => {
             d = await res.text();
             console.log(d)
             if (res.ok) {
-                return NextResponse.json({ data: d })
+                return NextResponse.json({ token: d })
             }
             return NextResponse.json({ data: d })
             // return NextResponse.redirect(`https://aryav.nl/?token=${d}`);

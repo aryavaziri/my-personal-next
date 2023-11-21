@@ -12,6 +12,7 @@
   "dependencies": {
     "@apollo/client": "^3.8.0-rc.2",
     "@apollo/experimental-nextjs-app-support": "^0.5.1",
+    "@hookform/resolvers": "^3.3.2",
     "@p5-wrapper/next": "^0.2.0",
     "@p5-wrapper/react": "latest",
     "apollo-upload-client": "^18.0.0",
