@@ -15,7 +15,7 @@ const userSchema = new Schema(
     },
     profileImg: {
       type: String,
-      default: "/IMG/default",
+      default: "/images/default_user.jpg",
     },
     language: {
       type: String,
