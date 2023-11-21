@@ -5,13 +5,15 @@ import { useSearchParams } from "next/navigation";
 import { Context } from "@app/Provider";
 import Image from "next/image";
 
-const Auth = () => {
+const Auth = ({ setActive }) => {
+
   const [toggle, setToggle] = useState(false);
   const newToken = useSearchParams().get("token");
   const router = useRouter();
   const myContext = useContext(Context);
 
   useEffect(() => {
+    console.log("newToken: ", newToken)
     if (newToken) {
       localStorage.setItem("accessToken", newToken);
     }
@@ -60,9 +62,11 @@ const Auth = () => {
   if (!myContext?.menu) return null
   return (
     <>
+
       {!myContext?.isAuth ? (
         <button
-          onClick={() => login()}
+          // onClick={() => login()}
+          onClick={() => setActive(true)}
           className="h-auto px-2 my-1 flex duration-300 justify-center items-center border-current duration-100 rounded border font-bold"
         >
           LOGIN

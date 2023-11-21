@@ -3,3 +3,4 @@ test.txt
 .crt
 .key
 private
+node_modules
