@@ -8,7 +8,7 @@ import { ImNewTab } from "react-icons/im";
 
 const page = () => {
     return (
-        <div className={`mb-8`} >
+        <div className={``} >
             <div className="rounded-b-[50px] relative w-full overflow-hidden h-[50vh]" >
                 <div className={`w-full h-full`} >
                     <Image
