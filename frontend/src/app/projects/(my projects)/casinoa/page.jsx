@@ -66,7 +66,7 @@ const page = () => {
                         Key Features
                     </div>
                     <ul className="mt-4 sm:pt-6 gap-4 flex flex-col">
-                        <li className="w-full flex flex-col sm:flex-row items-baseline">
+                        <li className="w-full flex flex-col sm:flex-row">
                             <div
                                 className={`w-full sm:w-1/4 sm:text-end px-4 text-2xl font-semibold `}
                             >
@@ -81,7 +81,7 @@ const page = () => {
                                 scalability.
                             </div>
                         </li>
-                        <li className="w-full flex flex-col sm:flex-row items-baseline">
+                        <li className="w-full flex flex-col sm:flex-row">
                             <div
                                 className={`w-full sm:w-1/4 sm:text-end px-4 text-2xl font-semibold `}
                             >
@@ -96,7 +96,7 @@ const page = () => {
                                 scaling.
                             </div>
                         </li>
-                        <li className="w-full flex flex-col sm:flex-row items-baseline">
+                        <li className="w-full flex flex-col sm:flex-row">
                             <div
                                 className={`w-full sm:w-1/4 sm:text-end px-4 text-2xl font-semibold `}
                             >
@@ -110,7 +110,7 @@ const page = () => {
                                 facilitates code organization, and promotes code reusability.
                             </div>
                         </li>
-                        <li className="w-full flex flex-col sm:flex-row items-baseline">
+                        <li className="w-full flex flex-col sm:flex-row">
                             <div
                                 className={`w-full sm:w-1/4 sm:text-end px-4 text-2xl font-semibold `}
                             >

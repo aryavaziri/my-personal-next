@@ -31,7 +31,7 @@ const page = () => {
 
                 <div className="max-md:flex-col flex justify-between my-6">
                     <div className="md:basis-2/5 flex flex-col gap-2 p-2">
-                        <div className="flex gap-2 items-baseline">
+                        <div className="flex gap-2">
                             <div
                                 className={`w-32 font-bold text-right text-2xl`}
                             >
@@ -39,7 +39,7 @@ const page = () => {
                             </div>
                             <div className="text-lg">Civic Interaction Design</div>
                         </div>
-                        <div className="flex gap-2 items-baseline">
+                        <div className="flex gap-2">
                             <div
                                 className={` w-32 font-bold text-right text-2xl`}
                             >
@@ -47,7 +47,7 @@ const page = () => {
                             </div>
                             <div className="text-lg">C#/UNITY, 3D, VR</div>
                         </div>
-                        <div className="flex gap-2 items-baseline">
+                        <div className="flex gap-2">
                             <div
                                 className={`w-32 font-bold text-right text-2xl`}
                             >

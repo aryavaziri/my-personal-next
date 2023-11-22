@@ -12,14 +12,12 @@ import { usePathname } from "next/navigation";
 import Login from "./modals/Login";
 const Nav = () => {
 
-  const [active, setActive] = useState(false);
   const pathname = usePathname();
-  const [toggle, setToggle] = useState(false);
   const myContext = useContext(Context);
-  // console.log(myContext);
+
   return (
     <>
-      <Login active={active} setActive={setActive} />
+      <Login />
 
       <div
         onClick={() => {
@@ -39,8 +37,7 @@ const Nav = () => {
           </Link>
 
           <div className="flex gap-4 h-full" >
-            <Auth setActive={setActive} />
-            {/* {myContext?.menu && <Auth />} */}
+            <Auth />
             {myContext?.menu && <ThemeButton />}
             <Menu />
           </div>

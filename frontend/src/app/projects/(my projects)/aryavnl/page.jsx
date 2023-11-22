@@ -9,7 +9,7 @@ import { ImNewTab } from "react-icons/im";
 const page = () => {
     return (
         <div className={`pb-12`} >
-            <div className="rounded-b-[50px] relative w-full overflow-hidden h-[50vh]" >
+            <div className="rounded-b-[50px] relative mb-12 w-full overflow-hidden h-[50vh]" >
                 <div className={`w-full h-full`} >
                     <Image
                         className="object-cover "
@@ -21,11 +21,11 @@ const page = () => {
             </div>
 
             <div className={`pt-10 sticky top-0 backdrop-blur-md`} >
-                <h1 className={`mx-20 text-center pt-10 pb-4 text-4xl sm:text-5xl font-bold border-b-2 border-dark dark:border-light sticky top-0 backdrop-blur-md`} >
+                <h1 className={`mx-20 text-center pb-4 text-4xl sm:text-5xl font-bold border-b-2 border-dark dark:border-light sticky top-0 backdrop-blur-md`} >
                     ARYAV.NL, Project shawcasing
                 </h1>
             </div>
-            <div className={`md:px-20`} >
+            <div className={`md:px-20 text-xl`} >
                 <div className="flex sm:justify-between max-md:flex-col my-6">
                     <div className="basis-1/3 lg:basis-1/4 flex flex-col gap-4 p-2">
                         <div className="gap-2 items-baseline">
@@ -48,7 +48,7 @@ const page = () => {
                         Key Features
                     </div>
                     <ul className="mt-4 sm:pt-6 gap-4 flex flex-col">
-                        <li className="w-full flex flex-col sm:flex-row items-baseline">
+                        <li className="w-full flex flex-col sm:flex-row">
                             <div className={`w-full sm:w-1/3 lg:w-1/4 sm:text-end px-4 text-2xl font-semibold `} >
                                 Open-Authentication
                             </div>
@@ -56,7 +56,7 @@ const page = () => {
                                 Effortlessly sign up using your Google account for a seamless and secure authentication process. For users who prefer email registration, our platform ensures inclusivity with a straightforward sign-up option. Join the community easily, embracing both convenience and inclusiveness.
                             </div>
                         </li>
-                        <li className="w-full flex flex-col sm:flex-row items-baseline">
+                        <li className="w-full flex flex-col sm:flex-row">
                             <div className={`w-full sm:w-1/3 lg:w-1/4 sm:text-end px-4 text-2xl font-semibold `} >
                                 NGINX (SSL encryption)
                             </div>
@@ -64,7 +64,7 @@ const page = () => {
                                 Nginx, a high-performance web server, ensures efficient handling of incoming requests. SSL encryption, facilitated by an SSL certificate, adds an extra layer of protection by encrypting data exchanged between users and the server. This not only boosts security but also establishes trust. Rest easy knowing that your interactions on this platform are safeguarded by cutting-edge encryption technology.
                             </div>
                         </li>
-                        <li className="w-full flex flex-col sm:flex-row items-baseline">
+                        <li className="w-full flex flex-col sm:flex-row">
                             <div className={`w-full sm:w-1/3 lg:w-1/4 sm:text-end px-4 text-2xl font-semibold `} >
                                 GraphQL
                             </div>
@@ -72,7 +72,7 @@ const page = () => {
                                 Powering our platform's data management is GraphQL, a query language for APIs. This innovative technology excels in efficiency, enabling clients to request precisely the data they need. Both server and client sides leverage GraphQL with Apollo, ensuring seamless communication and optimal performance. The result? A faster, more flexible, and resource-efficient user experience.
                             </div>
                         </li>
-                        <li className="w-full flex flex-col sm:flex-row items-baseline" >
+                        <li className="w-full flex flex-col sm:flex-row" >
                             <div className={`w-full sm:w-1/3 lg:w-1/4 sm:text-end px-4 text-2xl font-semibold `} >
                                 React-hook-form
                             </div>
@@ -85,21 +85,20 @@ const page = () => {
 
                 <hr className={`border my-8`} />
 
-                <div className="flex-wrap flex-row flex w-full sm:w-fit gap-4 mx-auto text-3xl justify-evenly" >
+                <div className="flex-wrap flex-row flex w-full sm:w-fit gap-8 mx-auto text-3xl justify-evenly" >
                     <Link
                         target="_blank"
                         href={`http://www.aryav.nl/`}
-                        className={`btn-primary  max-sm:text-lg max-sm:w-2/5 `}
-                    >
-                        <ImNewTab className="w-8" />
+                        className={`rounded text-2xl shadow-lg px-5 py-2 hover:bg-dark/20 hover:dark:bg-light/40 border mt-4 border-current mx-auto flex gap-2`} >
+                        <ImNewTab className="w-8 mt-1" />
                         <div>Visit</div>
                     </Link>
+
                     <Link
                         target="_blank"
                         href={`https://www.github.com/aryavaziri/my-personal-next`}
-                        className={`btn-primary  max-sm:text-lg max-sm:w-2/5 `}
-                    >
-                        <BsGithub className="w-8" />
+                        className={`rounded text-2xl shadow-lg px-5 py-2 hover:bg-dark/20 hover:dark:bg-light/40 border mt-4 border-current mx-auto flex gap-2`} >
+                        <BsGithub className="w-8 mt-1" />
                         <div>Source</div>
                     </Link>
                 </div>

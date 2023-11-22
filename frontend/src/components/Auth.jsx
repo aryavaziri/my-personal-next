@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { Context } from "@app/Provider";
 import Image from "next/image";
 
-const Auth = ({ setActive }) => {
+const Auth = () => {
 
   const [toggle, setToggle] = useState(false);
   const newToken = useSearchParams().get("token");
@@ -66,7 +66,7 @@ const Auth = ({ setActive }) => {
       {!myContext?.isAuth ? (
         <button
           // onClick={() => login()}
-          onClick={() => setActive(true)}
+          onClick={() => myContext.setLoginModal(true)}
           className="h-auto px-2 my-1 flex duration-300 justify-center items-center border-current duration-100 rounded border font-bold"
         >
           LOGIN

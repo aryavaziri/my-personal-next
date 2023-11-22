@@ -74,7 +74,7 @@ const Projects = ({ data }) => {
                   onClick={() => { setSelectedItem(null); setActive(true) }} >
                   + Add your own
                 </div>
-                : <p>Login to add your project here.</p>
+                : <button onClick={() => { myContext.setLoginModal(true) }}> Login to add your project here.</button>
             }
           </div>
           {/* <button onClick={() => refetch()} >refetch</button> */}

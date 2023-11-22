@@ -1,5 +1,4 @@
 "use client";
-
 import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -8,14 +7,11 @@ import { useForm, Form } from "react-hook-form";
 import { FaArrowCircleRight } from "react-icons/fa";
 import { RiLoaderFill } from "react-icons/ri";
 import { TiTick } from "react-icons/ti";
-// import { DevTool } from "@hookform/devtools";
-import OK from "@components/modals/OK";
-
 import { Context } from "@app/Provider";
 import { CiEdit } from "react-icons/ci";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import OK from "@components/modals/OK";
 
 const getSchema = (isSignUp: boolean) => {
   const signUpSchema = z
@@ -26,14 +22,15 @@ const getSchema = (isSignUp: boolean) => {
         .toLowerCase()
         .min(1, "This field is Required")
         .email("Invalid Email"),
-      password: z.string(),
-      // .min(8, "Password must contains 8 characters")
-      // .regex(/[@$!%*#?&]/, {
-      //   message: "Password must include special characters",
-      // })
-      // .regex(/\d/, {
-      //   message: "Password must include a number",
-      // })
+      password: z
+        .string()
+        .min(8, "Password must contains 8 characters")
+        .regex(/[@$!%*#?&]/, {
+          message: "Password must include special characters",
+        })
+        .regex(/\d/, {
+          message: "Password must include a number",
+        }),
       password2: z.string(),
     })
     .partial()
@@ -57,18 +54,11 @@ const getSchema = (isSignUp: boolean) => {
 const defSchema = getSchema(true);
 
 type Inputs = z.infer<typeof defSchema>;
-type LoginProps = {
-  active: boolean;
-  setActive: React.Dispatch<React.SetStateAction<boolean>>;
-};
 
-const Login: React.FC<LoginProps> = ({ active, setActive }) => {
-  // useEffect(() => {
-  //   active ? myContext.setBgb(true) : myContext.setBgb(false)
-  // }, [active])
+const Login = () => {
   const myContext = useContext(Context);
+
   const [editable, setEditable] = useState(true);
-  const [showPassword, setShowPassword] = useState(false);
   const [confirmationSent, setConfirmationSent] = useState("");
   const [credentialFail, setCredentialFail] = useState("");
   const [email, setEmail] = useState("");
@@ -76,6 +66,12 @@ const Login: React.FC<LoginProps> = ({ active, setActive }) => {
   const [exists, setExists] = useState(false);
   const [loadinggggggg, setLoadinggggggg] = useState(false);
   const [schema, setSchema] = useState(getSchema(false));
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    setActive(myContext.loginModal);
+  }, [myContext.loginModal]);
+
   const {
     register,
     control,
@@ -86,12 +82,7 @@ const Login: React.FC<LoginProps> = ({ active, setActive }) => {
     getValues,
   } = useForm<Inputs>({
     resolver: zodResolver(schema),
-    // defaultValues: { password: " ", password2: " " },
   });
-
-  // useEffect(() => {
-  //   console.log(formState.errors);
-  // }, [formState]);
 
   useEffect(() => {
     token && redirect(`/?token=${token}`);
@@ -162,7 +153,7 @@ const Login: React.FC<LoginProps> = ({ active, setActive }) => {
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      e.preventDefault(); // prevent default form submission behavior
+      e.preventDefault();
       if (email) {
         if (exists) {
           handleSubmit(signIn)();
@@ -178,7 +169,6 @@ const Login: React.FC<LoginProps> = ({ active, setActive }) => {
 
   return (
     <>
-      {/* <DevTool control={control} /> */}
       <OK
         active={confirmationSent}
         setActive={setConfirmationSent}
@@ -190,7 +180,7 @@ const Login: React.FC<LoginProps> = ({ active, setActive }) => {
           !active && "hidden"
         }`}
         onClick={() => {
-          setActive(false);
+          myContext.setLoginModal(false);
         }}
       >
         <div
@@ -288,11 +278,6 @@ const Login: React.FC<LoginProps> = ({ active, setActive }) => {
             } ${email && "shadow bg-purple-700/20"}`}
             control={control}
           >
-            {/* {email && errors.name && (errors.name.type === "required" && (
-            <span>This is required</span>
-          ))} */}
-            {/* {email && formState?.errors && (Object.keys(formState.errors).map(item => <span> error: {formState.errors[item]} </span>))} */}
-            {/* {formState?.errors && Object.keys(errors).map(item => { (errors[item]) })} */}
             <div className={`relative`}>
               <input
                 {...register("email")}
@@ -303,11 +288,9 @@ const Login: React.FC<LoginProps> = ({ active, setActive }) => {
                 disabled={!editable}
                 type="email"
               />
-
               <button
                 onClick={handleSubmit(mailCheck1)}
                 className={`absolute right-2 h-full inset-y-0 text-dark text-2xl`}
-                // type="submit"
               >
                 {loadinggggggg && !email ? (
                   <RiLoaderFill className={`motion-safe:animate-spin`} />
@@ -365,10 +348,6 @@ const Login: React.FC<LoginProps> = ({ active, setActive }) => {
                     >
                       {credentialFail}
                     </div>
-
-                    {/* <div>
-              {formState?.errors?.email?.message}
-                    </div> */}
 
                     <div className={`flex justify-between text-light`}>
                       <p>
