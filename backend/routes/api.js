@@ -4,8 +4,8 @@ import sgMail from '@sendgrid/mail'
 import { User } from "../models/user.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt"
-
 export const router = express.Router();
+
 
 sgMail.setApiKey(process.env.SENDGRID)
 
@@ -20,11 +20,7 @@ router.post("/email_check", async (req, res, next) => {
         next(err);
         return res.send(err.message);
     }
-
 })
-
-
-
 
 
 router.get("/confirm", async (req, res, next) => {
@@ -75,8 +71,6 @@ router.get("/confirm", async (req, res, next) => {
 })
 
 
-
-
 router.post("/signup", async (req, res, next) => {
     const data = req.body
     try {
@@ -104,7 +98,7 @@ router.post("/signup", async (req, res, next) => {
                         text: "Email confirmation",
                         html: `<div>You have signed up for aryav.nl website. Please click on the link below to confirm your email address.</div><a href="https://aryav.nl/api/confirm?token=${token}" >Confirm</a>`,
                     }
-                    // sgMail.send(EmailConfirmation)
+                    sgMail.send(EmailConfirmation)
                 })
                 .catch(next);
             if (err) { next(err) }
@@ -117,8 +111,6 @@ router.post("/signup", async (req, res, next) => {
     }
 
 })
-
-
 
 
 router.post("/signin", async (req, res, next) => {
@@ -142,14 +134,9 @@ router.post("/signin", async (req, res, next) => {
     }
     catch (err) {
         next(err);
-        // return res.send(err.message);
     }
 
 })
-
-
-
-
 
 
 router.post("/contact", async (req, res, next) => {
