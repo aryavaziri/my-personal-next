@@ -8,11 +8,10 @@ export default function Home() {
         className={`gap-y-4 flex flex-col px-4 pb-8 h-max-screen overflow-hidden`}
       >
         <h1 className="text-4xl md:text-6xl text-center pt-24 sm:pt-48 font-extrabold">
-          Hello! My name is Arya.
+          Arya Vaziri
         </h1>
 
         <h3 className="text-3xl pt-8 md:text-4xl text-center sm:min-h-12">
-          I am a
           <br className="sm:hidden" />
           <span
             className={`sm:font-extrabold max-sm:text-3xl px-3 inline-block hover:scale-x-105 text-secondaryLight dark:text-secondaryDark skills`}
