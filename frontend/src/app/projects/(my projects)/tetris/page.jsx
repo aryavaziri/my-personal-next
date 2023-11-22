@@ -22,7 +22,7 @@ const page = () => {
             <div className={`flex-1 max-lg:max-w-[350px] lg:max-w-[450px] overflow-hidden px-2`}>
                 <iframe
                     autoFocus
-                    src="/Tetris_p5JS/index.html"
+                    src="/tetris/index.html"
                     scrolling='no'
                     className="w-full h-[500px] overflow-hidden px-2"
                 >

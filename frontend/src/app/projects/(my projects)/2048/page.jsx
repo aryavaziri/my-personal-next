@@ -22,6 +22,7 @@ const page = () => {
             <div className={`flex-1 max-lg:max-w-[300px] lg:max-w-[450px] overflow-hidden px-2`}>
                 <iframe
                     autoFocus
+                    scrolling="no"
                     src="/2048.html"
                     className="w-full h-full px-2"
                 >
