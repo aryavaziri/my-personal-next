@@ -8,148 +8,107 @@ import { ImNewTab } from "react-icons/im";
 
 const page = () => {
     return (
-        <div className={``} >
+        <div
+            // style={{backgroundImage: `url(${Noise}`, opacity: "40%"}}
+            className={`pb-8`}
+        >
             <div className="rounded-b-[50px] relative w-full overflow-hidden h-[50vh]" >
                 <div className={`w-full h-full`} >
                     <Image
                         className="object-cover "
-                        src='/images/Casinoa.jpg'
-                        alt="CASINOA"
+                        src='/images/ReframePost.png'
+                        alt="Reframe"
                         fill
                     />
                 </div>
             </div>
-
             <div className={`pt-10 sticky top-0 backdrop-blur-md`} >
-                <h1 className={`mx-20 text-center pt-10 pb-4 text-4xl sm:text-5xl font-bold border-b-2 border-dark dark:border-light sticky top-0 backdrop-blur-md`} >
-                    CASINOA, Online poker
+                <h1 className={`mx-20 text-center pb-4 text-4xl sm:text-5xl font-bold border-b-2 border-dark dark:border-light sticky top-0 backdrop-blur-md`} >
+                    Reframe, A Travelling Art Piece
                 </h1>
             </div>
-            <div className={`md:px-20`} >
-                <div className="flex sm:justify-between max-md:flex-col my-6">
-                    <div className="basis-2/5 flex flex-col gap-2 p-2">
+            <div className="md:mx-20">
+
+                <div className="max-md:flex-col flex justify-between my-6">
+                    <div className="md:basis-2/5 flex flex-col gap-2 p-2">
                         <div className="flex gap-2 items-baseline">
-                            <div className={`flex-none w-32 font-bold text-right text-xl`} >
-                                Techsnologies:
+                            <div
+                                className={`w-32 font-bold text-right text-2xl`}
+                            >
+                                Client:
                             </div>
-                            <div className="px-2">
-                                Django / Python / React / Postgresql / NGINX / Redis / Redux / Docker
-                            </div>
+                            <div className="text-lg">Civic Interaction Design</div>
                         </div>
                         <div className="flex gap-2 items-baseline">
-                            <div className={`flex-none w-32 font-bold text-right text-xl`} >
+                            <div
+                                className={` w-32 font-bold text-right text-2xl`}
+                            >
+                                Technologies:
+                            </div>
+                            <div className="text-lg">C#/UNITY, 3D, VR</div>
+                        </div>
+                        <div className="flex gap-2 items-baseline">
+                            <div
+                                className={`w-32 font-bold text-right text-2xl`}
+                            >
                                 Date:
                             </div>
-                            <div className="px-2">Nov 2022 - Jun 2023</div>
+                            <div className="text-lg">Nov - Dec 2022</div>
                         </div>
                     </div>
-                    <div className="basis-3/5 p-2 font-medium text-2xl">
-                        Casinoa, is a dynamic and interactive platform built using Django and React. The project leverages the Django framework on the server-side, handling the game logic, database management, and user authentication. React, on the other hand, powers the dynamic frontend, delivering a seamless and responsive user interface.
+                    <div className="md:basis-2/3 p-2 text-justify text-xl"> Reframe is a VR experience that focuses on the Dutch occupation of Brazil (1630-1654). It's a poly-narrative that sheds light on those hidden voices and untold stories. But it does more; it makes us aware of our biases and blind spots by raising an interesting question: Might the same institutional biases we 'accuse' museums of still be present in some unforeseen way, neatly hidden in the systems, frameworks, and technology we use – and if so, can Reframe address that problem too?
                     </div>
                 </div>
-                <div className="my-12">
+                <div>
                     <div
-                        className={` border-b-2 border-dark dark:border-light text-3xl p-2 font-bold mb-6`}
+                        className={`text-3xl font-bold p-2`}
                     >
-                        Concept
+                        Design Proposal
                     </div>
-                    <p className="text-2xl">
-                        The backend of the application is powered by Django, a Python-based framework known for its robustness and versatility. Django offers a convenient solution for implementing AI bots and managing the underlying database, making it an ideal choice for creating a platform that can support the development of an AI player.
-                        <br /> While the AI player development is still in progress, the current iteration of the Poker Web Application offers an exciting multiplayer experience with virtual currency. Users can create personalized accounts, participate in multiplayer games, and compete against friends or other players online.
-                        <br /> By providing a platform for multiplayer gameplay, this project allows players to engage in exciting poker matches using virtual money. This multiplayer functionality serves as a foundation for gathering valuable data, which will be instrumental in refining the AI player's strategy and improving its performance over time.
+                    <p className="text-justify"> In the VR experience, users will find themselves in front of View of Itamaracá Island, Brazil (1637) by Frans Post, where they will be able to interact with some elements of the painting. They hear a different story than the idyllic one created by the Dutch painter. A lot is not being told by him. Reframe fills this hiatus. <br /> It confronts users with a different narrative. While interacting with the painting, users hear voice recordings of Brazilians with different backgrounds who describe what they see when they look at the painting. These personal stories are added to engage the user, unlock multiple perspectives, and to get across how colonization is still affecting many lives nowadays. It does so in a 'strange loop' kind of way as well. <br /> In the same room, nine AI-generated paintings show how deeply rooted colonialism and racism still are in today's society and system. This new technology that's being developed is built on existing frameworks. It learns from the data we've fed the system. History forms its own datasets. To tell different stories, we need different data. <br /> <br /> At the end of the experience, users will be asked to share their experiences related to colonialism and racism. By collecting these stories, new data is being gathered. This way, the experience will grow over time. With the current explosion of generative AI-design tools in mind, this might prove to be the most important part of the experience. For it's one thing to prompt AI to 'create a painting in the style of Frans Post', but another to unlock these hidden stories.<br /> <br />
                     </p>
                 </div>
+                <div>
+                    <div
+                        className={`text-3xl font-bold p-2`}
+                    >
+                        Unity
+                    </div>
+                    <p className="text-justify"> As a developer in the Reframe VR project, my primary role was to create the immersive experience using Unity. I faced various challenges throughout the development process, such as implementing locomotion techniques suitable for VR and ensuring the experience was user-friendly for our target audience, who were not necessarily familiar with gaming or technology. <br /> Using my expertise in C#, I integrated a feedback recording system to allow users to share their experiences related to colonialism and racism. This functionality enabled us to collect valuable user data, which would contribute to the growth and evolution of the experience over time. <br /> To enhance the immersive nature of the VR experience, I utilized 3D audio techniques and incorporated an audio player with a playlist for each section of the project. This allowed users to engage with the narrative and personal stories from different perspectives, creating a more impactful and meaningful experience. <br /> <br />{" "}
+                    </p>
+                </div>
+
                 <div className="my-8">
                     <div
-                        className={` border-b-2 border-dark dark:border-light text-3xl p-2 font-bold `}
+                        className={`text-3xl font-bold p-2 my-2`}
                     >
-                        Key Features
+                        Experience Demo
                     </div>
-                    <ul className="mt-4 sm:pt-6 gap-4 flex flex-col">
-                        <li className="w-full flex flex-col sm:flex-row items-baseline">
-                            <div
-                                className={`w-full sm:w-1/4 sm:text-end px-4 text-2xl font-semibold `}
-                            >
-                                JSON Web Token
-                            </div>
-                            <div className="w-full sm:w-3/4 justify">
-                                provide a secure and password-free authentication method for apps.
-                                With JWT, sensitive user credentials are never stored, reducing
-                                the risk of data breaches. Tokens contain encrypted authentication
-                                data, eliminating the need for frequent database queries. JWT
-                                ensures secure access to protected resources and improves app
-                                scalability.
-                            </div>
-                        </li>
-                        <li className="w-full flex flex-col sm:flex-row items-baseline">
-                            <div
-                                className={`w-full sm:w-1/4 sm:text-end px-4 text-2xl font-semibold `}
-                            >
-                                Docker
-                            </div>
-                            <div className="w-full sm:w-3/4 justify">
-                                Using Docker to containerize your app has numerous advantages. It
-                                enables easy and quick installation on servers, making deployment
-                                faster. With one line of code, anyone can install the open-source
-                                application on their server. Docker ensures consistent
-                                environments, promotes development conventions, and simplifies
-                                scaling.
-                            </div>
-                        </li>
-                        <li className="w-full flex flex-col sm:flex-row items-baseline">
-                            <div
-                                className={`w-full sm:w-1/4 sm:text-end px-4 text-2xl font-semibold `}
-                            >
-                                Redux
-                            </div>
-                            <div className="w-full sm:w-3/4 justify">
-                                By combining Redux with React, you have achieved a scalable, fast,
-                                and well-structured application. Redux reduces server pressure,
-                                optimizes resource usage, and provides a predictable state
-                                management approach. This combination enhances performance,
-                                facilitates code organization, and promotes code reusability.
-                            </div>
-                        </li>
-                        <li className="w-full flex flex-col sm:flex-row items-baseline">
-                            <div
-                                className={`w-full sm:w-1/4 sm:text-end px-4 text-2xl font-semibold `}
-                            >
-                                Web-Sockets
-                            </div>
-                            <div className="w-full sm:w-3/4 justify">
-                                By using Django Channels and Redis, your multiplayer game
-                                application benefits from real-time communication through
-                                websockets. Players can engage in a live chatroom and receive
-                                updates from the PostgreSQL database.
-                            </div>
-                        </li>
-                    </ul>
+                    <video
+                        className="w-full "
+                        src='/images/reframe.mp4'
+                        controls
+                    />
                 </div>
-                <hr
-                    className={`border my-8`}
-                />
 
-                <div className="flex-wrap flex-row flex w-full sm:w-fit gap-4 mx-auto text-3xl justify-evenly">
+                <div className="sm:flex-row flex-col flex w-full sm:w-1/2 gap-4 mx-auto text-3xl justify-evenly">
                     <Link
-                        target="_blank"
-                        href={`http://www.casinoa.nl/`}
-                        className={`btn-primary  max-sm:text-lg max-sm:w-2/5 `}
+                        className="btn-primary bg-vr1"
+                        href={"/projects"}
                     >
-                        <ImNewTab className="w-8" />
+                        <BsSkipStart className="w-6" />
                         <div>Visit</div>
                     </Link>
                     <Link
-                        target="_blank"
-                        href={`https://www.github.com/aryavaziri/casinoa`}
-                        className={`btn-primary  max-sm:text-lg max-sm:w-2/5 `}
+                        className="btn-primary bg-vr1"
+                        href={`/projects/tetris`}
                     >
-                        <BsGithub className="w-8" />
-                        <div>Source</div>
+                        <div className="whitespace-nowrap">Source Code</div>
+                        <BsForward className="" />
                     </Link>
                 </div>
             </div>
         </div>
-
     );
 }
 

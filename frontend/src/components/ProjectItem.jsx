@@ -60,7 +60,7 @@ export const ProjectItem = ({ item, setHoveredItem, edit }) => {
     edit()
   }
   useEffect(() => {
-    // console.log(myContext)
+    console.log(myContext?.user?._id && myContext?.user?._id == item.creator)
     // console.log(process.env.NODE_ENV)
     // console.log(item?.creator)
   }, [myContext])
@@ -98,16 +98,28 @@ export const ProjectItem = ({ item, setHoveredItem, edit }) => {
                 })}
               </div>}
 
-              {((myContext?.user?._id == item.creator) || (myContext?.user?.isAdmin)) && <div className={`sm:absolute ic2 right-0 top-0 relative max-sm:w-auto sm:right-[-2500px] sm:py-3 h-12 max-sm:flex-1`} >
+              {((myContext?.user?._id && myContext?.user?._id == item.creator) || (myContext?.user?.isAdmin)) && <div className={`sm:absolute ic2 right-0 top-0 relative max-sm:w-auto sm:right-[-2500px] sm:py-3 h-12 max-sm:flex-1`} >
                 {!details ?
                   <button className={`sm:w-4 h-full right-0 md:right-2 absolute top-0`} onClick={(e) => { e.preventDefault(); setDetails(true) }} >
                     <BiDotsVerticalRounded className={`text-4xl sm:text-xl`} />
                   </button>
                   :
                   <div className={`absolute h-full right-0 md:right-2 grid grid-cols-3 gap-2 place-items-center text-xl`} >
-                    <button className={`${myContext.isMobile ? ' text-4xl' : 'hover:text-2xl hover:text-sky-400'} sm:w-4 `} onClick={(e) => { e.preventDefault(); setInfoActive(pre => !pre) }} ><BiInfoCircle /></button>
-                    <button className={`${myContext.isMobile ? ' text-4xl' : 'hover:text-2xl hover:text-green-400'} sm:w-4 `} onClick={(e) => onEdit(e)} ><BiEditAlt /></button>
-                    <button className={`${myContext.isMobile ? ' text-4xl' : 'hover:text-2xl hover:text-rose-400'} sm:w-4 `} onClick={(e) => { e.preventDefault(); setDeleteActive(true) }} ><BiX /></button>
+                    <button
+                      className={`${myContext.isMobile ? ' text-4xl' : 'hover:text-2xl hover:text-sky-400'} sm:w-4 `}
+                      onClick={(e) => { e.preventDefault(); setInfoActive(pre => !pre) }} >
+                      <BiInfoCircle />
+                    </button>
+                    <button
+                      className={`${myContext.isMobile ? ' text-4xl' : 'hover:text-2xl hover:text-green-400'} sm:w-4 `}
+                      onClick={(e) => onEdit(e)} >
+                      <BiEditAlt />
+                    </button>
+                    <button
+                      className={`${myContext.isMobile ? ' text-4xl' : 'hover:text-2xl hover:text-rose-400'} sm:w-4 `}
+                      onClick={(e) => { e.preventDefault(); setDeleteActive(true) }} >
+                      <BiX />
+                    </button>
                   </div>
                 }
               </div>}

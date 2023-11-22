@@ -8,7 +8,7 @@ import { ImNewTab } from "react-icons/im";
 
 const page = () => {
     return (
-        <div className={`mb-8`} >
+        <div className={`pb-8`} >
             <div className="rounded-b-[50px] relative w-full overflow-hidden h-[50vh]" >
                 <div className={`w-full h-full`} >
                     <Image
@@ -21,7 +21,7 @@ const page = () => {
             </div>
 
             <div className={`pt-10 sticky top-0 backdrop-blur-md`} >
-                <h1 className={`mx-20 text-center pt-10 pb-4 text-4xl sm:text-5xl font-bold border-b-2 border-dark dark:border-light sticky top-0 backdrop-blur-md`} >
+                <h1 className={`mx-20 text-center pb-4 text-4xl sm:text-5xl font-bold border-b-2 border-dark dark:border-light sticky top-0 backdrop-blur-md`} >
                     CASINOA, Online poker
                 </h1>
             </div>

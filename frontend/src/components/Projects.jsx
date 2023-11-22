@@ -62,13 +62,19 @@ const Projects = ({ data }) => {
 
 
           <div className={`z-[5] pb-6`}>
-            {active ?
-              <div className={`grid place-items-center fixed top-0 backdrop-blur-md bg-light/80 dark:bg-dark/70 left-0 h-screen w-screen justify-center`}>
+            {active
+              ? <div className={`grid place-items-center fixed top-0 backdrop-blur-md bg-light/80 dark:bg-dark/70 left-0 h-screen w-screen justify-center`}>
                 <div className={`relative`} >
                   <ProjectCard close={() => { refetch(); setActive(false) }} item={selectedItem} />
                 </div>
               </div>
-              : myContext.isAuth ? <div className={`text-center cursor-pointer text-2xl`} onClick={() => { setSelectedItem(null); setActive(true) }} >+ Add your own</div> : <p>Login to add your project here.</p>
+              : myContext.isAuth
+                ? <div
+                  className={`text-center cursor-pointer text-2xl`}
+                  onClick={() => { setSelectedItem(null); setActive(true) }} >
+                  + Add your own
+                </div>
+                : <p>Login to add your project here.</p>
             }
           </div>
           {/* <button onClick={() => refetch()} >refetch</button> */}

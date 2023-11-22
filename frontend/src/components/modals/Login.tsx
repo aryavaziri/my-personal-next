@@ -57,8 +57,12 @@ const getSchema = (isSignUp: boolean) => {
 const defSchema = getSchema(true);
 
 type Inputs = z.infer<typeof defSchema>;
+type LoginProps = {
+  active: boolean;
+  setActive: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
-const Login = ({ active, setActive }) => {
+const Login: React.FC<LoginProps> = ({ active, setActive }) => {
   // useEffect(() => {
   //   active ? myContext.setBgb(true) : myContext.setBgb(false)
   // }, [active])

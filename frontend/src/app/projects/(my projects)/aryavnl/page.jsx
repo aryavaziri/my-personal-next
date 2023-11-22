@@ -8,12 +8,12 @@ import { ImNewTab } from "react-icons/im";
 
 const page = () => {
     return (
-        <div className={``} >
+        <div className={`pb-12`} >
             <div className="rounded-b-[50px] relative w-full overflow-hidden h-[50vh]" >
                 <div className={`w-full h-full`} >
                     <Image
                         className="object-cover "
-                        src='/images/Casinoa.jpg'
+                        src='/images/test3.jpg'
                         alt="CASINOA"
                         fill
                     />
@@ -22,44 +22,26 @@ const page = () => {
 
             <div className={`pt-10 sticky top-0 backdrop-blur-md`} >
                 <h1 className={`mx-20 text-center pt-10 pb-4 text-4xl sm:text-5xl font-bold border-b-2 border-dark dark:border-light sticky top-0 backdrop-blur-md`} >
-                    CASINOA, Online poker
+                    ARYAV.NL, Project shawcasing
                 </h1>
             </div>
             <div className={`md:px-20`} >
                 <div className="flex sm:justify-between max-md:flex-col my-6">
-                    <div className="basis-2/5 flex flex-col gap-2 p-2">
-                        <div className="flex gap-2 items-baseline">
-                            <div className={`flex-none w-32 font-bold text-right text-xl`} >
+                    <div className="basis-1/3 lg:basis-1/4 flex flex-col gap-4 p-2">
+                        <div className="gap-2 items-baseline">
+                            <div className={`w-32 font-bold text-right text-xl`} >
                                 Techsnologies:
                             </div>
-                            <div className="px-2">
-                                Django / Python / React / Postgresql / NGINX / Redis / Redux / Docker
+                            <div className="px-2 my-2">
+                                Nextjs / React / ExpressJS / MongoDB / TailwindCSS / GraphQL / NGINX / Docker / Git
                             </div>
-                        </div>
-                        <div className="flex gap-2 items-baseline">
-                            <div className={`flex-none w-32 font-bold text-right text-xl`} >
-                                Date:
-                            </div>
-                            <div className="px-2">Nov 2022 - Jun 2023</div>
                         </div>
                     </div>
-                    <div className="basis-3/5 p-2 font-medium text-2xl">
-                        Casinoa, is a dynamic and interactive platform built using Django and React. The project leverages the Django framework on the server-side, handling the game logic, database management, and user authentication. React, on the other hand, powers the dynamic frontend, delivering a seamless and responsive user interface.
+                    <div className="basis-2/3 lg:basis-3/4 p-2 font-medium text-2xl">
+                        Welcome to my personal portfolio website! Built using Next.js 13 and Express.js, this platform showcases my full-stack development skills. What sets it apart is the ability for everyone to contribute their own projects, fostering collaboration. Powered by GraphQL with Apollo Server, the site ensures seamless data communication for a modern user experience. Explore and stay tuned for more project details!
                     </div>
                 </div>
                 <div className="my-12">
-                    <div
-                        className={` border-b-2 border-dark dark:border-light text-3xl p-2 font-bold mb-6`}
-                    >
-                        Concept
-                    </div>
-                    <p className="text-2xl">
-                        The backend of the application is powered by Django, a Python-based framework known for its robustness and versatility. Django offers a convenient solution for implementing AI bots and managing the underlying database, making it an ideal choice for creating a platform that can support the development of an AI player.
-                        <br /> While the AI player development is still in progress, the current iteration of the Poker Web Application offers an exciting multiplayer experience with virtual currency. Users can create personalized accounts, participate in multiplayer games, and compete against friends or other players online.
-                        <br /> By providing a platform for multiplayer gameplay, this project allows players to engage in exciting poker matches using virtual money. This multiplayer functionality serves as a foundation for gathering valuable data, which will be instrumental in refining the AI player's strategy and improving its performance over time.
-                    </p>
-                </div>
-                <div className="my-8">
                     <div
                         className={` border-b-2 border-dark dark:border-light text-3xl p-2 font-bold `}
                     >
@@ -67,72 +49,46 @@ const page = () => {
                     </div>
                     <ul className="mt-4 sm:pt-6 gap-4 flex flex-col">
                         <li className="w-full flex flex-col sm:flex-row items-baseline">
-                            <div
-                                className={`w-full sm:w-1/4 sm:text-end px-4 text-2xl font-semibold `}
-                            >
-                                JSON Web Token
+                            <div className={`w-full sm:w-1/3 lg:w-1/4 sm:text-end px-4 text-2xl font-semibold `} >
+                                Open-Authentication
                             </div>
-                            <div className="w-full sm:w-3/4 justify">
-                                provide a secure and password-free authentication method for apps.
-                                With JWT, sensitive user credentials are never stored, reducing
-                                the risk of data breaches. Tokens contain encrypted authentication
-                                data, eliminating the need for frequent database queries. JWT
-                                ensures secure access to protected resources and improves app
-                                scalability.
+                            <div className="w-full sm:w-2/3 lg:w-3/4 justify">
+                                Effortlessly sign up using your Google account for a seamless and secure authentication process. For users who prefer email registration, our platform ensures inclusivity with a straightforward sign-up option. Join the community easily, embracing both convenience and inclusiveness.
                             </div>
                         </li>
                         <li className="w-full flex flex-col sm:flex-row items-baseline">
-                            <div
-                                className={`w-full sm:w-1/4 sm:text-end px-4 text-2xl font-semibold `}
-                            >
-                                Docker
+                            <div className={`w-full sm:w-1/3 lg:w-1/4 sm:text-end px-4 text-2xl font-semibold `} >
+                                NGINX (SSL encryption)
                             </div>
-                            <div className="w-full sm:w-3/4 justify">
-                                Using Docker to containerize your app has numerous advantages. It
-                                enables easy and quick installation on servers, making deployment
-                                faster. With one line of code, anyone can install the open-source
-                                application on their server. Docker ensures consistent
-                                environments, promotes development conventions, and simplifies
-                                scaling.
+                            <div className="w-full sm:w-2/3 lg:w-3/4 justify">
+                                Nginx, a high-performance web server, ensures efficient handling of incoming requests. SSL encryption, facilitated by an SSL certificate, adds an extra layer of protection by encrypting data exchanged between users and the server. This not only boosts security but also establishes trust. Rest easy knowing that your interactions on this platform are safeguarded by cutting-edge encryption technology.
                             </div>
                         </li>
                         <li className="w-full flex flex-col sm:flex-row items-baseline">
-                            <div
-                                className={`w-full sm:w-1/4 sm:text-end px-4 text-2xl font-semibold `}
-                            >
-                                Redux
+                            <div className={`w-full sm:w-1/3 lg:w-1/4 sm:text-end px-4 text-2xl font-semibold `} >
+                                GraphQL
                             </div>
-                            <div className="w-full sm:w-3/4 justify">
-                                By combining Redux with React, you have achieved a scalable, fast,
-                                and well-structured application. Redux reduces server pressure,
-                                optimizes resource usage, and provides a predictable state
-                                management approach. This combination enhances performance,
-                                facilitates code organization, and promotes code reusability.
+                            <div className="w-full sm:w-2/3 lg:w-3/4 justify">
+                                Powering our platform's data management is GraphQL, a query language for APIs. This innovative technology excels in efficiency, enabling clients to request precisely the data they need. Both server and client sides leverage GraphQL with Apollo, ensuring seamless communication and optimal performance. The result? A faster, more flexible, and resource-efficient user experience.
                             </div>
                         </li>
-                        <li className="w-full flex flex-col sm:flex-row items-baseline">
-                            <div
-                                className={`w-full sm:w-1/4 sm:text-end px-4 text-2xl font-semibold `}
-                            >
-                                Web-Sockets
+                        <li className="w-full flex flex-col sm:flex-row items-baseline" >
+                            <div className={`w-full sm:w-1/3 lg:w-1/4 sm:text-end px-4 text-2xl font-semibold `} >
+                                React-hook-form
                             </div>
-                            <div className="w-full sm:w-3/4 justify">
-                                By using Django Channels and Redis, your multiplayer game
-                                application benefits from real-time communication through
-                                websockets. Players can engage in a live chatroom and receive
-                                updates from the PostgreSQL database.
+                            <div className="w-full sm:w-2/3 lg:w-3/4 justify" >
+                                Elevating our frontend proficiency and delivering a superior user experience, our project leverages React Hook Form. This library streamlines form development, making implementation a breeze and ensuring clean, maintainable code. With React Hook Form, intricate forms become more manageable, enhancing overall efficiency. Experience the benefits of smoother implementation, improved user interaction, and a codebase that's both robust and elegant.
                             </div>
                         </li>
                     </ul>
                 </div>
-                <hr
-                    className={`border my-8`}
-                />
 
-                <div className="flex-wrap flex-row flex w-full sm:w-fit gap-4 mx-auto text-3xl justify-evenly">
+                <hr className={`border my-8`} />
+
+                <div className="flex-wrap flex-row flex w-full sm:w-fit gap-4 mx-auto text-3xl justify-evenly" >
                     <Link
                         target="_blank"
-                        href={`http://www.casinoa.nl/`}
+                        href={`http://www.aryav.nl/`}
                         className={`btn-primary  max-sm:text-lg max-sm:w-2/5 `}
                     >
                         <ImNewTab className="w-8" />
@@ -140,7 +96,7 @@ const page = () => {
                     </Link>
                     <Link
                         target="_blank"
-                        href={`https://www.github.com/aryavaziri/casinoa`}
+                        href={`https://www.github.com/aryavaziri/my-personal-next`}
                         className={`btn-primary  max-sm:text-lg max-sm:w-2/5 `}
                     >
                         <BsGithub className="w-8" />
