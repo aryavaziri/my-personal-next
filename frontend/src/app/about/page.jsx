@@ -15,7 +15,7 @@ const page = () => {
         <div className="z-[3] pt-24 sm:pt-40 md:pt-56 lg:pt-60 pl-2 sm:pl-20 md:pl-36 lg:pl-56 w-[60vw] sm:w-[62vw] md:w-[65vw] lg:w-[65vw] text-justify md:w-2/3 text-md sm:text-lg md:text-2xl">
           <p>Hey there! I'm just a regular guy who took the road less traveled. Formerly an industrial automation engineer, PLC programmer, and all-around maker, I decided to embrace the digital world as a developer. But don't worry, I didn't leave my old skills behind; instead, I fused them with the magic of digitalization to help designers bring their wildest ideas to life! When I'm not coding up a storm, you'll find me exploring every nook and cranny of this beautiful planet. I'm a total travel junkie and a nature enthusiast. If you want a glimpse into my personal life, hop on over to my Instagram account. So, whether you need a helping hand in the digital realm or want some travel inspiration, I've got you covered. Let's build, explore, and create some amazing things together!</p>
           <div className="text-xl sm:text2xl max-sm:flex-col max-sm:gap-2 flex justify-evenly w-full sm:px-4 md:px-12 my-3 sm:my-6">
-            <Link className="rounded-md px-2 sm:px-6 py-1 sm:py-2 text-light dark:text-dark dark:bg-light/80 dark:hover:bg-light bg-dark/80 hover:bg-dark backdrop-blur shadow-lg flex gap-2 justify-center mx-6" href={`/CV.pdf`} >
+            <Link className="rounded-md px-2 sm:px-6 py-1 sm:py-2 text-light dark:text-dark dark:bg-light/80 dark:hover:bg-light bg-dark/80 hover:bg-dark backdrop-blur shadow-lg flex gap-2 justify-center mx-6" href={`/CV.pdf`} rel="noopener noreferrer" target="_blank" >
               <MdDownload className={`mt-1 text-2xl animate-bounce`} />
               <p>Download CV</p>
             </Link>

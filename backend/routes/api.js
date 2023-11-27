@@ -38,8 +38,8 @@ router.get("/confirm", async (req, res, next) => {
                     expiresIn: "1m",
                 })
                 const EmailConfirmation = {
-                    // to: neweUserId,
-                    to: "arya.vaziri@gmail.com",
+                    to: neweUserId,
+                    // to: "arya.vaziri@gmail.com",
                     from: "info@aryav.nl",
                     subject: "Please Confirm your email address.",
                     text: 'Please Confirm Your Email.',
