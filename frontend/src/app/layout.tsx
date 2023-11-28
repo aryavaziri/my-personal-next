@@ -1,4 +1,4 @@
-import { Suspense } from 'react'
+import { Suspense } from "react";
 import "@app/globals.css";
 import Provider from "@app/Provider";
 import Nav from "@components/Nav";
@@ -17,9 +17,12 @@ const oswald = Oswald({
   subsets: ["latin"],
 });
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: React.PropsWithChildren) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+    >
       <body className={`${oswald.className}`}>
         <Provider>
           <ApolloWrapper>

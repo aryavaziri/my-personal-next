@@ -59,7 +59,7 @@ const Login = () => {
   const myContext = useContext(Context);
 
   const [editable, setEditable] = useState(true);
-  const [confirmationSent, setConfirmationSent] = useState("");
+  const [confirmationSent, setConfirmationSent] = useState<String>("");
   const [credentialFail, setCredentialFail] = useState("");
   const [email, setEmail] = useState("");
   const [token, setToken] = useState("");
