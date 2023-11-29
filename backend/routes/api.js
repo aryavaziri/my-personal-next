@@ -145,16 +145,16 @@ router.post("/contact", async (req, res, next) => {
         to: "arya.vaziri@gmail.com",
         from: "ContactMe@aryav.nl",
         subject: "Contact form from www.aryan.vl",
-        text: data.Message,
-        html: `<div><h3>From: ${data.Name}</h3></div> <div> <h4>Email: ${data.Email}</h4> <h4>Subject: ${data.Subject}</h4> <p>${data.Message}</p></div>`,
+        text: data.message,
+        html: `<div><h3>From: ${data.name}</h3></div> <div> <h4>Email: ${data.email}</h4> <h4>Subject: ${data.subject}</h4> <p>${data.message}</p></div>`,
     }
 
     const FirstReply = {
-        to: `${data.Email}`,
+        to: `${data.email}`,
         from: "info@aryav.nl",
-        subject: `RE [${data.Subject} from aryav.nl]`,
-        text: `<div>Hello ${data.Name},<br /><br />Thank you for reaching out! I'm thrilled to connect with you. I've received your message and will get back to you as soon as possible. In the meantime, feel free to explore more about my work on the website.<br /><br />Looking forward to the opportunity!<br /><br />Best regards,<br />Arya Vaziri</div>`,
-        html: `<div><span style={font-weight:"bold";}>Hello ${data.Name}</span>,<br /><br />Thank you for reaching out! I'm thrilled to connect with you. I've received your message and will get back to you as soon as possible. In the meantime, feel free to explore more about my work on the website.<br /><br />Looking forward to the opportunity!<br /><br />Best regards,<br />Arya Vaziri</div>`,
+        subject: `RE [${data.subject} from aryav.nl]`,
+        text: `<div>Hello ${data.name},<br /><br />Thank you for reaching out! I'm thrilled to connect with you. I've received your message and will get back to you as soon as possible. In the meantime, feel free to explore more about my work on the website.<br /><br />Looking forward to the opportunity!<br /><br />Best regards,<br />Arya Vaziri</div>`,
+        html: `<div><span style={font-weight:"bold";}>Hello ${data.name}</span>,<br /><br />Thank you for reaching out! I'm thrilled to connect with you. I've received your message and will get back to you as soon as possible. In the meantime, feel free to explore more about my work on the website.<br /><br />Looking forward to the opportunity!<br /><br />Best regards,<br />Arya Vaziri</div>`,
     }
     try {
         await sgMail.send(msgFWD)
