@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 import React, {
   useState,
   useContext,
@@ -32,18 +32,24 @@ import type { Project } from "@../src/__generated__/graphql";
 
 type Props = {
   item: Project;
-  setHoveredItem: React.Dispatch<React.SetStateAction<Project>>;
+  // setHoveredItem: React.Dispatch<React.SetStateAction<Project>>;
+  setHoveredItem: (item: Project) => void;
+  // setHoveredItem: any;
   edit: () => void;
 };
 
-export const ProjectItem = ({ item, setHoveredItem, edit }: Props) => {
+export const ProjectItem: React.FC<Props> = ({
+  item,
+  setHoveredItem,
+  edit,
+}) => {
   const myContext = useContext(Context);
   const [isHover, setIsHover] = useState(false);
   const [details, setDetails] = useState(false);
   const [errMode, setErrMode] = useState(false);
   const [deleted, setDeleted] = useState(false);
   const handleMouseEnter = () => {
-    setHoveredItem(item);
+    setHoveredItem(item! as Project);
     setIsHover(true);
   };
 
@@ -80,11 +86,11 @@ export const ProjectItem = ({ item, setHoveredItem, edit }: Props) => {
     console.log("To edit", item._id);
     edit();
   };
-  useEffect(() => {
-    console.log(myContext?.user?._id && myContext?.user?._id == item.creator);
-    // console.log(process.env.NODE_ENV)
-    // console.log(item?.creator)
-  }, [myContext]);
+  // useEffect(() => {
+  //   console.log(myContext?.user?._id && myContext?.user?._id == item.creator);
+  //   console.log(process.env.NODE_ENV)
+  //   console.log(item?.creator)
+  // }, [myContext]);
 
   return (
     // (deleted) ? <p className={`duration-[3000] text-rose-400 `}>Deleted successfully</p> :
@@ -216,25 +222,28 @@ export const ProjectItem = ({ item, setHoveredItem, edit }: Props) => {
   );
 };
 
-export const ProjectMedia = ({ item }: { item: Project }) => {
+export const ProjectMedia = ({ item }: { item: Project | null }) => {
   const myContext = useContext(Context);
   const videoRef: RefObject<HTMLVideoElement> = myContext.isMobile
     ? (null as any)
     : useRef<HTMLVideoElement>();
-  const src = `${
-    process.env.NODE_ENV == "development" ? "https://aryav.nl" : ""
-  }/static/projects/${item._id}.${item.extention}`;
+  let src;
+  item &&
+    (src = `${
+      process.env.NODE_ENV == "development" ? "https://aryav.nl" : ""
+    }/static/projects/${item?._id}.${item?.extention}`);
+
   useEffect(() => {
-    videoRef?.current?.load();
+    item?._id && videoRef?.current?.load();
   }, [item]);
 
   if (!item) {
     return <video className={`w-full object-cover h-full opacity-0`} />;
   }
 
-  return item.extention.toLowerCase() === "mov" ||
-    item.extention.toLowerCase() === "mp4" ||
-    item.extention.toLowerCase() === "mkv" ? (
+  return item.extention?.toLowerCase() === "mov" ||
+    item.extention?.toLowerCase() === "mp4" ||
+    item.extention?.toLowerCase() === "mkv" ? (
     <video
       ref={videoRef}
       className={`object-cover aspect-video w-full ${

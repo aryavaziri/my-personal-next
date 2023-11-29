@@ -33,9 +33,9 @@ type data = {
 const Projects = ({ data }: { data: data }) => {
   const myContext = useContext(Context);
   const router = useRouter();
-  const [hoveredItem, setHoveredItem] = useState<Project>({} as Project);
+  const [hoveredItem, setHoveredItem] = useState<Project | null>(null);
   const [active, setActive] = useState(false);
-  const [selectedItem, setSelectedItem] = useState({} as Project);
+  const [selectedItem, setSelectedItem] = useState<Project | null>(null);
   const {
     error,
     data: projects2,
@@ -73,7 +73,7 @@ const Projects = ({ data }: { data: data }) => {
                 key={item._id as React.Key}
                 edit={() => {
                   setActive(true);
-                  setSelectedItem(item ?? {});
+                  setSelectedItem(item);
                 }}
               />
             ))}
@@ -85,7 +85,7 @@ const Projects = ({ data }: { data: data }) => {
                 key={item?._id}
                 edit={() => {
                   setActive(true);
-                  setSelectedItem(item ?? {});
+                  setSelectedItem(item! as Project);
                 }}
               />
             ))}
@@ -109,7 +109,7 @@ const Projects = ({ data }: { data: data }) => {
               <div
                 className={`text-center cursor-pointer text-2xl`}
                 onClick={() => {
-                  setSelectedItem({} as Project);
+                  setSelectedItem(null);
                   setActive(true);
                 }}
               >
@@ -128,7 +128,7 @@ const Projects = ({ data }: { data: data }) => {
           {/* <button onClick={() => refetch()} >refetch</button> */}
         </div>
       </div>
-      {!myContext.isMobile && hoveredItem && (
+      {!myContext.isMobile && hoveredItem && hoveredItem._id && (
         <div
           className={`max-md:top-32 md:bottom-0 w-[90%] mx-auto md:w-3/5 overflow-hidden aspect-video z-[5] fixed max-md:inset-0 md:right-0 bottom-0 rounded-tl-[30px] 
           `}

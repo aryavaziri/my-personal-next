@@ -7,7 +7,12 @@ const SketchComponent = dynamic(() => import("@components/Sketch8"));
 const P5Sketch = () => {
   const { resolvedTheme } = useTheme();
 
-  return <SketchComponent theme={resolvedTheme} />;
+  return (
+    <SketchComponent
+      theme={resolvedTheme}
+      isMobile={false}
+    />
+  );
 };
 
 export default P5Sketch;

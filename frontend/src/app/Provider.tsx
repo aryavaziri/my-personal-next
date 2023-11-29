@@ -11,7 +11,7 @@ import {
 import { ThemeProvider } from "next-themes";
 import { isMobile as im } from "react-device-detect";
 
-type User = {
+export type User = {
   _id: string;
   name: string;
   email: string;

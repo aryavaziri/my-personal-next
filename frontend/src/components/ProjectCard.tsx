@@ -1,7 +1,7 @@
 "use client";
 import Input from "@components/form/Input3";
 import { useForm, Form, SubmitHandler } from "react-hook-form";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, RefObject } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { useRouter } from "next/navigation";
 import { ProjectMedia } from "./ProjectItem";
@@ -19,8 +19,12 @@ const schema = z.object({
     .min(1, "This field is required.")
     .max(20, "This field must be 20 characters or less."),
   link: z.string().toLowerCase().min(1, "This field is Required"),
-  tech: z.array(z.string()).optional().nullable(),
+  tech: z.array(z.string()).or(z.string()).optional(),
   media: z.any(),
+  // media: z.object(
+  //   { 0: z.object({ name: z.string() }) },
+  //   {message:"Please provide a cover image or video"}
+  // ),
 });
 
 type ProjectInputs = z.infer<typeof schema>;
@@ -49,30 +53,28 @@ import type { Project } from "@../src/__generated__/graphql";
 
 type Props = {
   close: () => void;
-  item: Project;
+  item: Project | null;
 };
 
 const ProejctCard = ({ close, item }: Props) => {
-  const {
-    register,
-    control,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<ProjectInputs>({
-    defaultValues: {
-      title: item?.title || "",
-      link: item?.link || "",
-      tech: item?.tech || [],
-      media: item?.src || null,
-    },
-  });
+  const { register, control, handleSubmit, watch, formState } =
+    useForm<ProjectInputs>({
+      defaultValues: {
+        title: item?.title || "",
+        link: item?.link || "",
+        tech: [item?.tech?.join(", ")] || [],
+        media: null,
+        // media: null,
+      },
+      resolver: zodResolver(schema),
+    });
+  const { errors } = formState;
   const [addProject, { loading, error }] = useMutation(ADD_PROJECT);
   const [editProject, { loading: editing }] = useMutation(EDIT_PROJECT);
   const [uploadFile, { loading: uploading }] = useMutation(UPLOAD_FILE);
   const [errMode, setErrMode] = useState(false);
   const router = useRouter();
-  const hiddenFileInput = useRef();
+  const hiddenFileInput = useRef<HTMLInputElement>();
 
   const { ref, ...rest } = register("media", {
     required: !item && "Please upload an image or a video...",
@@ -83,17 +85,19 @@ const ProejctCard = ({ close, item }: Props) => {
   ) => {
     try {
       const { media, ...rest } = payload;
-      const fileExtension =
-        media[0]?.name?.substring(media[0].name.lastIndexOf(".")) ||
-        item.extention;
+      console.log(media);
+      const fileExtension: string =
+        media &&
+        (media[0]?.name?.substring(media[0].name.lastIndexOf(".")) ||
+          item?.extention);
       if (!Array.isArray(rest.tech)) {
-        rest.tech = [rest.tech];
+        rest.tech = rest.tech ? [rest.tech] : [];
       }
       const { data } = item
         ? await editProject({
             variables: {
               project: rest,
-              extention: fileExtension,
+              extention: fileExtension || item.extention,
               Id: item._id,
             },
           })
@@ -102,7 +106,7 @@ const ProejctCard = ({ close, item }: Props) => {
           });
       if (item) {
         close();
-        // router.refresh()
+        router.refresh();
       } else {
         const newFile = new File(
           [media[0]],
@@ -112,7 +116,7 @@ const ProejctCard = ({ close, item }: Props) => {
         const res = await uploadFile({ variables: { file: newFile } });
         if (res.data.uploadFile == "OK") {
           close();
-          // router.refresh()
+          router.refresh();
         }
       }
     } catch (e) {
@@ -125,7 +129,10 @@ const ProejctCard = ({ close, item }: Props) => {
     if (errors?.root?.server) {
       console.log(errors);
     }
-  }, [errors]);
+  }, [formState.errors]);
+  useEffect(() => {
+    console.log(item);
+  }, [item]);
 
   const onUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (item && event.target.files && event.target.files.length > 0) {
@@ -160,10 +167,10 @@ const ProejctCard = ({ close, item }: Props) => {
         </div>
       )}
       <div className="max-w-xs w-full shadow-[0_3px_20px_3px] shadow-dark/40 dark:shadow-light/40 z-[60] rounded overflow-hidden bg-gradient h-full">
-        <Form
+        <form
           className="w-full pt-2 px-4 bg-gradient-to-b h-full from-purple-500/20 to-pink-500/40 pb-6 flex flex-col gap-2"
+          // control={control}
           onSubmit={handleSubmit(onSubmit)}
-          control={control}
         >
           <h1 className="mt-2 mb-4 pb-1 border-b border-current text-center text-xl">
             {item ? `Edit ${item.title} ` : `Add `}Project
@@ -178,20 +185,17 @@ const ProejctCard = ({ close, item }: Props) => {
             label
             autoFocus
             control={control}
-            value={item?.title}
           />
           <Input
             name="link"
             label="link"
             control={control}
-            value={item?.link}
           />
           <Input
             name="tech"
             label="tech"
             placeholder="add techs you used. seperate with ;"
             control={control}
-            value={item?.tech.join(", ")}
           />
           {item && (
             <>
@@ -199,7 +203,7 @@ const ProejctCard = ({ close, item }: Props) => {
                 className={`relative overflow-hidden rounded-[30px] sm:rounded-lg mt-4`}
                 onClick={(e) => {
                   e.preventDefault();
-                  hiddenFileInput.current.click();
+                  hiddenFileInput.current!.click();
                 }}
               >
                 <ProjectMedia item={item} />
@@ -214,17 +218,16 @@ const ProejctCard = ({ close, item }: Props) => {
           <input
             ref={(e) => {
               ref(e);
-              hiddenFileInput.current = e;
+              e && (hiddenFileInput.current = e);
             }}
-            className={`${item ? "hidden" : ""}`}
+            className={`${item?._id ? "hidden" : ""}`}
             {...rest}
             type="file"
             onChange={onUpload}
           />
           {errors?.media && (
             <span className="text-danger text-sm ml-12">
-              {errors.media.message || "This field is required"}
-              {console.log(errors.media)}
+              {errors.media.message?.toString() || "This field is required"}
             </span>
           )}
           <button
@@ -233,7 +236,7 @@ const ProejctCard = ({ close, item }: Props) => {
           >
             Submit
           </button>
-        </Form>
+        </form>
       </div>
     </>
   );

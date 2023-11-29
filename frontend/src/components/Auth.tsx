@@ -3,14 +3,14 @@ import { useState, useContext, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { Context } from "@app/Provider";
 import Image from "next/image";
-
+import type { User } from "@app/Provider";
 const Auth = () => {
   const [toggle, setToggle] = useState(false);
   const newToken = useSearchParams().get("token");
   const myContext = useContext(Context);
 
   useEffect(() => {
-    console.log("newToken: ", newToken);
+    // console.log("newToken: ", newToken);
     if (newToken) {
       localStorage.setItem("accessToken", newToken);
     }
@@ -47,7 +47,7 @@ const Auth = () => {
   const logout = () => {
     localStorage.removeItem("accessToken");
     myContext.setIsAuth(false);
-    myContext.setUser(null);
+    myContext.setUser({} as User);
     myContext.toggleMenu();
   };
   if (!myContext?.menu) return null;
