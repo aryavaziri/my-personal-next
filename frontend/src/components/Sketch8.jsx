@@ -39,7 +39,7 @@ class Particle {
       this.pos.x + alfa,
       this.pos.y + alfa,
       this.prevPos.x + alfa,
-      this.prevPos.y + alfa,
+      this.prevPos.y + alfa
     );
     this.updatePrev();
   }
@@ -152,7 +152,11 @@ const sketch = (p5) => {
 export default function Sketch({ theme, isMobile }) {
   return (
     <div className={`absolute top-0 left-0 z-[100] `}>
-      <NextReactP5Wrapper sketch={sketch} theme={theme} isMobile={isMobile} />
+      <NextReactP5Wrapper
+        sketch={sketch}
+        theme={theme}
+        isMobile={isMobile}
+      />
     </div>
   );
 }

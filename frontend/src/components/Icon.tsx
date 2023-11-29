@@ -1,19 +1,18 @@
-import Image from "next/image"
+import Image from "next/image";
 
-const Icon = ({ item }) => {
-
+const Icon = ({ item }: { item: string }) => {
   return (
     <div className="relative w-6">
-      {item &&
+      {item && (
         <Image
           alt={item}
           src={`logo/${item}.svg`}
           fill
           sizes="20vw"
         />
-      }
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Icon
+export default Icon;
