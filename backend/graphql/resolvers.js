@@ -24,6 +24,7 @@ const resolvers = {
     },
     projects2: async (_, __, contextValue) => {
       if (contextValue.req.user?.isAdmin) {
+        console.log("YES")
         return await Project.find({ preset: false })
       } else {
         return await Project.find({ creator: new mongoose.Types.ObjectId(contextValue.req.user?._id), preset: false })
@@ -65,7 +66,6 @@ const resolvers = {
       return await Project.create({
         title: args.project.title,
         link: args.project.link,
-        src: args.project.src,
         tech: tech,
         extention: args.extention,
         creator: contextValue.req.user?._id

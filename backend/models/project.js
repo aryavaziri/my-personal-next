@@ -19,10 +19,6 @@ const projectSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    src: {
-      type: String,
-      require: true,
-    },
     tech: {
       type: [String],
     },

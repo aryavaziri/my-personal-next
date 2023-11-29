@@ -3,7 +3,6 @@ type Project {
   title: String!
   link: String!
   video: Boolean
-  src: String!
   tech: [String]
   extention: String!
   creator: ID
@@ -18,11 +17,11 @@ type User {
 }
 
 type File {
-    filename: String!
-    mimetype: String!
-    encoding: String!
-  }
-  
+  filename: String!
+  mimetype: String!
+  encoding: String!
+}
+
 scalar Upload
 
 type Query {
@@ -33,17 +32,19 @@ type Query {
 }
 
 input ProjectInput {
-    title: String!
-    link: String!
-    video: Boolean
-    src: String
-    tech: [String]
+  title: String!
+  link: String!
+  video: Boolean
+  tech: [String]
 }
-
 
 type Mutation {
   uploadFile(file: Upload!): String!
-  addProject(project:ProjectInput!, extention:String!): Project
-  editProject(project:ProjectInput!, extention:String!, projectId:ID!): Project
-  delProject(id:ID!): String
+  addProject(project: ProjectInput!, extention: String!): Project
+  editProject(
+    project: ProjectInput!
+    extention: String!
+    projectId: ID!
+  ): Project
+  delProject(id: ID!): String
 }
