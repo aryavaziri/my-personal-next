@@ -23,6 +23,7 @@
     "@types/apollo-upload-client": "^17.0.5",
     "apollo-upload-client": "^18.0.0",
     "graphql": "^16.8.1",
+    "mongoose": "^8.0.2",
     "next": "^14.0.1",
     "next-themes": "^0.2.1",
     "p5": "^1.7.0",

@@ -4,6 +4,9 @@
 const nextConfig = {
   // output: "export",
   output: "standalone",
+  experimental: {
+    serverActions: true,
+  },
 
   images: {
     remotePatterns: [

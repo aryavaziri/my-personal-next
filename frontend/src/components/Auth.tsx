@@ -4,13 +4,13 @@ import { useSearchParams } from "next/navigation";
 import { Context } from "@app/Provider";
 import Image from "next/image";
 import type { User } from "@app/Provider";
+
 const Auth = () => {
   const [toggle, setToggle] = useState(false);
   const newToken = useSearchParams().get("token");
   const myContext = useContext(Context);
 
   useEffect(() => {
-    // console.log("newToken: ", newToken);
     if (newToken) {
       localStorage.setItem("accessToken", newToken);
     }
@@ -34,9 +34,11 @@ const Auth = () => {
         return res.text();
       })
       .then((res) => {
-        // console.log(res);
         if (res.user) {
           myContext.setUser(res.user);
+          document.cookie = `accessToken=${token}`;
+          document.cookie = `user=${res.user._id}`;
+          console.log("VALIDATION IN AUTH COMPONENT");
         }
       })
       .catch((err) => {
