@@ -32,53 +32,68 @@ export const GET = async (req, res) => {
   }
 };
 export const POST = async (req, res) => {
-  const response = await fetch('http://localhost:5000/rh/auth/validate', { headers: { 'token': req.headers.get('token') } })
-  const { userId } = await response.json()
-  const { itemName, title, creator } = await req.json();
-  await connectToDB();
-  console.log(res.params)
-  switch (res.params?.id?.length) {
-    case 1:
-      try {
-        const newItem = await Item.create({ itemName: itemName });
-        console.log(itemName);
-        // newItem.save();
-        let list = await List.findById(res.params.id[0]).populate("items");
-        const temp = list.items.findIndex((item) => {
-          return item.itemName === newItem.itemName;
-        });
-        if (temp == -1) {
-          list.items.push(newItem);
-          await list.save();
-        } else {
-          const item = await Item.findById(list.items[temp]._id);
-          item.done = false;
-          await item.save();
-          list = await List.findById(res.params.id[0]).populate("items").populate("creator");
+  try {
+    let userId = ""
+    const response = await fetch('http://localhost:5000/rh/auth/validate', { headers: { 'token': req.headers.get('token') ?? "" } })
+    try {
+      const data = await response.json()
+      data.userId = userId
+    } catch (error) {
+      console.log(error)
+      return Response(JSON.stringify({}))
+    }
+    // if (!userId) throw new Error("Not authenticated")
+    const { itemName, title } = await req.json();
+
+    await connectToDB();
+    console.log(res.params)
+    console.log(res.params?.id?.length)
+    switch (res.params?.id?.length) {
+      case 1:
+        try {
+          let list = await List.findById(res.params.id[0]).populate("items");
+          if (list.creator._id == userId) { console.log("YES") }
+          const newItem = await Item.create({ itemName: itemName });
+          console.log(itemName);
+          // newItem.save();
+          const temp = list.items.findIndex((item) => {
+            return item.itemName === newItem.itemName;
+          });
+          if (temp == -1) {
+            list.items.push(newItem);
+            await list.save();
+          } else {
+            const item = await Item.findById(list.items[temp]._id);
+            item.done = false;
+            await item.save();
+            list = await List.findById(res.params.id[0]).populate("items").populate("creator");
+          }
+          return list ? new Response(JSON.stringify(list), { status: 200 }) : Response(JSON.stringify({}));
+        } catch (error) {
+          console.log(error);
+          return new Response("Failed to add a new item to the List", {
+            status: 500,
+          });
         }
-        return list ? new Response(JSON.stringify(list), { status: 200 }) : Response(JSON.stringify({}));
-      } catch (error) {
-        console.log(error);
-        return new Response("Failed to add a new item to the List", {
-          status: 500,
-        });
-      }
-      break;
-    case 2:
-      break;
-    default:
-      try {
-        if (userId) {
-          console.log(userId)
-          const newList = await List.create({ creator: userId, title });
-          return new Response("New List created successfully", { status: 201 });
-        } else {
-          throw new Error("You must be logged in to create a new list");
+        break;
+      case 2:
+        break;
+      default:
+        try {
+          if (userId) {
+            console.log(userId)
+            const newList = await List.create({ creator: userId, title });
+            return new Response("New List created successfully", { status: 201 });
+          } else {
+            throw new Error("You must be logged in to create a new list");
+          }
+        } catch (error) {
+          console.log("ERROR - ", error.message);
+          return new Response("Failed to create a new List", { status: 500 });
         }
-      } catch (error) {
-        console.log("ERROR - ", error.message);
-        return new Response("Failed to create a new List", { status: 500 });
-      }
+    }
+  } catch (error) {
+    console.log(error.message)
   }
 };
 

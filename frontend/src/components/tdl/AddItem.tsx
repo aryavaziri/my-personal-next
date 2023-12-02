@@ -14,6 +14,7 @@ import { z } from "zod";
 export const schema = z.object({
   itemName: z.string().max(20),
 });
+import { getToken } from "@actions/serverActions";
 import { useRouter } from "next/navigation";
 
 // export type List = z.infer<typeof ListSchema>;
@@ -29,9 +30,11 @@ const AddItem = ({ list }: { list: TList }) => {
       resolver: zodResolver(schema),
     });
   const addItem = async (payload: TItem) => {
+    const token = await getToken();
     console.log(payload);
     console.log(list?._id);
     fetch(`http://localhost:5000/rh/list/${list?._id}`, {
+      headers: { "Content-Type": "application/json", token: token ?? "" },
       method: "POST",
       body: JSON.stringify({
         itemName: payload.itemName,
