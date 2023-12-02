@@ -3,7 +3,8 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import { readFileSync } from "fs";
-import { router as authRoutes, isAuth, auth } from "./routes/auth.js";
+import { router as authRoutes } from "./routes/auth.js";
+import { isAuth } from "./controllers/authController.js";
 import { router as listRoutes } from "./routes/list.js";
 import { router as api } from "./routes/api.js"
 import { join, dirname } from "path"
@@ -40,15 +41,15 @@ const server = new ApolloServer({
 await server.start();
 
 app.use(cors({ origin: ['https://www.aryav.nl', 'http://localhost', 'http://localhost:5000', 'http://aryav.nl:5000', 'https://aryav.nl'], methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', credentials: true }));
+app.use(express.urlencoded({ extended: true }))
 app.use('/static', express.static('public'))
-app.use(auth);
+app.use(isAuth);
 app.use(express.json())
 app.use(
   "/graphql",
   graphqlUpload({ maxFileSize: 100000000, maxFiles: 10 }),
   expressMiddleware(server, { context: async ({ req, res }) => ({ req, res }) })
 );
-app.use(express.urlencoded({ extended: true }))
 app.use('/auth', authRoutes);
 app.use("/api", api);
 
