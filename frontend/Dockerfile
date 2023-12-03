@@ -8,7 +8,7 @@ WORKDIR /app/frontend
 # Install dependencies based on the preferred package manager
 COPY package.json ./
 # Omit --production flag for TypeScript devDependencies
-RUN npm i --production
+RUN npm i --omid=dev
 
 COPY . .
 

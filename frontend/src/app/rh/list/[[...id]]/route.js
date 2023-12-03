@@ -3,7 +3,7 @@ import { connectToDB } from "@lib/database";
 
 export const GET = async (req, res) => {
   // console.log(req.headers.get('token'))
-  const response = await fetch('http://localhost:5000/rh/auth/validate', { headers: { 'token': req.headers.get('token') } })
+  const response = await fetch('https://aryav.nl/rh/auth/validate', { headers: { 'token': req.headers.get('token') } })
   const { userId } = await response.json()
   // console.log(userId)
 
@@ -34,7 +34,7 @@ export const GET = async (req, res) => {
 export const POST = async (req, res) => {
   try {
     let userId = ""
-    const response = await fetch('http://localhost:5000/rh/auth/validate', { headers: { 'token': req.headers.get('token') ?? "" } })
+    const response = await fetch('https://aryav.nl/rh/auth/validate', { headers: { 'token': req.headers.get('token') ?? "" } })
     try {
       const data = await response.json()
       data.userId = userId

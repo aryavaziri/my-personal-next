@@ -9,7 +9,7 @@ const page = async () => {
   try {
     const token = await getToken();
     // console.log(token);
-    const response = await fetch(`http://localhost:5000/rh/list`, {
+    const response = await fetch(`https://aryav.nl/rh/list`, {
       headers: { "Content-Type": "application/json", token: token ?? "" },
     });
     data = await response.json();

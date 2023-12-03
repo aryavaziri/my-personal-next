@@ -2,7 +2,7 @@ import List from "@components/tdl/List";
 import { type TList } from "@components/tdl/List";
 
 const page = async ({ params }: { params: { id: string } }) => {
-  const list: TList = await fetch(`http://localhost:5000/rh/list/${params.id}`)
+  const list: TList = await fetch(`https://aryav.nl/rh/list/${params.id}`)
     .then((response) => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
