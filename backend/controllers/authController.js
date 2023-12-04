@@ -199,7 +199,6 @@ export const emailSignUp = async (req, res, next) => {
     try {
         const [user] = await User.find({ email: data.email, isSignByMail: true })
         let token
-        let hashp
         if (user) { return res.send("This email is already registered.") }
         bcrypt.hash(data.password, 8, (err, hash) => {
             User.create({
@@ -209,7 +208,7 @@ export const emailSignUp = async (req, res, next) => {
             })
                 .then((user) => {
                     token = jwt.sign({ id: user._id }, "SECRET_KEY", {
-                        expiresIn: "1m",
+                        expiresIn: "1h",
                     });
 
                 }).then(() => {
