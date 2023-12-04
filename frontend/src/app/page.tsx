@@ -11,7 +11,7 @@ export default function Home() {
           Arya Vaziri
         </h1>
 
-        <h3 className="text-3xl pt-8 md:text-4xl text-center sm:min-h-12 whitespace-nowrap">
+        <h3 className="text-3xl pt-8 md:text-4xl text-center sm:min-h-12 whitespace-nowrap cursor-default">
           <br className="sm:hidden" />
           <span
             className={`sm:font-extrabold max-sm:text-3xl px-3 inline-block hover:scale-x-105 text-secondaryLight dark:text-secondaryDark skills`}
