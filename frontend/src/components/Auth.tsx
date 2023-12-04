@@ -37,8 +37,6 @@ const Auth = () => {
         if (res.user) {
           myContext.setUser(res.user);
           document.cookie = `accessToken=${token}`;
-          document.cookie = `user=${res.user._id}`;
-          console.log("VALIDATION IN AUTH COMPONENT");
         }
       })
       .catch((err) => {
@@ -51,6 +49,7 @@ const Auth = () => {
     myContext.setIsAuth(false);
     myContext.setUser({} as User);
     myContext.toggleMenu();
+    document.cookie = `accessToken=`;
   };
   if (!myContext?.menu) return null;
   return (
@@ -82,7 +81,7 @@ const Auth = () => {
             {toggle && (
               <button
                 onClick={() => logout()}
-                className="z-20 bg-slate-200 absolute h-auto px-2 my-1 flex duration-300 justify-center items-center rounded border"
+                className="z-20 bg-light text-dark absolute h-auto px-2 my-1 flex duration-300 justify-center items-center rounded border"
               >
                 Logout
               </button>

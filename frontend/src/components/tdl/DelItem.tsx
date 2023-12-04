@@ -12,25 +12,15 @@ import {
 } from "react-icons/ai";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
+import { delItemAction } from "@actions/serverActions";
 
-// export type List = z.infer<typeof ListSchema>;
 const DelItem = ({ item, list }: { item: TItem; list: TList }) => {
-  const router = useRouter();
-  // const myContext = useContext(Context);
-  const delItem = async () => {
-    await fetch(`http://localhost:5000/rh/list/${list?._id}/${item?._id}`, {
-      method: "DELETE",
-    }).then((response) => {
-      console.log(response);
-      router.refresh();
-    });
-  };
   return (
     <button
       className="hover:scale-[1.2] duration-300 hover:text-rose-500"
       onClick={(e) => {
         e.preventDefault();
-        delItem();
+        delItemAction(item._id, list._id);
       }}
     >
       <AiOutlineDelete />
