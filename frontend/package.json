@@ -6,7 +6,7 @@
     "dev": "HTTPS=true next dev",
     "dev2": "next dev -p 5000",
     "build": "next build",
-    "start": "next start",
+    "start": "node .next/standalone/server.js",
     "lint": "next lint",
     "compile": "graphql-codegen",
     "watch": "graphql-codegen -w"

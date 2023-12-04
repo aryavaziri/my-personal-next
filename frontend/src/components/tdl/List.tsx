@@ -59,7 +59,10 @@ const List = ({ list }: { list: TList }) => {
                     item={item}
                     list={list}
                   />
-                  <CompleteItem item={item} />
+                  <CompleteItem
+                    item={item}
+                    list={list}
+                  />
 
                   <span
                     className={`${

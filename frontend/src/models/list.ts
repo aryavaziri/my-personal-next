@@ -1,15 +1,4 @@
 import mongoose from "mongoose";
-import { z } from "zod";
-
-// export const ItemSchema = z.object({
-//   name: z.string(),
-//   done: z.boolean(),
-//   quantity: z.number(),
-//   source: z.string().optional(),
-//   priority: z.number().optional(),
-// });
-
-// export type Item = z.infer<typeof ItemSchema>;
 
 export const Item =
   mongoose.models.Item ||
@@ -23,15 +12,6 @@ export const Item =
       priority: { type: Number },
     })
   );
-
-// export const ListSchema = z.object({
-//   title: z.string(),
-//   items: z.array(ItemSchema),
-//   collaborators: z.array(z.object({})),
-//   creator: z.object({}),
-// });
-
-// export type List = z.infer<typeof ListSchema>;
 
 export const List =
   mongoose.models.List ||

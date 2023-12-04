@@ -4,22 +4,28 @@ import List from "@components/tdl/List";
 import { type TList } from "@components/tdl/List";
 import { getToken } from "@actions/serverActions";
 
+// export const dynamic = "force-dynamic";
+
 const page = async () => {
-  let data: { lists: TList[] } = { lists: [] };
-  try {
-    const token = await getToken();
-    // console.log(token);
-    const response = await fetch(`https://aryav.nl/rh/list`, {
-      headers: { "Content-Type": "application/json", token: token ?? "" },
-    });
-    data = await response.json();
-  } catch (error) {
-    console.log(error);
-  }
+  let data: TList[] = [];
+  const token = await getToken();
+  // console.log(token);
+  await fetch(`${process.env.hostname}/rh/list`, {
+    headers: {
+      "Content-Type": "application/json",
+      token: (token as string) ?? "",
+    },
+    next: { tags: ["list"] },
+  })
+    .then((response) => response.ok && response.json())
+    .then((result) => {
+      !result.error && (data = result);
+    })
+    .catch((error) => console.log(error));
 
   return (
     <section className={`grid grid-cols-3 pt-56 gap-4`}>
-      {data?.lists?.map((list) => {
+      {data?.map((list) => {
         return (
           <List
             list={list}
