@@ -16,3 +16,5 @@ router.post("/signin", authController.emailSignIn)
 router.post("/contact", generalController.contact);
 
 router.get("/validate", authController.validate);
+
+router.get("/getuser", authController.getUser);

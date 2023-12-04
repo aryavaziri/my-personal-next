@@ -9,6 +9,7 @@ import { router as listRoutes } from "./routes/list.js";
 import { router as api } from "./routes/api.js"
 import { join, dirname } from "path"
 import { fileURLToPath } from 'url';
+import cookieParser from 'cookie-parser'
 
 
 import gql from "graphql-tag";
@@ -40,7 +41,8 @@ const server = new ApolloServer({
 });
 await server.start();
 
-app.use(cors({ origin: ['https://www.aryav.nl', 'http://localhost', 'http://localhost:5000', 'http://aryav.nl:5000', 'https://aryav.nl'], methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', credentials: true }));
+app.use(cookieParser())
+app.use(cors({ origin: ['https://www.aryav.nl', 'http://localhost', 'http://localhost:5000', 'http://aryav.nl:5000', 'https://aryav.nl', '*'], methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', credentials: true }));
 app.use(express.urlencoded({ extended: true }))
 app.use('/static', express.static('public'))
 app.use(isAuth);

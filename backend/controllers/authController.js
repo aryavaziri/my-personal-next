@@ -35,7 +35,7 @@ export const validate = async (req, res, next) => {
         await User.findByIdAndUpdate(userId, {})
             .then((user) => {
                 if (user) {
-                    console.log("User is Authenticated?!");
+                    console.log("User is Authenticated from nextjs?!");
                     return res.json(user)
                 } else {
                     const error = new Error("No User exist with this credentials!");
@@ -64,7 +64,7 @@ export const isAuth = async (req, res, next) => {
         await User.findByIdAndUpdate(userId, {})
             .then((user) => {
                 if (user) {
-                    console.log("User is Authenticated?!");
+                    console.log("User is Authenticated!");
                     req.user = user;
                     req.isAuth = true;
                     next();
@@ -74,6 +74,23 @@ export const isAuth = async (req, res, next) => {
                     throw error;
                 }
             })
+    } catch (error) {
+        console.log(error.message)
+        next();
+    }
+};
+
+export const getUser = async (req, res, next) => {
+    const token = await req.headers["authorization"]?.split(" ")[1];
+    console.log("token: ", req.headers["authorization"])
+    try {
+        if (!token) {
+            return res.json({ error: "No Token" })
+        }
+        const verifiedUser = token && await jwt.verify(token, "SECRET_KEY");
+        console.log("User is Verified!")
+        // console.log(verifiedUser)
+        return res.json({ _id: verifiedUser.id })
     } catch (error) {
         console.log(error.message)
         next();
