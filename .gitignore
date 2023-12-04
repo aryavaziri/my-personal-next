@@ -4,3 +4,4 @@ test.txt
 .key
 private
 node_modules
+.env
