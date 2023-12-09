@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 let isConnected = false;
 
-import User from "@models/user";
+import User from "@models/User";
 export const connectToDB = async () => {
   mongoose.set("strictQuery", true);
   if (isConnected) {

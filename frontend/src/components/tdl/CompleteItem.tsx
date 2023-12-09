@@ -1,7 +1,7 @@
 "use client";
 import { type TItem, TList } from "@components/tdl/List";
 import { AiOutlineCheck } from "react-icons/ai";
-import { completeItemAction } from "@actions/serverActions";
+import { completeItemAction } from "@actions/TDLserverActions";
 
 const CompleteItem = ({ item, list }: { item: TItem; list: TList }) => {
   return (

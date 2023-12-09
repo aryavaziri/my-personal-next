@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { type TList } from "@components/tdl/List";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { addListAction } from "@actions/serverActions";
+import { addListAction } from "@actions/TDLserverActions";
 
 const schema = z.object({
   title: z.string().max(12),

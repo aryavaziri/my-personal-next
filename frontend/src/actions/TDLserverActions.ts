@@ -1,7 +1,7 @@
 "use server";
 import { cookies } from "next/headers";
-import { List } from "@models/list";
-import { Item } from "@models/list";
+import { List } from "@models/List";
+import { Item } from "@models/List";
 import { type TItem, TList } from "@components/tdl/List";
 import { revalidateTag } from "next/cache";
 import { HydratedDocument } from "mongoose";

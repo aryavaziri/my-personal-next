@@ -1,7 +1,7 @@
 "use client";
 import { type TItem, TList } from "@components/tdl/List";
 import { RiDeleteBinLine } from "react-icons/ri";
-import { delListAction } from "@actions/serverActions";
+import { delListAction } from "@actions/TDLserverActions";
 
 const DelList = ({ list }: { list: TList }) => {
   return (

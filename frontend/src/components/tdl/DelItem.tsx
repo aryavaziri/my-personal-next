@@ -12,7 +12,7 @@ import {
 } from "react-icons/ai";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
-import { delItemAction } from "@actions/serverActions";
+import { delItemAction } from "@actions/TDLserverActions";
 
 const DelItem = ({ item, list }: { item: TItem; list: TList }) => {
   return (
