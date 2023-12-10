@@ -1,62 +1,80 @@
 "use server";
-import { cookies } from "next/headers";
+import { authenticate } from "./AuthActions";
 import { Product } from "@models/Shop";
 import { type TProduct } from "@components/shop/Product";
-import { type TProductInput } from "@components/shop/AddProduct";
 import { revalidateTag } from "next/cache";
 import { HydratedDocument } from "mongoose";
-import { z } from "zod";
-import { writeFileSync } from "fs";
-// const schema = z.object({
-//   name: z.string().min(1, "Name is required").max(12),
-//   description: z.string(),
-//   image: z.custom<File>(),
-//   quantity_in_stock: z.coerce.number(),
-//   price: z.coerce.number(),
-// });
-// export type TProductInput2 = z.infer<typeof schema>;
+import { writeFileSync, readdir } from "fs";
+import { mkdir } from "fs/promises";
+import { connectToDB } from "@lib/database";
 
-export const getToken = async () => {
+export const addProductAction = async (payload: FormData) => {
   try {
-    const cookieStore = cookies();
-    const token = cookieStore.get("accessToken");
-    return token?.value;
+    const { userId, isAdmin } = await authenticate();
+    const file = payload.get("imageFile") as File;
+    if (!file || !isAdmin) return;
+    await connectToDB();
+    const extention = file.type.split(`/`)[1];
+    const product: HydratedDocument<TProduct> = await Product.create({
+      name: payload.get("name"),
+      description: payload.get("description"),
+      price: parseInt(payload.get("price") as string),
+      quantity_in_stock: parseInt(payload.get("quantity") as string),
+      image: extention,
+    });
+    const dir = await mkdir(`shop/products/${product._id}`, {
+      recursive: true,
+    });
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+    let count = 0;
+    readdir(dir as string, (err, files) => {
+      count = files.length;
+    });
+    writeFileSync(`${dir}/${count}.${extention}`, buffer);
+
+    revalidateTag("shop");
+    return { success: true };
   } catch (error) {
     console.log(error);
-    return error;
+    return { success: false };
   }
 };
 
-export const authenticate = async () => {
-  const token = await getToken();
-  console.log(token);
-  const fetchData = await fetch(`https://aryav.nl/api/getuser`, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  })
-    .then((res) => {
-      return res.json();
-    })
-    .catch((err) => console.log(`${err.message}`));
-  console.log(fetchData);
-  return { userId: fetchData._id };
+export const delProductAction = async (payload: TProduct) => {
+  const { userId, isAdmin } = await authenticate();
+  if (!isAdmin) return;
+  try {
+    await Product.findByIdAndDelete(payload._id);
+    revalidateTag("shop");
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-export const addProductAction = async (payload: FormData) => {
-  const { userId } = await authenticate();
-  const file = payload.get("image") as File;
-  if (!file) return;
-  console.log(file);
-
-  userId && writeFileSync("tmp.txt", "file");
-  // (await Product.create({
-  //   name: payload.get('name'),
-  //   description: payload.get('description'),
-  //   price: payload.get('price'),
-  //   quantity_in_stock: payload.get('quantity'),
-  //   image: payload.get('name'),
-  // }));
-  // revalidateTag("shop");
+export const changeProductImageAction = async (payload: FormData) => {
+  const { userId, isAdmin } = await authenticate();
+  if (!isAdmin) return;
+  const file = payload.get("imageFile") as File;
+  const productId = payload.get("productId") as string;
+  try {
+    const extention = file.type.split(`/`)[1];
+    const dir = `shop/products/${productId}`;
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+    let count;
+    readdir(dir as string, (err, files) => {
+      count = files.length;
+      writeFileSync(`${dir}/${count}.${extention}`, buffer);
+    });
+    await connectToDB();
+    const product = (await Product.findById(
+      productId
+    )) as HydratedDocument<TProduct>;
+    product.image = extention;
+    await product.save();
+    revalidateTag("shop");
+  } catch (error) {
+    console.log(error);
+  }
 };

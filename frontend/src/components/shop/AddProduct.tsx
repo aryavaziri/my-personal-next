@@ -4,8 +4,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { addProductAction } from "@actions/shopServerActions";
 import Input from "@components/form/Input3";
-
-const schema = z.object({
+import { useState, useContext } from "react";
+import { Context } from "@app/Provider";
+export const schema = z.object({
   name: z.string().min(1, "Name is required").max(12),
   description: z.string(),
   image: z
@@ -25,6 +26,8 @@ const schema = z.object({
 });
 export type TProductInput = z.infer<typeof schema>;
 const AddProduct = () => {
+  const myContext = useContext(Context);
+  const [toggle, setToggle] = useState(false);
   const { handleSubmit, reset, control, register, formState } =
     useForm<TProductInput>({
       defaultValues: {
@@ -44,25 +47,30 @@ const AddProduct = () => {
     form.append("description", payload.description);
     form.append("price", payload.price.toString());
     form.append("quantity", payload.quantity_in_stock.toString());
-
-    addProductAction(form).then(() => {
-      reset();
+    addProductAction(form).then((result) => {
+      if (result?.success) {
+        reset();
+      } else {
+        console.log("NOT SUCCESSFUL");
+      }
     });
   };
 
-  return (
+  return myContext.isAuth && toggle ? (
     <form
-      className="shadow shadow-current gap-2 h-min p-2 gap-2 flex flex-col w-full"
+      className="shadow shadow-current rounded gap-2 h-min p-2 gap-2 flex flex-col w-full"
       encType="multipart/form-data"
       onSubmit={handleSubmit(addProduct)}
     >
       <Input
         name="name"
         control={control}
+        label
       />
       <Input
         name="description"
         control={control}
+        label
       />
       <Input
         name="quantity_in_stock"
@@ -83,11 +91,23 @@ const AddProduct = () => {
       />
       {formState.errors?.image && (
         <span className="text-danger text-sm ml-20">
-          {formState.errors.image.message}
+          {formState.errors.image?.message}
         </span>
       )}
-      <button type="submit">ADD Product</button>
+      <button
+        className={`border my-1 py-1 rounded border-current hover:bg-dark hover:text-light dark:hover:bg-light dark:hover:text-dark duration-300`}
+        type="submit"
+      >
+        ADD Product
+      </button>
     </form>
+  ) : (
+    <button
+      className={`border my-1 py-1 rounded border-current hover:bg-dark hover:text-light dark:hover:bg-light dark:hover:text-dark duration-300 h-min`}
+      onClick={() => setToggle(true)}
+    >
+      ADD PRODUCT
+    </button>
   );
 };
 
