@@ -2,7 +2,7 @@ import React from "react";
 import AddList from "@components/tdl/AddList";
 import List from "@components/tdl/List";
 import { type TList } from "@components/tdl/List";
-import { getToken } from "@actions/TDLserverActions";
+import { getToken } from "@actions/AuthActions";
 
 // export const dynamic = "force-dynamic";
 

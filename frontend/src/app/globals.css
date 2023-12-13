@@ -6,6 +6,12 @@
   .btn-primary {
     @apply py-2 px-4 bg-blue-500 gap-2 justify-center hover:scale-105 text-slate-700 text-lg sm:text-2xl font-semibold rounded-lg shadow-md opacity-80 flex items-center hover:opacity-[100%];
   }
+  .btn1 {
+    @apply text-dark dark:text-light hover:bg-dark hover:text-light dark:hover:bg-light dark:hover:text-dark 
+  }
+  .btn2 {
+    @apply bg-dark dark:bg-light border border-current text-light dark:text-dark hover:bg-light/0 hover:text-dark dark:hover:bg-dark/0 dark:hover:text-light 
+  }
 }
 
 @media only screen and (min-width: 600px) {}

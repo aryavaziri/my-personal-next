@@ -1,5 +1,7 @@
 "use server";
+import { UserProfile } from "@models/Shop";
 import { cookies } from "next/headers";
+import { connectToDB } from "@lib/database";
 export const getToken = async () => {
   try {
     const cookieStore = cookies();
@@ -13,7 +15,7 @@ export const getToken = async () => {
 
 export const authenticate = async () => {
   const token = await getToken();
-  //   console.log(token);
+  // console.log(token);
   const user = await fetch(`https://aryav.nl/api/getuser`, {
     headers: {
       "Content-Type": "application/json",
@@ -25,5 +27,21 @@ export const authenticate = async () => {
     })
     .catch((err) => console.log(`${err.message}`));
   // console.log(user);
-  return { userId: user._id, isAdmin: user.isAdmin };
+  return { userId: user?._id, isAdmin: user?.isAdmin };
+};
+
+export const getProfile = async () => {
+  const { userId } = await authenticate();
+  if (!userId) {
+    console.log("KOSSHER");
+    return;
+  }
+  await connectToDB();
+  let profile = [];
+  profile = await UserProfile.find({ user: userId });
+  // console.log(profile);
+  if (!profile.length) {
+    profile[0] = await UserProfile.create({ user: userId });
+  }
+  return profile[0];
 };

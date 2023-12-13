@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { Context } from "@app/Provider";
 import Image from "next/image";
 import type { User } from "@app/Provider";
+import Link from "next/link";
 
 const Auth = () => {
   const [toggle, setToggle] = useState(false);
@@ -36,7 +37,7 @@ const Auth = () => {
       .then((res) => {
         if (res.user) {
           myContext.setUser(res.user);
-          document.cookie = `accessToken=${token}`;
+          document.cookie = `accessToken=${token};path=/`;
         }
       })
       .catch((err) => {
@@ -51,7 +52,10 @@ const Auth = () => {
     myContext.toggleMenu();
     document.cookie = `accessToken=`;
   };
-  if (!myContext?.menu) return null;
+  if (!myContext?.menu) {
+    toggle && setToggle(false);
+    return null;
+  }
   return (
     <>
       {!myContext?.isAuth ? (
@@ -79,12 +83,21 @@ const Auth = () => {
               height={30}
             />
             {toggle && (
-              <button
-                onClick={() => logout()}
-                className="z-20 bg-light text-dark absolute h-auto px-2 my-1 flex duration-300 justify-center items-center rounded border"
-              >
-                Logout
-              </button>
+              <div className="z-20 mt-2 bg-light text-dark absolute h-auto flex flex-col duration-300 justify-center items-center rounded">
+                <Link
+                  href={`/profile`}
+                  className={`hover:bg-dark/20 px-4 py-1 border-b border-dark/50`}
+                  onClick={() => myContext.toggleMenu()}
+                >
+                  Profile
+                </Link>
+                <button
+                  onClick={() => logout()}
+                  className="z-20 hover:bg-dark/20 text-dark px-4 py-1 flex "
+                >
+                  Logout
+                </button>
+              </div>
             )}
           </div>
         )

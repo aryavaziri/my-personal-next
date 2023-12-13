@@ -1,12 +1,13 @@
 "use server";
-import { authenticate } from "./AuthActions";
-import { Product } from "@models/Shop";
+import { authenticate, getProfile } from "./AuthActions";
+import { Product, UserProfile } from "@models/Shop";
 import { type TProduct } from "@components/shop/Product";
-import { revalidateTag } from "next/cache";
+import { revalidateTag, revalidatePath } from "next/cache";
 import { HydratedDocument } from "mongoose";
 import { writeFileSync, readdir } from "fs";
 import { mkdir } from "fs/promises";
 import { connectToDB } from "@lib/database";
+import { TAddress } from "@components/AddressCard";
 
 export const addProductAction = async (payload: FormData) => {
   try {
@@ -77,4 +78,49 @@ export const changeProductImageAction = async (payload: FormData) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const editOrAddBillingAddress = async (payload: TAddress) => {
+  try {
+    await connectToDB();
+    const profile = await getProfile();
+    await profile.editOrAddBillingAddress(payload);
+    revalidateTag("address");
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const addShippingAddress = async (payload: TAddress) => {
+  try {
+    await connectToDB();
+    const profile = await getProfile();
+    await profile.addShippingAddress(payload);
+    revalidateTag("address");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const delShippingAddress = async (index: number) => {
+  try {
+    await connectToDB();
+    const profile = await getProfile();
+    await profile.delShippingAddress(index);
+    revalidateTag("address");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const editShippingAddress = async (payload: TAddress, index: number) => {
+  try {
+    // const searchParams = useSearchParams();
+    // const index = parseInt(searchParams.get("showDialog") ?? "-1");
+    await connectToDB();
+    const profile = await getProfile();
+    await profile.editShippingAddress(payload, index);
+  } catch (error) {
+    console.log(error);
+  }
+  revalidatePath("/profile/address");
 };

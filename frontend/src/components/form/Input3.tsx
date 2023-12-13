@@ -25,7 +25,7 @@ const Input3 = <T extends FieldValues>(props: CustomInputProps<T>) => {
         {props.label && (
           <label
             htmlFor={props.name}
-            className={`text-md mr-2 self-center w-16 text-end`}
+            className={`text-md mr-2 self-center w-24 text-end`}
           >
             {props.label != true ? props.label : props.name}
           </label>
@@ -36,7 +36,7 @@ const Input3 = <T extends FieldValues>(props: CustomInputProps<T>) => {
             ref={ref}
             placeholder={props.placeholder || props.name}
             autoFocus={props.autoFocus}
-            className="py-1 px-2  min-w-0 shadow bg-white/60 dark:bg-black/40 rounded border-light/50 dark:border"
+            className="py-1 px-2  min-w-0 shadow bg-white/60 dark:bg-white/70 rounded border-light/50 dark:border grow text-dark placeholder:text-dark/40"
             id={props.name}
             type={props.type || "text"}
           />
