@@ -1,5 +1,6 @@
 import Product, { TProduct } from "@components/shop/Product";
 import AddProduct from "@components/shop/AddProduct";
+export const dynamic = "force-dynamic";
 
 const page = async () => {
   const products: TProduct[] = await fetch(`${process.env.hostname}/rh/shop`, {

@@ -19,7 +19,7 @@ const DelItem = ({ list, item }: { list: TList; item: TItem }) => {
   const router = useRouter();
   // const myContext = useContext(Context);
   const delItem = async () => {
-    fetch(`http://localhost:5000/rh/list/${list?._id}/${item?._id}`, {
+    fetch(`${process.env.hostname}/rh/list/${list?._id}/${item?._id}`, {
       method: "DELETE",
       body: JSON.stringify({
         listID: list._id,

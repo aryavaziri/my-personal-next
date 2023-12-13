@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 const ShareList = ({ list }: { list: TList }) => {
   const router = useRouter();
   const shareList = async () => {
-    fetch(`http://localhost:5000/rh/list/${list?._id}/share`, {
+    fetch(`${process.env.hostname}/rh/list/${list?._id}/share`, {
       method: "GET",
     }).then(async (response) => {
       console.log(response);

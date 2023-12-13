@@ -1,9 +1,4 @@
-import { List, Item } from "@models/List";
 import { NextResponse } from "next/server";
-import { connectToDB } from "@lib/database";
-import { cookies } from "next/headers";
-import { getToken } from "@actions/TDLserverActions";
-// import { getServerSession } from "next-auth/next";
 
 export const GET = async (req: Request, res: Response) => {
   const validate = await fetch(

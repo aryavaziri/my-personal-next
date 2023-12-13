@@ -4,7 +4,7 @@ import List from "@components/tdl/List";
 import { type TList } from "@components/tdl/List";
 import { getToken } from "@actions/AuthActions";
 
-// export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 
 const page = async () => {
   let data: TList[] = [];
