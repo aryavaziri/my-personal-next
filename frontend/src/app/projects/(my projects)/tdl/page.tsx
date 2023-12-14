@@ -24,7 +24,9 @@ const page = async () => {
     .catch((error) => console.log(error));
 
   return (
-    <section className={`grid grid-cols-3 pt-56 gap-4`}>
+    <section
+      className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 pt-56 gap-4`}
+    >
       {data?.map((list) => {
         return (
           <List

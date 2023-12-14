@@ -172,7 +172,7 @@ const page = () => {
           <button
             type="submit"
             onClick={handleSubmit(onSubmit)}
-            className={`flex justify-center relative items-center gap-2 text-2xl border-2 rounded h-12 px-4 ml-20 font-medium font-custom2 hover:text-3xl dark:border-light`}
+            className={`flex justify-center relative items-center gap-2 text-2xl border-2 rounded h-12 px-4 ml-28 font-medium font-custom2 hover:text-3xl dark:border-light`}
           >
             <span>Submit</span>
             <BiArrowFromBottom className="" />

@@ -12,11 +12,16 @@ const page = async () => {
   const sAddress: any[] = profile?.shippingAddress;
   const bAddress = profile?.billingAddress;
   return (
-    <div className={`flex gap-4 justify-between`}>
+    <div className={`flex gap-4 `}>
       <Modal />
       <div className="w-full">
-        <p className="text-4xl ml-96 z-[20] fixed"> &gt; Your Addresses</p>
-        <div className={`mt-20 pb-12 grid grid-cols-3 gap-4 w-full`}>
+        <p className="text-xl max-sm:pt-7 sm:text-2xl md:text-4xl ml-48 sm:ml-60 md:ml-96 z-[20] fixed">
+          {" "}
+          &gt; Your Addresses
+        </p>
+        <div
+          className={`mt-20 pb-12 max-sm:justify-items-center grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full`}
+        >
           <BillingAddress address={bAddress} />
 
           {bAddress?.country &&
@@ -32,7 +37,9 @@ const page = async () => {
             className={`h-full text-lg hover:scale-[1.2]`}
             href={`?showDialog=n`}
           >
-            <MdOutlineLibraryAdd className={`h-full w-full p-20`} />
+            {bAddress?.country && (
+              <MdOutlineLibraryAdd className={`h-full w-full p-32`} />
+            )}
           </Link>
         </div>
       </div>

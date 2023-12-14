@@ -11,7 +11,7 @@ const ShippingAddress = async ({
 }) => {
   return (
     <>
-      <div className="grow p-8 shadow-md border rounded shadow-current border-current max-w-[400px]">
+      <div className="grow p-8 shadow-md border rounded hover:shadow-current border-current max-sm:w-full sm:max-w-[400px]">
         <div className={`text-secondaryDark mb-4 flex justify-between`}>
           <p className={`text-2xl align-middle h-full`}>
             {address.name}

@@ -1,11 +1,8 @@
 "use client";
 import { useState, useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { ProjectItem, ProjectMedia } from "@components/ProjectItem";
 import ProjectCard from "./ProjectCard";
-import { AiOutlineClose } from "react-icons/ai";
-import { Suspense } from "react";
 import { Context } from "@app/Provider";
 import { useQuery, useSuspenseQuery } from "@apollo/client";
 import { gql } from "@../src/__generated__/gql";
@@ -50,18 +47,28 @@ const Projects = ({ data }: { data: data }) => {
 
   return (
     <>
+      {" "}
+      <div
+        className={`pr-4 pl-6 sm:pl-20 md:pl-36 lg:pl-56 backdrop-blur z-[4] w-3/5 font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl fixed pt-6 sm:pt-10 ${
+          myContext.isMobile ? `md:pl-48` : `md:bottom-[70vh]`
+        }`}
+      >
+        <h1 className="whitespace-nowrap pb-2 border-b-4 border-current w-min ">
+          Projects
+        </h1>
+      </div>
       <div
         className={`${
           myContext.isMobile
-            ? `top-20 sm:top-24 w-[92%] sm:w-[90%] max-md:inset-x-0 h-[calc(100%-80px)] sm:h-[calc(100%-96px)] pt-2`
+            ? `top-20 sm:top-24 w-[92%] sm:w-[90%] inset-x-0 h-[calc(100%-80px)] sm:h-[calc(100%-96px)] pt-2`
             : `top-[32vh] max-h-[60vh]  md:w-2/5 pl-2 sm:pl-20 md:pl-36 lg:pl-56`
-        } 
+        }
         fixed z-30 mx-auto overflow-y-scroll overflow-x-clip flex noscroll-bar`}
       >
         <div
           className={`${
             myContext.isMobile
-              ? `grid gap-12 sm:gap-8 md:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3`
+              ? `grid gap-12 sm:gap-8 md:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 pb-20`
               : `w-full`
           }  min-h-content noscroll-bar `}
         >
@@ -126,6 +133,7 @@ const Projects = ({ data }: { data: data }) => {
             )}
           </div>
           {/* <button onClick={() => refetch()} >refetch</button> */}
+          {myContext.isMobile && <div className="h-20" />}
         </div>
       </div>
       {!myContext.isMobile && hoveredItem && hoveredItem._id && (
