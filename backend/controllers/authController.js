@@ -82,15 +82,15 @@ export const isAuth = async (req, res, next) => {
 
 export const getUser = async (req, res, next) => {
     const token = await req.headers["authorization"]?.split(" ")[1];
-    console.log("token: ", req.headers["authorization"])
+    // console.log("token: ", req.headers["authorization"])
     try {
         if (!token) {
             return res.json({ error: "No Token" })
         }
         const verifiedUser = token && await jwt.verify(token, "SECRET_KEY");
         console.log("User is Verified!")
-        // console.log(verifiedUser)
-        return res.json({ _id: verifiedUser.id })
+        console.log(verifiedUser)
+        return res.json({ _id: verifiedUser.id, isAdmin: verifiedUser.isAdmin })
     } catch (error) {
         console.log(error.message)
         next();
@@ -112,7 +112,7 @@ export const getUserCallback = async (req, res, next) => {
             { lastLogin: Date.now() }
         );
         if (user) {
-            token = jwt.sign({ id: user._id }, "SECRET_KEY", {
+            token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, "SECRET_KEY", {
                 expiresIn: "10d",
             });
         } else {
@@ -125,7 +125,7 @@ export const getUserCallback = async (req, res, next) => {
                 isGoogleAccount: true,
             })
                 .then((user) => {
-                    token = jwt.sign({ id: user._id }, "SECRET_KEY", {
+                    token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, "SECRET_KEY", {
                         expiresIn: "10d",
                     });
                 })
@@ -159,12 +159,12 @@ export const emailConfirm = async (req, res, next) => {
             if (error.message === 'jwt expired') {
                 const userId = await jwt.verify(token, "SECRET_KEY", { ignoreExpiration: true }).id;
                 console.log(userId)
-                let neweUser = await User.findById(userId)
-                let newToken = jwt.sign({ id: userId }, "SECRET_KEY", {
+                let newUser = await User.findById(userId)
+                let newToken = jwt.sign({ id: userId, isAdmin: newUser.isAdmin }, "SECRET_KEY", {
                     expiresIn: "2h",
                 })
                 const EmailConfirmation = {
-                    to: neweUser.email,
+                    to: newUser.email,
                     // to: "arya.vaziri@gmail.com",
                     from: "info@aryav.nl",
                     subject: "Please Confirm your email address.",
@@ -207,7 +207,7 @@ export const emailSignUp = async (req, res, next) => {
                 isSignByMail: true,
             })
                 .then((user) => {
-                    token = jwt.sign({ id: user._id }, "SECRET_KEY", {
+                    token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, "SECRET_KEY", {
                         expiresIn: "1h",
                     });
 
@@ -241,7 +241,7 @@ export const emailSignIn = async (req, res, next) => {
         if (!user) { return res.send("Email does not exists.") }
 
         if (bcrypt.compareSync(data.password, user.hpassword)) {
-            const token = jwt.sign({ id: user._id }, "SECRET_KEY", {
+            const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, "SECRET_KEY", {
                 expiresIn: "10d",
             });
             console.log("token")

@@ -5,14 +5,14 @@ import ShippingAddress from "@components/ShippingAddress";
 import Modal from "@components/modals/Modal";
 import { MdOutlineLibraryAdd } from "react-icons/md";
 
-const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 
 const page = async () => {
   const profile = await getProfile();
   const sAddress: any[] = profile?.shippingAddress;
   const bAddress = profile?.billingAddress;
   return (
-    <>
+    <div className={`flex gap-4 justify-between`}>
       <Modal />
       <div className="w-full">
         <p className="text-4xl ml-96 z-[20] fixed"> &gt; Your Addresses</p>
@@ -36,7 +36,7 @@ const page = async () => {
           </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -29,28 +29,35 @@ RUN npm run build
 FROM base AS runner
 
 WORKDIR /app/frontend
+# RUN mkdir shop
+# RUN mkdir shop/projects
+RUN chmod 755 .
+WORKDIR /app/frontend
+
 
 # Don't run production as root
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 USER nextjs
 
+# RUN chown -R nextjs:nodejs /app/frontend/shop
 COPY --from=builder /app/frontend/public ./public
 
+COPY --from=builder --chown=nextjs:nodejs /app/frontend/shop ./shop
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --chown=nextjs:nodejs /app/frontend/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/frontend/.next/static ./.next/static
 
-# Environment variables must be redefined at run time
-ARG ENV_VARIABLE
-ENV ENV_VARIABLE=${ENV_VARIABLE}
-ARG NEXT_PUBLIC_ENV_VARIABLE
-ENV NEXT_PUBLIC_ENV_VARIABLE=${NEXT_PUBLIC_ENV_VARIABLE}
-ARG hostname
-ENV hostname=${hostname}
-ARG DB_uri
-ENV DB_uri=${DB_uri}
+# # Environment variables must be redefined at run time
+# ARG ENV_VARIABLE
+# ENV ENV_VARIABLE=${ENV_VARIABLE}
+# ARG NEXT_PUBLIC_ENV_VARIABLE
+# ENV NEXT_PUBLIC_ENV_VARIABLE=${NEXT_PUBLIC_ENV_VARIABLE}
+# ARG hostname
+# ENV hostname=${hostname}
+# ARG DB_uri
+# ENV DB_uri=${DB_uri}
 
 # Uncomment the following line to disable telemetry at run time
 # ENV NEXT_TELEMETRY_DISABLED 1

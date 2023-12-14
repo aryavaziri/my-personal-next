@@ -23,7 +23,8 @@ export const addProductAction = async (payload: FormData) => {
       quantity_in_stock: parseInt(payload.get("quantity") as string),
       image: extention,
     });
-    const dir = await mkdir(`shop/products/${product._id}`, {
+    // const dir = await mkdir(`shop/products/${product._id}`, {
+    const dir = await mkdir(`/app/frontend/shop/products/${product._id}`, {
       recursive: true,
     });
     const bytes = await file.arrayBuffer();
