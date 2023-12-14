@@ -7,7 +7,8 @@ import { TProduct } from "./Product";
 const ProductImage = async ({ product }: { product: TProduct }) => {
   let imgDataUri;
   try {
-    const dir = `shop/products/${product._id}`;
+    // const dir = `shop/products/${product._id}`;
+    const dir = `/app/frontend/shop/products/${product._id}`;
     const files = await readdir(dir);
     const img = readFileSync(`${dir}/${files.length - 1}.${product.image}`);
     imgDataUri = `data:image/${product.image};base64,${img.toString("base64")}`;

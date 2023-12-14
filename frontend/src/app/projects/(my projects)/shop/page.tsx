@@ -1,15 +1,19 @@
 import Product, { TProduct } from "@components/shop/Product";
 import AddProduct from "@components/shop/AddProduct";
+
 export const dynamic = "force-dynamic";
 
 const page = async () => {
-  const products: TProduct[] = await fetch(`${process.env.hostname}/rh/shop`, {
+  let products: TProduct[] = [];
+  await fetch(`${process.env.hostname}/rh/shop`, {
     next: { tags: ["shop"] },
   })
     .then((response) => response.ok && response.json())
     .then((result) => {
+      console.log(result);
+      console.log(process.env.hostname);
       if (!result.error) {
-        return result;
+        !result.error && (products = result);
       }
     })
     .catch((error) => console.log(error));

@@ -127,7 +127,7 @@ const page = () => {
               <Link
                 className="flex h-12 w-12 items-center hover:text-6xl"
                 target="_blank"
-                href={"https://www.linkedin.com/in/arya-vaziri-7116ab206/"}
+                href={"https://www.linkedin.com/in/aryavz/"}
               >
                 <FiLinkedin />
               </Link>

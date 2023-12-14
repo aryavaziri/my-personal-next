@@ -12,7 +12,7 @@ const page = async () => {
   const sAddress: any[] = profile?.shippingAddress;
   const bAddress = profile?.billingAddress;
   return (
-    <>
+    <div className={`flex gap-4 justify-between`}>
       <Modal />
       <div className="w-full">
         <p className="text-4xl ml-96 z-[20] fixed"> &gt; Your Addresses</p>
@@ -36,7 +36,7 @@ const page = async () => {
           </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

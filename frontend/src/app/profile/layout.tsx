@@ -11,7 +11,7 @@ const Layout = ({ children }: React.PropsWithChildren) => {
         </Link>
       </div>
       <div
-        className={`px-6 sm:px-20 md:px-36 lg:px-56 text-lg sm:text-lg md:text-xl lg:text-xl pt-20 sm:pt-12 flex gap-4 justify-between`}
+        className={`px-6 sm:px-20 md:px-36 lg:px-56 text-lg sm:text-lg md:text-xl lg:text-xl sm:pt-12`}
       >
         {children}
       </div>

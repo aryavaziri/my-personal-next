@@ -56,6 +56,7 @@ app.use('/auth', authRoutes);
 app.use("/api", api);
 
 app.use((req, res) => {
+  // console.log(req)
   res.status(404).send("ERROR 404 - PAGE NOT FOUND");
 });
 
