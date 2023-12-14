@@ -5,7 +5,7 @@ import ShippingAddress from "@components/ShippingAddress";
 import Modal from "@components/modals/Modal";
 import { MdOutlineLibraryAdd } from "react-icons/md";
 
-const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 
 const page = async () => {
   const profile = await getProfile();

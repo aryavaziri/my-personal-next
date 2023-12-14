@@ -169,14 +169,8 @@ const Login = () => {
 
   return (
     <>
-      <OK
-        active={confirmationSent}
-        setActive={setConfirmationSent}
-        message={confirmationSent}
-      />
-
       <div
-        className={`fixed z-[40] top-0 left-0 w-screen font-normal pt-[15vh] text-xl h-screen bg-dark/80 backdrop-blur-[2px] ${
+        className={`fixed z-[40] top-0 noscroll-bar py-[15vh] left-0 w-screen font-normal text-xl overflow-y-scroll h-screen bg-dark/80 backdrop-blur-[2px] ${
           !active && "hidden"
         }`}
         onClick={() => {
@@ -184,7 +178,7 @@ const Login = () => {
         }}
       >
         <div
-          className={`w-4/5 max-w-md px-4 pb-4 rounded-lg overflow-hidden mx-auto bg-gradient-to-b from-purple-500 to-light/90 drop-shadow-lg`}
+          className={`w-4/5 max-w-md px-4 pb-4 rounded-lg mx-auto bg-gradient-to-b from-white to-gray-400 drop-shadow-lg`}
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -251,7 +245,7 @@ const Login = () => {
                 }}
                 className={`flex-1 text-center text-md shadow ${
                   exists
-                    ? " border-b-none bold text-2xl bg-purple-700/20 text-light"
+                    ? " border-b-none bold text-2xl bg-gray-700/20 text-gray-800"
                     : "hover:bg-dark/20"
                 } flex flex-col justify-center cursor-pointer rounded-t-lg`}
               >
@@ -264,7 +258,7 @@ const Login = () => {
                 }}
                 className={`flex-1 text-center text-md shadow ${
                   !exists
-                    ? " border-b-none bold text-2xl bg-purple-700/20 text-light"
+                    ? " border-b-none bold text-2xl bg-gray-700/20 text-gray-800"
                     : "hover:bg-dark/20"
                 } flex flex-col justify-center cursor-pointer rounded-t-lg`}
               >
@@ -273,9 +267,9 @@ const Login = () => {
             </div>
           )}
           <Form
-            className={`flex gap-2 flex-col p-4 rounded-lg ${
-              exists ? "rounded-tl-none" : "rounded-tr-none"
-            } ${email && "shadow bg-purple-700/20"}`}
+            className={`flex gap-2 flex-col p-4 rounded-b-lg text-white${
+              exists ? "rounded-tr-lg" : "rounded-tl-lg"
+            } ${email && "shadow bg-gray-700/20"}`}
             control={control}
           >
             <div className={`relative`}>
@@ -283,14 +277,14 @@ const Login = () => {
                 {...register("email")}
                 onKeyDown={handleKeyDown}
                 placeholder="your email"
-                className={`bg-light text-dark w-full rounded my-0 px-2 py-2`}
+                className={`bg-gray-600 w-full rounded my-0 px-2 py-2`}
                 autoFocus
                 disabled={!editable}
                 type="email"
               />
               <button
                 onClick={handleSubmit(mailCheck1)}
-                className={`absolute right-2 h-full inset-y-0 text-dark text-2xl`}
+                className={`absolute right-2 h-full inset-y-0 bg-gray-600 text-2xl`}
               >
                 {loadinggggggg && !email ? (
                   <RiLoaderFill className={`motion-safe:animate-spin`} />
@@ -326,12 +320,12 @@ const Login = () => {
                         onKeyDown={handleKeyDown}
                         placeholder="your passworddd"
                         autoFocus={!editable}
-                        className={`bg-light text-dark w-full rounded my-0 px-2 py-2`}
+                        className={`bg-light bg-gray-600 w-full rounded my-0 px-2 py-2`}
                         type="password"
                       />
                       <button
                         onClick={handleSubmit(signIn)}
-                        className={`absolute right-2 h-full inset-y-0 text-dark text-2xl`}
+                        className={`absolute right-2 h-4/5 my-auto inset-y-0 bg-gray-600 text-2xl`}
                       >
                         {loadinggggggg ? (
                           <RiLoaderFill className={`animate-spin`} />
@@ -349,7 +343,7 @@ const Login = () => {
                       {credentialFail}
                     </div>
 
-                    <div className={`flex justify-between text-light`}>
+                    <div className={`flex justify-between text-gray-600`}>
                       <p>
                         <input
                           type="checkbox"
@@ -360,7 +354,7 @@ const Login = () => {
                       </p>
                       <a
                         href="/test"
-                        className={`mx-2 font-light text-md text-light/70 hover:text-light`}
+                        className={`mx-2 font-light text-md hover:text-gray-800`}
                       >
                         reset password
                       </a>
@@ -371,7 +365,7 @@ const Login = () => {
                     <input
                       placeholder="your passwordddddddd"
                       autoFocus={!editable}
-                      className={`bg-light text-dark w-full rounded my-0 px-2 py-2`}
+                      className={`bg-light bg-gray-600 w-full rounded my-0 px-2 py-2`}
                       {...register("password")}
                       onKeyDown={handleKeyDown}
                       type="password"
@@ -387,7 +381,7 @@ const Login = () => {
                       {...register("password2")}
                       onKeyDown={handleKeyDown}
                       placeholder="Confirm passworddd"
-                      className={`bg-light text-dark w-full rounded my-0 px-2 py-2`}
+                      className={`bg-light bg-gray-600 w-full rounded my-0 px-2 py-2`}
                       type="password"
                     />
                     <div
@@ -416,6 +410,11 @@ const Login = () => {
           </Form>
         </div>
       </div>
+      <OK
+        active={confirmationSent}
+        setActive={setConfirmationSent}
+        message={confirmationSent}
+      />
     </>
   );
 };

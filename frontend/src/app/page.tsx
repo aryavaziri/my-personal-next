@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       <div
-        className={`gap-y-4 flex flex-col px-4 pb-8 h-max-screen overflow-hidden`}
+        className={`gap-y-4 flex flex-col px-4 pb-8 min-h-screen overflow-hidden`}
       >
         <h1 className="text-4xl md:text-6xl text-center pt-24 sm:pt-48 font-extrabold">
           Arya Vaziri
