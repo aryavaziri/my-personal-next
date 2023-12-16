@@ -1,5 +1,9 @@
 import { type TAddress } from "@components/AddressCard";
+import { type TBasket } from "@components/shop/Basket";
+import { type TProduct } from "@components/shop/Product";
 import mongoose from "mongoose";
+import { HydratedDocument } from "mongoose";
+import { Item } from "./List";
 
 export const Product =
   mongoose.models.Product ||
@@ -14,16 +18,95 @@ export const Product =
     })
   );
 
-export const Basket =
-  mongoose.models.Basket ||
-  mongoose.model(
-    "Basket",
-    new mongoose.Schema({
-      user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-      shoppingItem: [{ product: { type: Object }, quantity: { type: Number } }],
-      totalPrice: { type: Number },
-    })
+const BasketSchema = new mongoose.Schema({
+  shoppingItem: [
+    {
+      product: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+      quantity: { type: Number, required: true },
+    },
+  ],
+  totalPrice: { type: Number, default: 0 },
+  totalItem: { type: Number, default: 0 },
+});
+
+BasketSchema.method(
+  "addToCard",
+  function (payload: HydratedDocument<TProduct>) {
+    const index = this.shoppingItem.findIndex(
+      (item) => item.product?.toString() == payload._id
+    );
+    if (index == -1) {
+      this.shoppingItem.push({ product: payload, quantity: 1 });
+    } else {
+      this.shoppingItem[index].quantity += 1;
+    }
+    return this.save();
+  }
+);
+
+BasketSchema.method("removeFromCard", function (productId: string) {
+  const index = this.shoppingItem.findIndex(
+    (item) => item.product?.toString() == productId
   );
+  if (index !== -1) {
+    this.shoppingItem.splice(index, 1);
+  }
+  return this.save();
+});
+
+BasketSchema.method("decrementFromCard", function (productId: string) {
+  const index = this.shoppingItem.findIndex(
+    (item) => item.product?.toString() == productId
+  );
+  if (index !== -1) {
+    if (this.shoppingItem[index].quantity > 1) {
+      this.shoppingItem[index].quantity -= 1;
+    } else {
+      this.shoppingItem.splice(index, 1);
+    }
+  }
+  return this.save();
+});
+BasketSchema.method("incrementFromCard", async function (productId: string) {
+  const index = this.shoppingItem.findIndex(
+    (item) => item.product?.toString() == productId
+  );
+  if (index !== -1) {
+    console.log("1");
+    const { quantity_in_stock }: { quantity_in_stock: number } =
+      await Product.findById(productId).select("quantity_in_stock").exec();
+    console.log(quantity_in_stock);
+
+    if (this.shoppingItem[index].quantity < quantity_in_stock) {
+      this.shoppingItem[index].quantity += 1;
+    }
+  }
+  return this.save();
+});
+
+BasketSchema.pre("save", async function (next) {
+  let totalPrice = 0;
+  let totalItem = 0;
+  if (this.shoppingItem.length !== 0) {
+    for (const item of this.shoppingItem) {
+      const populatedItem: { price: number } = await Product.findById(
+        item.product
+      )
+        .select("price")
+        .exec();
+      if (populatedItem) {
+        totalPrice += populatedItem.price * item.quantity;
+        totalItem += item.quantity;
+      }
+    }
+  }
+  this.totalItem = totalItem;
+  this.totalPrice = totalPrice;
+  next();
+});
+
+export const Basket =
+  mongoose.models.Basket || mongoose.model("Basket", BasketSchema);
 
 export const Order =
   mongoose.models.Order ||

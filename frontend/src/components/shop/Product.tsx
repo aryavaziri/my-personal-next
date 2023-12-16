@@ -3,6 +3,7 @@ import { z } from "zod";
 import EditProduct from "./EditProduct";
 import ProductImage from "./ProductImage";
 import AddToCard from "./AddToCard";
+import { HydratedDocument } from "mongoose";
 
 export const ProductSchema = z.object({
   _id: z.string(),
@@ -15,7 +16,11 @@ export const ProductSchema = z.object({
 
 export type TProduct = z.infer<typeof ProductSchema>;
 
-const Product = async ({ product }: { product: TProduct }) => {
+const Product = async ({
+  product,
+}: {
+  product: HydratedDocument<TProduct>;
+}) => {
   return (
     <section className="group duration-100 shadow rounded overflow-hidden bg-gradient-to-b from-sky-700/80 to-cyan-400/50 relative">
       <div className="group-hover:flex hidden absolute top-2 right-2 z-[10] text-xl gap-1">

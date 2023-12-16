@@ -10,8 +10,7 @@ const page = async () => {
   })
     .then((response) => response.ok && response.json())
     .then((result) => {
-      console.log(result);
-      console.log(process.env.hostname);
+      // console.log(result);
       if (!result.error) {
         !result.error && (products = result);
       }
