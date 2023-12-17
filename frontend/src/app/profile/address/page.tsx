@@ -4,6 +4,7 @@ import BillingAddress from "@components/BillingAddress";
 import ShippingAddress from "@components/ShippingAddress";
 import Modal from "@components/modals/Modal";
 import { MdOutlineLibraryAdd } from "react-icons/md";
+import { TAddress } from "@components/AddressCard";
 
 export const dynamic = "force-dynamic";
 
@@ -11,6 +12,8 @@ const page = async () => {
   const profile = await getProfile();
   const sAddress: any[] = profile?.shippingAddress;
   const bAddress = profile?.billingAddress;
+  const isDefault =
+    profile.shippingAddress.findIndex((add: TAddress) => add.isDefault) === -1;
   return (
     <div className={`flex gap-4 `}>
       <Modal />
@@ -22,7 +25,10 @@ const page = async () => {
         <div
           className={`mt-20 pb-12 max-sm:justify-items-center grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full`}
         >
-          <BillingAddress address={bAddress} />
+          <BillingAddress
+            isDefault={isDefault}
+            address={bAddress}
+          />
 
           {bAddress?.country &&
             sAddress.length > 0 &&

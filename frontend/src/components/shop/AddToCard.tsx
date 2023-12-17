@@ -5,7 +5,7 @@ import { TProduct } from "./Product";
 import { addToCard } from "@actions/shopServerActions";
 import { HydratedDocument } from "mongoose";
 
-const AddToCard = ({ product }: { product: HydratedDocument<TProduct> }) => {
+const AddToCard = ({ product }: { product: TProduct }) => {
   const myContext = useContext(Context);
   return myContext?.isAuth ? (
     <button

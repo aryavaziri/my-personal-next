@@ -157,13 +157,10 @@ const userProfileSchema = new mongoose.Schema({
     },
   ],
   payments: [
-    {
-      name: { type: String },
-      type: { type: String },
-      lastDigits: { type: Number },
-      expiryMonth: { type: Number },
-      expiryYear: { type: Number },
-    },
+    { type: Object },
+    // {
+    //   payment:
+    // },
   ],
   orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
   basket: { type: mongoose.Schema.Types.ObjectId, ref: "Basket" },

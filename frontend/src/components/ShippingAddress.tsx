@@ -16,7 +16,7 @@ const ShippingAddress = async ({
           <p className={`text-2xl align-middle h-full`}>
             {address.name}
             {address.isDefault && (
-              <span className={`text-sm pl-2 font-light`}>is default</span>
+              <span className={`px-1 font-light text-sm`}>(Default)</span>
             )}
           </p>
           <div className={`flex gap-2`}>

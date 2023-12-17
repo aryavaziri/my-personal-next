@@ -9,6 +9,7 @@ import { mkdir } from "fs/promises";
 import { connectToDB } from "@lib/database";
 import { TAddress } from "@components/AddressCard";
 import { TBasket } from "@components/shop/Basket";
+// import {Stripe} from 'stripe'
 
 export const addProductAction = async (payload: FormData) => {
   try {
@@ -138,7 +139,7 @@ export const editShippingAddress = async (payload: TAddress, index: number) => {
   revalidatePath("/profile/address");
 };
 
-export const addToCard = async (payload: HydratedDocument<TProduct>) => {
+export const addToCard = async (payload: TProduct) => {
   try {
     await connectToDB();
     const profile = await getProfile();

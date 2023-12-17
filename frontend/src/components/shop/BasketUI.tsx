@@ -4,8 +4,6 @@ import {
   ItemDecrementAction,
   ItemDeleteFromCardAction,
 } from "@actions/shopServerActions";
-import { TBasket } from "./Basket";
-import { TProduct } from "./Product";
 import { FiMinusCircle, FiPlusCircle } from "react-icons/fi";
 import { MdDeleteForever } from "react-icons/md";
 
