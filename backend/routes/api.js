@@ -18,3 +18,5 @@ router.post("/contact", generalController.contact);
 router.get("/validate", authController.validate);
 
 router.get("/getuser", authController.getUser);
+
+router.get("/test", generalController.test);
