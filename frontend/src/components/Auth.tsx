@@ -36,6 +36,7 @@ const Auth = () => {
       })
       .then((res) => {
         if (res.user) {
+          // console.log(res);
           myContext.setUser(res.user);
           document.cookie = `accessToken=${token};path=/`;
         }
@@ -84,6 +85,13 @@ const Auth = () => {
             />
             {toggle && (
               <div className="z-20 mt-2 bg-light text-dark absolute h-auto flex flex-col duration-300 justify-center items-center rounded">
+                <Link
+                  href={`/profile/basket`}
+                  className={`hover:bg-dark/20 px-4 py-1 border-b border-dark/50`}
+                  onClick={() => myContext.toggleMenu()}
+                >
+                  Basket
+                </Link>
                 <Link
                   href={`/profile`}
                   className={`hover:bg-dark/20 px-4 py-1 border-b border-dark/50`}

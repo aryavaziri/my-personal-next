@@ -8,7 +8,10 @@ const ProductImage = async ({ product }: { product: TProduct }) => {
   let imgDataUri;
   try {
     // const dir = `shop/products/${product._id}`;
-    const dir = `/app/frontend/shop/products/${product._id}`;
+    const dir =
+      process.env.NODE_ENV == "production"
+        ? `/app/frontend/shop/products/${product._id}`
+        : `shop/products/${product._id}`;
     const files = await readdir(dir);
     const img = readFileSync(`${dir}/${files.length - 1}.${product.image}`);
     imgDataUri = `data:image/${product.image};base64,${img.toString("base64")}`;
@@ -17,7 +20,7 @@ const ProductImage = async ({ product }: { product: TProduct }) => {
   }
 
   return (
-    <div className="w-full relative aspect-square group-hover:opacity-70">
+    <div className="w-full relative aspect-square opacity-90 group-hover:opacity-100">
       <Image
         className="object-cover"
         fill

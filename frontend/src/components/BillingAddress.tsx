@@ -2,11 +2,22 @@ import Link from "next/link";
 import { type TAddress } from "@components/AddressCard";
 import { AiTwotoneEdit } from "react-icons/ai";
 
-const BillingAddress = async ({ address }: { address: TAddress }) => {
+const BillingAddress = async ({
+  address,
+  isDefault,
+}: {
+  address: TAddress;
+  isDefault?: boolean;
+}) => {
   return (
     <div className="grow p-8 shadow-md border rounded hover:shadow-current border-current max-sm:w-full sm:max-w-[400px]">
       <div className={`text-secondaryDark mb-4 flex justify-between`}>
-        <p className={`text-2xl h-full align-middle`}>Billing Address</p>
+        <p className={`text-2xl h-full align-middle`}>
+          Billing Address{" "}
+          {isDefault && (
+            <span className={`px-1 font-light text-sm`}>(Default)</span>
+          )}
+        </p>
         <Link
           href={`?showDialog=b`}
           className={`h-full text-lg hover:scale-[1.2]`}

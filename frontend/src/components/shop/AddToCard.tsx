@@ -2,11 +2,14 @@
 import { useContext } from "react";
 import { Context } from "@app/Provider";
 import { TProduct } from "./Product";
+import { addToCard } from "@actions/shopServerActions";
+import { HydratedDocument } from "mongoose";
 
 const AddToCard = ({ product }: { product: TProduct }) => {
   const myContext = useContext(Context);
-  return myContext.isAuth ? (
+  return myContext?.isAuth ? (
     <button
+      onClick={async () => await addToCard(product)}
       className="border rounded border-current enabled:hover:bg-light enabled:hover:text-dark disabled:opacity-75 "
       disabled={product.quantity_in_stock == 0}
     >

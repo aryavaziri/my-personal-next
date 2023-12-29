@@ -3,6 +3,7 @@ import { z } from "zod";
 import EditProduct from "./EditProduct";
 import ProductImage from "./ProductImage";
 import AddToCard from "./AddToCard";
+import { HydratedDocument } from "mongoose";
 
 export const ProductSchema = z.object({
   _id: z.string(),

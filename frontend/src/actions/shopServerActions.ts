@@ -1,6 +1,6 @@
 "use server";
 import { authenticate, getProfile } from "./AuthActions";
-import { Product, UserProfile } from "@models/Shop";
+import { Basket, Product, UserProfile } from "@models/Shop";
 import { type TProduct } from "@components/shop/Product";
 import { revalidateTag, revalidatePath } from "next/cache";
 import { HydratedDocument } from "mongoose";
@@ -8,6 +8,8 @@ import { writeFileSync, readdir } from "fs";
 import { mkdir } from "fs/promises";
 import { connectToDB } from "@lib/database";
 import { TAddress } from "@components/AddressCard";
+import { TBasket } from "@components/shop/Basket";
+// import {Stripe} from 'stripe'
 
 export const addProductAction = async (payload: FormData) => {
   try {
@@ -23,8 +25,13 @@ export const addProductAction = async (payload: FormData) => {
       quantity_in_stock: parseInt(payload.get("quantity") as string),
       image: extention,
     });
+    const path =
+      process.env.NODE_ENV == "production"
+        ? `/app/frontend/shop/products/${product._id}`
+        : `shop/products/${product._id}`;
+
     // const dir = await mkdir(`shop/products/${product._id}`, {
-    const dir = await mkdir(`/app/frontend/shop/products/${product._id}`, {
+    const dir = await mkdir(path, {
       recursive: true,
     });
     const bytes = await file.arrayBuffer();
@@ -61,7 +68,13 @@ export const changeProductImageAction = async (payload: FormData) => {
   const productId = payload.get("productId") as string;
   try {
     const extention = file.type.split(`/`)[1];
-    const dir = `shop/products/${productId}`;
+    // const dir = `shop/products/${productId}`;
+    const dir =
+      process.env.NODE_ENV == "production"
+        ? `/app/frontend/shop/products/${productId}`
+        : `shop/products/${productId}`;
+    console.log(dir);
+
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
     let count;
@@ -124,4 +137,60 @@ export const editShippingAddress = async (payload: TAddress, index: number) => {
     console.log(error);
   }
   revalidatePath("/profile/address");
+};
+
+export const addToCard = async (payload: TProduct) => {
+  try {
+    await connectToDB();
+    const profile = await getProfile();
+    const basket = await Basket.findById(profile.basket);
+    // console.log(basket);
+    await basket.addToCard(payload);
+  } catch (error) {
+    console.log(error);
+  }
+  revalidatePath("/profile");
+  revalidateTag("profile");
+};
+
+export const ItemIncrementAction = async (productId: string) => {
+  try {
+    await connectToDB();
+    const profile = await getProfile();
+    const basket = await Basket.findById(profile.basket);
+    // console.log(basket);
+    await basket.incrementFromCard(productId);
+  } catch (error) {
+    console.log(error);
+  }
+  revalidatePath("/profile");
+  revalidateTag("profile");
+};
+export const ItemDecrementAction = async (productId: string) => {
+  try {
+    await connectToDB();
+    const profile = await getProfile();
+    const basket = await Basket.findById(profile.basket);
+    // console.log(basket);
+    await basket.decrementFromCard(productId);
+  } catch (error) {
+    console.log(error);
+  }
+  revalidatePath("/profile");
+  revalidateTag("profile");
+};
+
+export const ItemDeleteFromCardAction = async (productId: string) => {
+  try {
+    await connectToDB();
+    const profile = await getProfile();
+    const basket = await Basket.findById(profile.basket);
+    // console.log(basket);
+    const remove = await basket.removeFromCard(productId);
+    console.log(remove);
+  } catch (error) {
+    console.log(error);
+  }
+  revalidatePath("/profile");
+  revalidateTag("profile");
 };

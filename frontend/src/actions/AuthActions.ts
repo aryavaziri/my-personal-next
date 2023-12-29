@@ -1,5 +1,5 @@
 "use server";
-import { UserProfile } from "@models/Shop";
+import { Basket, UserProfile } from "@models/Shop";
 import { cookies } from "next/headers";
 import { connectToDB } from "@lib/database";
 export const getToken = async () => {
@@ -38,10 +38,16 @@ export const getProfile = async () => {
   }
   await connectToDB();
   let profile = [];
-  profile = await UserProfile.find({ user: userId });
-  // console.log(profile);
+  profile = await UserProfile.find({ user: userId }).populate({
+    path: "basket",
+    populate: { path: "shoppingItem", populate: "product" },
+  });
   if (!profile.length) {
-    profile[0] = await UserProfile.create({ user: userId });
+    const basket = await Basket.create({});
+    profile[0] = await UserProfile.create({
+      user: userId,
+      basket: basket,
+    });
   }
   return profile[0];
 };
