@@ -93,7 +93,9 @@ export const getUser = async (req, res, next) => {
         return res.json({ _id: verifiedUser.id, isAdmin: verifiedUser.isAdmin })
     } catch (error) {
         console.log(error.message)
-        next();
+        return res.json({  isAdmin:false })
+
+        // next();
     }
 };
 

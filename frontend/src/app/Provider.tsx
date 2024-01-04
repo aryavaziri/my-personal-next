@@ -35,6 +35,8 @@ interface ContextProps {
   setBgb: Dispatch<SetStateAction<boolean>>;
   loginModal: boolean;
   setLoginModal: Dispatch<SetStateAction<boolean>>;
+  clientSecret: string;
+  setClientSecret: Dispatch<SetStateAction<string>>;
 }
 
 export const Context = createContext<ContextProps>({} as ContextProps);
@@ -46,6 +48,7 @@ export default function Provider({ children }: React.PropsWithChildren) {
   const [menu, setMenu] = useState(false);
   const [bgb, setBgb] = useState(false);
   const [loginModal, setLoginModal] = useState(false);
+  const [clientSecret, setClientSecret] = useState("");
   const toggleMenu = () => {
     setMenu((menu) => !menu);
   };
@@ -70,6 +73,8 @@ export default function Provider({ children }: React.PropsWithChildren) {
           setBgb,
           loginModal,
           setLoginModal,
+          clientSecret,
+          setClientSecret,
         }}
       >
         {children}

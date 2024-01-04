@@ -4,8 +4,13 @@ import {
   ItemDecrementAction,
   ItemDeleteFromCardAction,
 } from "@actions/shopServerActions";
+import React from "react";
 import { FiMinusCircle, FiPlusCircle } from "react-icons/fi";
 import { MdDeleteForever } from "react-icons/md";
+
+export const CheckOrder = ({ clientSecret }: { clientSecret: string }) => {
+  console.log(clientSecret);
+};
 
 export const ItemIncrement = ({ productId }: { productId: string }) => {
   return (

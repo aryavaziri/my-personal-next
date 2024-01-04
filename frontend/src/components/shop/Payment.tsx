@@ -2,35 +2,34 @@
 import { CreatePaymentIntent } from "@actions/PaymentServerActions";
 import { PaymentIntent, loadStripe } from "@stripe/stripe-js";
 import { CardElement, Elements } from "@stripe/react-stripe-js";
-import React, { useEffect } from "react";
 import { PaymentElement } from "@stripe/react-stripe-js";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
+import { Context } from "@app/Provider";
+import { useSearchParams } from "next/navigation";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PKEY as string);
 
 const Payment = () => {
-  const [clientSecret, setClientSecret] = useState("");
-  const [loading, setLoading] = useState(false);
+  const myContext = useContext(Context);
 
   return (
     <div
-      className={`border-current overflow-hidden group-hover:border w-0 group-hover:w-80 rounded`}
+      className={`border-current overflow-hidden w-0 rounded ${
+        myContext?.clientSecret && `w-80 border`
+      }`}
     >
       <div className="px-8 py-4 my-6 shadow-md rounded hover:shadow-light/30 max-sm:w-full sm:max-w-[600px] mx-auto">
         <h1 className={`pb-1 text-secondaryDark light:text-secondaryLight`}>
           PAYMENT
         </h1>
 
-        {stripePromise && clientSecret && (
+        {stripePromise && myContext?.clientSecret && (
           <Elements
             stripe={stripePromise}
-            options={{ clientSecret }}
+            options={{ clientSecret: myContext.clientSecret }}
           >
-            <CheckoutForm
-              setLoading={setLoading}
-              // clientSecret={clientSecret}
-            />
+            <CheckoutForm />
           </Elements>
         )}
       </div>
@@ -40,15 +39,21 @@ const Payment = () => {
 
 export default Payment;
 
-const CheckoutForm = ({ setLoading }: any) => {
+const CheckoutForm = () => {
+  const searchParams = useSearchParams();
+  const isConfirmed = searchParams.get("confirmed");
   const stripe = useStripe();
   const elements = useElements();
   const [message, setMessage] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
 
+  // useEffect(() => {
+  //   elements && stripe && setLoading(false);
+  // }, [elements, stripe]);
+
   useEffect(() => {
-    elements && stripe && setLoading(false);
-  }, [elements, stripe]);
+    console.log(isConfirmed);
+  }, [isConfirmed]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -57,15 +62,20 @@ const CheckoutForm = ({ setLoading }: any) => {
     }
     setIsProcessing(true);
     try {
-      const { error } = await stripe.confirmPayment({
+      const { error, ...rest } = await stripe.confirmPayment({
         elements,
-        redirect: "if_required",
+        confirmParams: {
+          // Return URL where the customer should be redirected after the PaymentIntent is confirmed.
+          return_url: `?confirmed=true`,
+        },
+        redirect: "always",
       });
+      console.log(rest);
 
       if (error?.type === "card_error" || error?.type === "validation_error") {
         setMessage(error.message!);
       } else {
-        error && setMessage("An unexpected error occured.");
+        error ? setMessage("An unexpected error occured.") : setMessage("");
       }
       setIsProcessing(false);
     } catch (error: any) {
@@ -79,27 +89,21 @@ const CheckoutForm = ({ setLoading }: any) => {
         id="payment-form"
         onSubmit={handleSubmit}
       >
-        {/* <button
-          onClick={async (e) => {
-            e.preventDefault();
-            const PI = await stripe?.retrievePaymentIntent(clientSecret);
-            console.log(PI?.paymentIntent);
-            console.log(PI);
-          }}
-          className="block my-8 px-6 py-4 shadow-md border-2 btn2 text-2xl rounded-full hover:shadow-light/30 max-sm:w-full sm:max-w-[300px] text-center mx-auto"
-        >
-          <p>CHECK</p>
-        </button> */}
-        <PaymentElement id="payment-element" />
-        <button
-          disabled={isProcessing || !stripe || !elements}
-          id="submit"
-        >
-          <span id="button-text">
-            {isProcessing ? "Processing ... " : "Pay now"}
-          </span>
-        </button>
-        {message && <div id="payment-message">{message}</div>}
+        <PaymentElement />
+        {isConfirmed ? (
+          <p>"Your payment is Confirmed"</p>
+        ) : (
+          <div>
+            <button
+              className={`border p-1 rounded`}
+              disabled={isProcessing || !stripe || !elements}
+              id="submit"
+            >
+              <span>{isProcessing ? "Processing ... " : "Pay now"}</span>
+            </button>
+          </div>
+        )}
+        {message && <div className="text-red-400">{message}</div>}
       </form>
     </>
   );

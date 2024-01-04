@@ -19,7 +19,6 @@ const page = async () => {
       <Modal />
       <div className="w-full">
         <p className="text-xl max-sm:pt-7 sm:text-2xl md:text-4xl ml-48 sm:ml-60 md:ml-96 z-[20] fixed">
-          {" "}
           &gt; Your Addresses
         </p>
         <div

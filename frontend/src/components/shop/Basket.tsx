@@ -2,7 +2,8 @@ import { z } from "zod";
 import { ProductSchema } from "./Product";
 import ProductImage from "./ProductImage";
 import { ItemDecrement, ItemIncrement, ItemRemove } from "./BasketUI";
-import { TAddress } from "@components/AddressCard";
+import { type TAddress } from "@components/AddressCard";
+import { type TOrder } from "./Order";
 import Checkout from "./Checkout";
 import Payment from "./Payment";
 import { getProfile, getToken } from "@actions/AuthActions";
@@ -15,30 +16,37 @@ export const BasketSchema = z.object({
       quantity: z.number(),
     })
   ),
+  inProgress: z.boolean(),
   totalPrice: z.number(),
   totalItem: z.number(),
 });
 
 export type TProfile = {
+  _id: String;
   basket: TBasket;
   billingAddress: TAddress;
   shippingAddress: TAddress[];
-  payments: Object[];
+  orders: TOrder[];
 };
 
 export type TBasket = z.infer<typeof BasketSchema>;
 
 const Basket = async () => {
   const profile: TProfile = await getProfile();
+  const inProgress = profile?.basket?.inProgress;
   // console.log(profile);
-  let temp = profile.shippingAddress.findIndex(
+  let temp = profile?.shippingAddress?.findIndex(
     (add: TAddress) => add.isDefault
   );
   let ind = temp === -1 ? "b" : temp;
   // console.log(temp);
   return (
-    <div className={`flex group`}>
-      <div className="grow p-8 pb-4 shadow-md border rounded hover:shadow-light/30 border-current max-sm:w-full sm:max-w-[600px] mx-auto">
+    <div className={`flex group gap-1 `}>
+      <div
+        className={`grow p-8 pb-4 shadow-md border rounded hover:shadow-light/30 border-current max-sm:w-full sm:max-w-[600px] mx-auto ${
+          inProgress && `opacity-60 bg-slate-500/50 pointer-events-none`
+        }`}
+      >
         {profile?.basket?.shoppingItem?.length ? (
           <>
             <div>
@@ -127,7 +135,7 @@ const Basket = async () => {
                 </select>
               </div>
             </div>
-            <Checkout />
+            <Checkout price={profile?.basket?.totalPrice} />
           </>
         ) : (
           <p className={`text-md font-light`}>Card is empty</p>
@@ -140,7 +148,3 @@ const Basket = async () => {
 };
 
 export default Basket;
-
-// 1- Internationallity
-// 2- Dutch Learning
-// 3- Labour Culture

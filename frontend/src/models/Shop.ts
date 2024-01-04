@@ -4,36 +4,50 @@ import { type TProduct } from "@components/shop/Product";
 import mongoose from "mongoose";
 import { HydratedDocument } from "mongoose";
 import { Item } from "./List";
+import { object } from "zod";
 
-export const Product =
-  mongoose.models.Product ||
-  mongoose.model(
-    "Product",
-    new mongoose.Schema({
-      name: { type: String },
-      description: { type: String },
-      quantity_in_stock: { type: Number },
-      image: { type: String },
-      price: { type: Number },
-    })
-  );
+const ProductSchema = new mongoose.Schema({
+  name: { type: String },
+  description: { type: String },
+  quantity_in_stock: { type: Number },
+  image: { type: String },
+  price: { type: Number },
+});
 
 const BasketSchema = new mongoose.Schema({
   shoppingItem: [
     {
-      product: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+      // product: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+      product: { type: Object, schema: ProductSchema },
       quantity: { type: Number, required: true },
     },
   ],
+  inProgress: { type: Boolean, default: false },
   totalPrice: { type: Number, default: 0 },
   totalItem: { type: Number, default: 0 },
 });
+export const Order =
+  mongoose.models.Order ||
+  mongoose.model(
+    "Order",
+    new mongoose.Schema(
+      {
+        user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+        payment: { type: Object },
+        paymentConfirmed: { type: Boolean, default: false },
+        shipping: { type: Object }, // Snapshot of which address is shipping to
+        basket: { type: Object, schema: BasketSchema }, // Snapshot of basket
+        status: { type: String, default: "pending" },
+      },
+      { timestamps: true }
+    )
+  );
 
 BasketSchema.method(
   "addToCard",
   function (payload: HydratedDocument<TProduct>) {
     const index = this.shoppingItem.findIndex(
-      (item) => item.product?.toString() == payload._id
+      (item) => item.product?._id == payload._id
     );
     if (index == -1) {
       this.shoppingItem.push({ product: payload, quantity: 1 });
@@ -43,20 +57,18 @@ BasketSchema.method(
     return this.save();
   }
 );
-
 BasketSchema.method("removeFromCard", function (productId: string) {
   const index = this.shoppingItem.findIndex(
-    (item) => item.product?.toString() == productId
+    (item) => item.product?._id == productId
   );
   if (index !== -1) {
     this.shoppingItem.splice(index, 1);
   }
   return this.save();
 });
-
 BasketSchema.method("decrementFromCard", function (productId: string) {
   const index = this.shoppingItem.findIndex(
-    (item) => item.product?.toString() == productId
+    (item) => item.product?._id == productId
   );
   if (index !== -1) {
     if (this.shoppingItem[index].quantity > 1) {
@@ -69,7 +81,7 @@ BasketSchema.method("decrementFromCard", function (productId: string) {
 });
 BasketSchema.method("incrementFromCard", async function (productId: string) {
   const index = this.shoppingItem.findIndex(
-    (item) => item.product?.toString() == productId
+    (item) => item.product?._id == productId
   );
   if (index !== -1) {
     console.log("1");
@@ -83,7 +95,6 @@ BasketSchema.method("incrementFromCard", async function (productId: string) {
   }
   return this.save();
 });
-
 BasketSchema.pre("save", async function (next) {
   let totalPrice = 0;
   let totalItem = 0;
@@ -107,24 +118,6 @@ BasketSchema.pre("save", async function (next) {
 
 export const Basket =
   mongoose.models.Basket || mongoose.model("Basket", BasketSchema);
-
-export const Order =
-  mongoose.models.Order ||
-  mongoose.model(
-    "Order",
-    new mongoose.Schema({
-      products: [
-        {
-          product: { type: Object },
-          quantity: { type: Number },
-        },
-      ],
-      user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-      paymentConfirmed: { type: Boolean },
-      shipping: { type: Object }, // Snapshot of which address is shipping to
-      status: { type: String },
-    })
-  );
 
 const userProfileSchema = new mongoose.Schema({
   user: {
@@ -155,12 +148,6 @@ const userProfileSchema = new mongoose.Schema({
       phoneNumber: { type: String },
       isDefault: { type: Boolean, default: false },
     },
-  ],
-  payments: [
-    { type: Object },
-    // {
-    //   payment:
-    // },
   ],
   orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
   basket: { type: mongoose.Schema.Types.ObjectId, ref: "Basket" },
@@ -217,3 +204,5 @@ userProfileSchema.method(
 export const UserProfile =
   mongoose.models.UserProfile ||
   mongoose.model("UserProfile", userProfileSchema);
+export const Product =
+  mongoose.models.Product || mongoose.model("Product", ProductSchema);

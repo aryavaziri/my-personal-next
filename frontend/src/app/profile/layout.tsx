@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Provider from "./Provider";
 
 const Layout = ({ children }: React.PropsWithChildren) => {
   return (
@@ -15,7 +14,7 @@ const Layout = ({ children }: React.PropsWithChildren) => {
       <div
         className={`px-6 sm:px-20 md:px-36 lg:px-56 text-lg sm:text-lg md:text-xl lg:text-xl sm:pt-12`}
       >
-        <Provider>{children}</Provider>
+        {children}
       </div>
     </div>
   );

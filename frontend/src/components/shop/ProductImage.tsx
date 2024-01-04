@@ -4,8 +4,11 @@ import { readFileSync } from "fs";
 import { readdir } from "fs/promises";
 import { TProduct } from "./Product";
 
-const ProductImage = async ({ product }: { product: TProduct }) => {
+const ProductImage = async ({ product }: { product: TProduct | null }) => {
   let imgDataUri;
+  if (!product) {
+    return;
+  }
   try {
     // const dir = `shop/products/${product._id}`;
     const dir =

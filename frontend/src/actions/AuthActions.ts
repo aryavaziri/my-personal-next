@@ -2,6 +2,7 @@
 import { Basket, UserProfile } from "@models/Shop";
 import { cookies } from "next/headers";
 import { connectToDB } from "@lib/database";
+import { TProfile } from "@components/shop/Basket";
 export const getToken = async () => {
   try {
     const cookieStore = cookies();
@@ -23,7 +24,11 @@ export const authenticate = async () => {
     },
   })
     .then((res) => {
-      return res.json();
+      if(res.ok){
+        return res.json();
+      }
+      // return res.text()
+      return null;
     })
     .catch((err) => console.log(`${err.message}`));
   // console.log(user);
@@ -33,21 +38,24 @@ export const authenticate = async () => {
 export const getProfile = async () => {
   const { userId } = await authenticate();
   if (!userId) {
-    console.log("KOSSHER");
-    return;
+    console.log("No valid token");
+    return {};
   }
   await connectToDB();
-  let profile = [];
-  profile = await UserProfile.find({ user: userId }).populate({
-    path: "basket",
-    populate: { path: "shoppingItem", populate: "product" },
-  });
-  if (!profile.length) {
+
+  let profile = await UserProfile.findOne({ user: userId })
+    .populate({
+      path: "basket",
+      populate: { path: "shoppingItem", populate: "product" },
+    })
+    .populate("orders");
+  if (!profile || !profile.basket) {
     const basket = await Basket.create({});
-    profile[0] = await UserProfile.create({
+    profile = await UserProfile.create({
       user: userId,
       basket: basket,
     });
+    console.log("USER PROFILE CREATED");
   }
-  return profile[0];
+  return profile;
 };
