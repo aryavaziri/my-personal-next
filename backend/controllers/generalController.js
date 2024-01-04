@@ -1,4 +1,5 @@
 import sgMail from '@sendgrid/mail'
+import { Product, Basket } from '../models/test.js'
 
 sgMail.setApiKey(process.env.SENDGRID)
 
@@ -27,5 +28,18 @@ export const contact = async (req, res, next) => {
     catch (err) {
         next(err);
         return res.json({ message: err.message });
+    }
+}
+
+
+export const test = async (req, res, next) => {
+    try {
+        const basket = await Basket.findOne({})
+        const user = await basket.removeFromCard("657b7b2e1783e36a72add37a")
+        return res.json(basket);
+    }
+    catch (err) {
+        return res.json({ error: err.message });
+        // next(err);
     }
 }
